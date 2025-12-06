@@ -181,19 +181,19 @@
       "daily-notes:오늘의 일일 노트 열기": false,
       "templates:템플릿 삽입": false,
       "command-palette:명령어 팔레트 열기": false,
-      "bases:새 베이스 생성하기": false,
-      "githobs:Manage a github issue": false
+      "bases:새 베이스 생성하기": false
     }
   },
   "active": "6a599445783ab8b8",
   "lastOpenFiles": [
     "content/imgs/{4F0B177C-8A23-4FFA-AE8F-93D461CF09FC} 1.png",
+    "content/posts/토이 프로젝트 진행 중..md",
     "content/imgs/{4F0B177C-8A23-4FFA-AE8F-93D461CF09FC}.png",
+    "content/imgs/{5B8AD3A5-1F5D-4D7F-951E-F6FD7CF0D530}.png",
     "content/imgs/{9AB93811-A8DF-4C98-A3B3-0A6AAB69BCF6}.png",
     "content/imgs/{B379CB2B-0531-4214-9B32-9AAD59E8C69A} 1.png",
     "content/imgs/{B379CB2B-0531-4214-9B32-9AAD59E8C69A} 2.png",
     "content/imgs/{B379CB2B-0531-4214-9B32-9AAD59E8C69A}.png",
-    "content/posts/토이 프로젝트 진행 중..md",
     "archetypes/default.md",
     "content/imgs",
     "content/techs/hugo-obsidian-setup.md",
