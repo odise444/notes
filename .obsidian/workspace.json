@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "README.md",
+                "file": "themes/PaperMod/README.md",
                 "mode": "source",
                 "source": false
               },
@@ -156,7 +156,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "README.md",
+                "file": "themes/PaperMod/README.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
@@ -187,6 +187,7 @@
   "active": "3f489fcd819c025d",
   "lastOpenFiles": [
     "content/posts/floor-planner-progress.md",
+    "README.md",
     "content/posts/토이 프로젝트 진행 중..md",
     "static/imgs/floor-planner-progress-1.png",
     "무제.md",
@@ -211,7 +212,6 @@
     "public/index.xml",
     "archetypes/default.md",
     "content/techs/hugo-obsidian-setup.md",
-    "README.md",
     "content/search.md",
     "content/techs/sample.md",
     "content/posts/1st-post.md",
