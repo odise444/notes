@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "content/techs/hugo-obsidian-setup.md",
+                "file": "archetypes/default.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "hugo-obsidian-setup"
+              "title": "default"
             }
           }
         ]
@@ -196,10 +196,11 @@
       "githobs:Manage a github issue": false
     }
   },
-  "active": "9474837fdab9dbc3",
+  "active": "99a14ee916e721c5",
   "lastOpenFiles": [
-    "README.md",
+    "static/imgs",
     "content/techs/hugo-obsidian-setup.md",
+    "README.md",
     "README.md.tmp.32836.1765027418000",
     "content/search.md",
     "content/techs/sample.md",
