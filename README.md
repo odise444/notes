@@ -4,7 +4,7 @@
 
 ## 사이트
 
-https://odise444.github.io/notes/
+https://mcu2cloud.kr/
 
 ## 구조
 
