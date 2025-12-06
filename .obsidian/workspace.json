@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "content/posts/ad7280a-bms-dev-01.md",
+                "file": "README.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "ad7280a-bms-dev-01"
+              "title": "README"
             }
           }
         ]
@@ -156,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "content/posts/ad7280a-bms-dev-01.md",
+                "file": "README.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "ad7280a-bms-dev-01 의 개요"
+              "title": "README 의 개요"
             }
           }
         ],
@@ -186,6 +186,7 @@
   },
   "active": "cf405cf7e402265a",
   "lastOpenFiles": [
+    "content/posts/floor-planner-progress.md",
     "content/posts/ad7280a-bms-dev-01.md",
     "themes/PaperMod/README.md",
     "static/google59117ab5381848fa.html",
@@ -193,7 +194,6 @@
     "content/posts/floor-planner-progress.md.tmp.20404.1765035808119",
     "content/posts/floor-planner-progress.md.tmp.20404.1765035798291",
     "content/posts/floor-planner-progress.md.tmp.20404.1765035283229",
-    "content/posts/floor-planner-progress.md",
     "README.md",
     "content/posts/토이 프로젝트 진행 중..md",
     "static/imgs/floor-planner-progress-1.png",
