@@ -1,0 +1,12 @@
+{{- $src := .Destination -}}
+{{- $alt := .Text -}}
+{{- $title := .Title -}}
+
+{{- /* 상대경로를 /imgs/로 변환 */ -}}
+{{- if not (hasPrefix $src "/") -}}
+  {{- if (findRE `\.(png|jpg|jpeg|gif|webp|svg)$` $src) -}}
+    {{- $src = printf "/imgs/%s" (path.Base $src) -}}
+  {{- end -}}
+{{- end -}}
+
+<img src="{{ $src | safeURL }}" alt="{{ $alt }}" {{ with $title }} title="{{ . }}"{{ end }} />
