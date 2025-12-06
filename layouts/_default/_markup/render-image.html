@@ -9,4 +9,4 @@
   {{- end -}}
 {{- end -}}
 
-<img src="{{ $src | safeURL }}" alt="{{ $alt }}" {{ with $title }} title="{{ . }}"{{ end }} />
+<img src="{{ $src | safeURL }}" alt="{{ $alt }}"{{ with $title }} title="{{ . }}"{{ end }} loading="lazy" decoding="async">
