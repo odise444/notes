@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "059a6bb8dcdf1628",
+        "id": "5f276937d1eb4986",
         "type": "tabs",
         "children": [
           {
-            "id": "8bc36b64272e5498",
+            "id": "6a599445783ab8b8",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -196,15 +196,15 @@
       "githobs:Manage a github issue": false
     }
   },
-  "active": "8bc36b64272e5498",
+  "active": "6a599445783ab8b8",
   "lastOpenFiles": [
-    "static/imgs/{9AB93811-A8DF-4C98-A3B3-0A6AAB69BCF6}.png",
-    "static/imgs/{B379CB2B-0531-4214-9B32-9AAD59E8C69A} 1.png",
-    "static/imgs/{B379CB2B-0531-4214-9B32-9AAD59E8C69A} 2.png",
-    "static/imgs/{B379CB2B-0531-4214-9B32-9AAD59E8C69A}.png",
+    "content/imgs/{9AB93811-A8DF-4C98-A3B3-0A6AAB69BCF6}.png",
+    "content/imgs/{B379CB2B-0531-4214-9B32-9AAD59E8C69A} 1.png",
+    "content/imgs/{B379CB2B-0531-4214-9B32-9AAD59E8C69A} 2.png",
+    "content/imgs/{B379CB2B-0531-4214-9B32-9AAD59E8C69A}.png",
     "content/posts/토이 프로젝트 진행 중..md",
     "archetypes/default.md",
-    "static/imgs",
+    "content/imgs",
     "content/techs/hugo-obsidian-setup.md",
     "README.md",
     "README.md.tmp.32836.1765027418000",
