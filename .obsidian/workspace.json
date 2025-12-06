@@ -156,32 +156,21 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "content/posts/테스트.md",
+                "file": "content/posts/토이 프로젝트 진행 중..md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "테스트 의 개요"
-            }
-          },
-          {
-            "id": "9e701aca6d3ddfa3",
-            "type": "leaf",
-            "state": {
-              "type": "github-issue-controls-view",
-              "state": {},
-              "icon": "github",
-              "title": "Github Issue Controls"
+              "title": "토이 프로젝트 진행 중. 의 개요"
             }
           }
         ],
-        "currentTab": 5
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "left-ribbon": {
     "hiddenItems": {
