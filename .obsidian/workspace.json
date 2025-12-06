@@ -198,10 +198,10 @@
   },
   "active": "8bc36b64272e5498",
   "lastOpenFiles": [
-    "static/imgs/{B379CB2B-0531-4214-9B32-9AAD59E8C69A} 2.png",
-    "static/imgs/{B379CB2B-0531-4214-9B32-9AAD59E8C69A} 1.png",
-    "static/imgs/{B379CB2B-0531-4214-9B32-9AAD59E8C69A}.png",
     "static/imgs/{9AB93811-A8DF-4C98-A3B3-0A6AAB69BCF6}.png",
+    "static/imgs/{B379CB2B-0531-4214-9B32-9AAD59E8C69A} 1.png",
+    "static/imgs/{B379CB2B-0531-4214-9B32-9AAD59E8C69A} 2.png",
+    "static/imgs/{B379CB2B-0531-4214-9B32-9AAD59E8C69A}.png",
     "content/posts/토이 프로젝트 진행 중..md",
     "archetypes/default.md",
     "static/imgs",
@@ -214,7 +214,6 @@
     "content/posts/테스트.md",
     "content/posts/무제 1.md",
     "content/posts/2nd-post.md",
-    "content/posts/토이 프로젝트 진행 중..md",
     "content/techs"
   ]
 }

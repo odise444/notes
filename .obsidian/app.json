@@ -2,5 +2,5 @@
   "promptDelete": false,
   "attachmentFolderPath": "static/imgs",
   "useMarkdownLinks": true,
-  "newLinkFormat": "absolute"
+  "newLinkFormat": "relative"
 }
