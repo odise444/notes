@@ -1,6 +1,6 @@
 {
   "promptDelete": false,
-  "attachmentFolderPath": "content/imgs",
+  "attachmentFolderPath": "static/imgs",
   "useMarkdownLinks": true,
   "newLinkFormat": "shortest",
   "alwaysUpdateLinks": true
