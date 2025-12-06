@@ -3,5 +3,6 @@
   "attachmentFolderPath": "static/imgs",
   "useMarkdownLinks": true,
   "newLinkFormat": "shortest",
-  "alwaysUpdateLinks": true
+  "alwaysUpdateLinks": true,
+  "showUnsupportedFiles": true
 }
