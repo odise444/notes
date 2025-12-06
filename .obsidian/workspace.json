@@ -186,6 +186,7 @@
   },
   "active": "3f489fcd819c025d",
   "lastOpenFiles": [
+    "static/README-1.html",
     "README.md.tmp.37144.1765059426430",
     "content/posts/floor-planner-progress.md.tmp.20404.1765035808119",
     "content/posts/floor-planner-progress.md.tmp.20404.1765035798291",
@@ -210,7 +211,6 @@
     "assets/css/extended",
     "assets/css",
     "resources/_gen/images",
-    "resources/_gen/assets",
     "archetypes/default.md",
     "content/techs/hugo-obsidian-setup.md",
     "content/search.md",
