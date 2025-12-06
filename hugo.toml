@@ -1,0 +1,6 @@
+@"
+baseURL = 'https://odise444.github.io/notes/'
+languageCode = 'ko-kr'
+title = 'My Notes'
+theme = 'PaperMod'
+"@ | Set-Content hugo.toml
