@@ -5,8 +5,8 @@
 {{- /* 상대경로를 /imgs/로 변환 */ -}}
 {{- if not (hasPrefix $src "/") -}}
   {{- if (findRE `\.(png|jpg|jpeg|gif|webp|svg)$` $src) -}}
-    {{- $src = printf "/imgs/%s" (path.Base $src) -}}
+    {{- $src = printf "imgs/%s" (path.Base $src) -}}
   {{- end -}}
 {{- end -}}
 
-<img src="{{ $src | relURL }}" alt="{{ $alt }}"{{ with $title }} title="{{ . }}"{{ end }} loading="lazy" decoding="async">
+<img src="{{ $src | absURL }}" alt="{{ $alt }}"{{ with $title }} title="{{ . }}"{{ end }} loading="lazy" decoding="async">
