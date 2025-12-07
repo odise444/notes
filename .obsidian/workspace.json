@@ -185,8 +185,10 @@
       "bases:새 베이스 생성하기": false
     }
   },
-  "active": "99a14ee916e721c5",
+  "active": "040cfe1b233962f5",
   "lastOpenFiles": [
+    "layouts/partials/AD7280A-시리즈-기획-1.html",
+    "layouts/partials",
     "static/ads.txt",
     "content/search.md",
     "content/posts/BMS/ad7280a-bms-dev-06.md",
@@ -223,8 +225,6 @@
     "archetypes/default.md",
     "README.md",
     "themes/PaperMod/README.md",
-    "static/google59117ab5381848fa.html",
-    "README.md.tmp.37144.1765059426430",
     "content/posts/토이 프로젝트 진행 중..md",
     "무제.md",
     "public/imgs/1-토이 프로젝트 진행 중..png",
