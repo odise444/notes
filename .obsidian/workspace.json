@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "content/posts/BMS/ad7280a-bms-dev-01.md",
+                "file": "content/posts/BMS/ad7280a-bms-dev-07.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "ad7280a-bms-dev-01"
+              "title": "ad7280a-bms-dev-07"
             }
           }
         ]
@@ -187,7 +187,13 @@
   },
   "active": "040cfe1b233962f5",
   "lastOpenFiles": [
+    "content/posts/BMS/ad7280a-bms-dev-06.md",
+    "content/posts/BMS/ad7280a-bms-dev-05.md",
+    "content/posts/BMS/ad7280a-bms-dev-04.md",
     "content/posts/BMS/ad7280a-bms-dev-03.md",
+    "content/posts/BMS/ad7280a-bms-dev-01.md",
+    "static/imgs/ad7280a-bms-dev-01-2.png",
+    "static/imgs/ad7280a-bms-dev-01-1.png",
     "static/imgs/ad7280a-bms-dev-03-1.png",
     "content/posts/BMS/ad7280a-bms-dev-02.md",
     "content/posts/BMS/ad7280a-bms-dev-07.md",
@@ -198,13 +204,9 @@
     "layouts/partials",
     "static/ads.txt",
     "content/search.md",
-    "content/posts/BMS/ad7280a-bms-dev-06.md",
-    "content/posts/BMS/ad7280a-bms-dev-05.md",
     "content/posts/ad7280a-bms-dev-05.md",
     "content/privacy.md",
     "content/about.md",
-    "content/posts/BMS/ad7280a-bms-dev-04.md",
-    "content/posts/BMS/ad7280a-bms-dev-01.md",
     "CAO/history/Chat 2025-12-07 08-53-07.md",
     "CAO/history/Chat 2025-12-07 08-37-23.md",
     "content/posts/무제.md",
@@ -215,8 +217,6 @@
     "static/imgs/img-4f0b177c.png",
     "static/imgs/floor-planner-progress-1.png",
     "static/imgs/토이 프로젝트 진행 중.-1.png",
-    "static/imgs/2-토이 프로젝트 진행 중..png",
-    "static/imgs/1-토이 프로젝트 진행 중..png",
     "archetypes/default.md",
     "README.md",
     "themes/PaperMod/README.md",
