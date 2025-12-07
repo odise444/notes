@@ -185,8 +185,9 @@
       "bases:새 베이스 생성하기": false
     }
   },
-  "active": "040cfe1b233962f5",
+  "active": "99a14ee916e721c5",
   "lastOpenFiles": [
+    "static/ads.txt",
     "content/search.md",
     "content/posts/BMS/ad7280a-bms-dev-06.md",
     "content/posts/BMS/ad7280a-bms-dev-05.md",
@@ -231,7 +232,6 @@
     "content/techs/sample.md",
     "content/posts/1st-post.md",
     "content/posts/테스트.md",
-    "content/posts/무제 1.md",
-    "content/posts/2nd-post.md"
+    "content/posts/무제 1.md"
   ]
 }
