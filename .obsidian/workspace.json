@@ -185,10 +185,13 @@
       "bases:새 베이스 생성하기": false
     }
   },
-  "active": "040cfe1b233962f5",
+  "active": "99a14ee916e721c5",
   "lastOpenFiles": [
-    "content/posts/BMS/ad7280a-bms-dev-07.md",
+    "content/posts/무제",
+    "FloorPlanner-시리즈-기획.md",
+    "content/posts/Floor-Planner/floor-planner-progress.md",
     "content/posts/BMS/ad7280a-bms-dev-08.md",
+    "content/posts/BMS/ad7280a-bms-dev-07.md",
     "static/imgs/ad7280a-bms-dev-07-1.png",
     "content/posts/BMS/ad7280a-bms-dev-06.md",
     "content/posts/BMS/ad7280a-bms-dev-05.md",
@@ -212,7 +215,6 @@
     "CAO/history/Chat 2025-12-07 08-53-07.md",
     "CAO/history/Chat 2025-12-07 08-37-23.md",
     "content/posts/무제.md",
-    "content/posts/Floor-Planner/floor-planner-progress.md",
     "static/imgs/img-9ab93811.png",
     "static/imgs/img-5b8ad3a5.png",
     "static/imgs/img-4f0b177c-1.png",
@@ -224,8 +226,6 @@
     "content/posts/토이 프로젝트 진행 중..md",
     "무제.md",
     "content/techs/hugo-obsidian-setup.md",
-    "content/techs/sample.md",
-    "content/posts/1st-post.md",
-    "content/posts/테스트.md"
+    "content/techs/sample.md"
   ]
 }
