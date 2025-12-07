@@ -25,6 +25,8 @@ summary: "SPI Mode 1이 뭔지도 모르고 시작했다가 하루를 날렸다.
 
 여기서 삽질 포인트가 세 개나 숨어있었다.
 
+![](ad7280a-bms-dev-03-1.png)
+
 ## 삽질 1: SPI Mode
 
 대부분의 SPI 디바이스는 Mode 0 (CPOL=0, CPHA=0)을 쓴다. 그래서 아무 생각 없이 Mode 0으로 설정했다.
