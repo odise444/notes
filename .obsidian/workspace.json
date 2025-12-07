@@ -188,6 +188,8 @@
   "active": "040cfe1b233962f5",
   "lastOpenFiles": [
     "layouts/partials/AD7280A-시리즈-기획-1.html",
+    "layouts/partials/adsens_code.html",
+    "layouts/partials/AD7280A-시리즈-기획-1.html",
     "layouts/partials",
     "static/ads.txt",
     "content/search.md",
@@ -209,8 +211,6 @@
     "CAO/history/Chat 2025-12-07 08-53-07.md",
     "CAO/history/Chat 2025-12-07 08-37-23.md",
     "CAO/history",
-    "CAO",
-    "무제.base",
     "content/posts/무제.md",
     "static/imgs/ad7280a-resistor-divider.png",
     "content/posts/Floor-Planner/floor-planner-progress.md",
