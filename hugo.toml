@@ -1,5 +1,5 @@
 baseURL = 'https://mcu2cloud.kr/'
-googleAnalytics = 'G-XXXXXXXXXX'  # 여기에 실제 ID 입력
+googleAnalytics = 'G-3EHP42VE4P'
 languageCode = 'ko-kr'
 title = 'Simply the Best!!!'
 theme = 'PaperMod'
