@@ -34,9 +34,19 @@
               "icon": "lucide-file",
               "title": "STM32-Bootloader-시리즈-기획"
             }
+          },
+          {
+            "id": "e1ebf2cf5f708a48",
+            "type": "leaf",
+            "state": {
+              "type": "empty",
+              "state": {},
+              "icon": "lucide-file",
+              "title": "New tab"
+            }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -200,7 +210,7 @@
       "github-sync:Sync with Remote": false
     }
   },
-  "active": "b1c1588e131533c6",
+  "active": "e1ebf2cf5f708a48",
   "lastOpenFiles": [
     "STM32-Bootloader-시리즈-기획.md",
     "SOMETHINGS/Floor Planner 작업 이력.md",
