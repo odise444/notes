@@ -45,6 +45,8 @@ python -c "from intelhex import IntelHex; ih=IntelHex('firmware.hex'); ih.tobinf
 
 1. **File → New Project** → Non-Shared Project
 2. **File → Import File** → firmware.bin 선택
+![](Pasted%20image%2020251209100328.png)
+
 3. **Language 설정** (중요!):
 
 ```
@@ -57,9 +59,12 @@ Compiler: default
 → "ARM:LE:32:Cortex" 선택
 ```
 
+![](ghidra-stm32-quick-start-1.png)
+
 4. **Options → Base Address**: `0x08000000` (STM32 Flash 시작)
 
 ## 4. 자동 분석
+![](ghidra-stm32-quick-start-2.png)
 
 Import 후 "Analyze?" 물으면 **Yes**.
 
