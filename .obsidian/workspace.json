@@ -202,6 +202,7 @@
   },
   "active": "b1c1588e131533c6",
   "lastOpenFiles": [
+    "Ghidra-역분석-시리즈-기획.md",
     "content/posts/BMS/ad7280a-bms-dev-10.md",
     "STM32-Bootloader-시리즈-기획.md",
     "SOMETHINGS/Floor Planner 작업 이력.md",
@@ -243,7 +244,6 @@
     "static/imgs/floor-planner-progress-1.png",
     "archetypes/default.md",
     "README.md",
-    "themes/PaperMod/README.md",
-    "content/posts/토이 프로젝트 진행 중..md"
+    "themes/PaperMod/README.md"
   ]
 }
