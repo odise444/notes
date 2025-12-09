@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "AD7280A-시리즈-기획.md",
+                "file": "content/posts/ghidra-stm32-quick-start.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "AD7280A-시리즈-기획"
+              "title": "ghidra-stm32-quick-start"
             }
           }
         ],
@@ -202,7 +202,10 @@
   },
   "active": "b1c1588e131533c6",
   "lastOpenFiles": [
+    "static/imgs/Pasted image 20251209100003.png",
     "Ghidra-역분석-시리즈-기획.md",
+    "AD7280A-시리즈-기획.md",
+    "content/posts/ghidra-stm32-quick-start.md",
     "content/posts/BMS/ad7280a-bms-dev-10.md",
     "STM32-Bootloader-시리즈-기획.md",
     "SOMETHINGS/Floor Planner 작업 이력.md",
@@ -210,7 +213,6 @@
     "SOMETHINGS/function",
     "SOMETHINGS",
     "content/posts/BMS/ad7280a-bms-dev-09.md",
-    "AD7280A-시리즈-기획.md",
     "content/posts/BMS/ad7280a-bms-dev-08.md",
     "content/posts/FloorPlanner",
     "content/posts/Floor-Planner/floor-planner-progress.md",
@@ -242,8 +244,6 @@
     "static/imgs/img-4f0b177c-1.png",
     "static/imgs/img-4f0b177c.png",
     "static/imgs/floor-planner-progress-1.png",
-    "archetypes/default.md",
-    "README.md",
-    "themes/PaperMod/README.md"
+    "archetypes/default.md"
   ]
 }
