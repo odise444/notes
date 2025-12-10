@@ -216,6 +216,7 @@
   },
   "active": "8feb1e25321495b4",
   "lastOpenFiles": [
+    "content/posts/Ghidra/ghidra-stm32-re-03.md",
     "content/posts/Ghidra/ghidra-stm32-re-02.md",
     "content/posts/Ghidra/ghidra-stm32-quick-start.md",
     "content/posts/Ghidra/ghidra-stm32-re-01.md",
@@ -257,7 +258,6 @@
     "content/search.md",
     "content/posts/ad7280a-bms-dev-05.md",
     "content/privacy.md",
-    "content/about.md",
     "static/imgs/img-9ab93811.png"
   ]
 }
