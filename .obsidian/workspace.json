@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "SOMETHINGS/Floor Planner 작업 이력.md",
+                "file": "Ghidra-역분석-시리즈-기획.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Floor Planner 작업 이력"
+              "title": "Ghidra-역분석-시리즈-기획"
             }
           },
           {
@@ -216,6 +216,9 @@
   },
   "active": "8feb1e25321495b4",
   "lastOpenFiles": [
+    "SOMETHINGS/Floor Planner 작업 이력.md",
+    "Ghidra-역분석-시리즈-기획.md.10ff05a23edd1e08ea6e2a24cc6f91f6.tmp",
+    "content/posts/Ghidra/ghidra-stm32-re-04.md",
     "content/posts/Ghidra/ghidra-stm32-re-03.md",
     "content/posts/Ghidra/ghidra-stm32-re-02.md",
     "content/posts/Ghidra/ghidra-stm32-quick-start.md",
@@ -225,7 +228,6 @@
     "content/posts/ghidra-stm32-quick-start.md",
     "content/posts/BMS/ad7280a-bms-dev-12.md",
     "content/posts/BMS/ad7280a-bms-dev-11.md",
-    "SOMETHINGS/Floor Planner 작업 이력.md",
     "static/imgs/ghidra-stm32-quick-start-2.png",
     "static/imgs/ghidra-stm32-quick-start-1.png",
     "static/imgs/Pasted image 20251209100328.png",
@@ -256,8 +258,6 @@
     "layouts/partials",
     "static/ads.txt",
     "content/search.md",
-    "content/posts/ad7280a-bms-dev-05.md",
-    "content/privacy.md",
     "static/imgs/img-9ab93811.png"
   ]
 }
