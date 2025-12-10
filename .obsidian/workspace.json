@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "FloorPlanner-시리즈-기획.md",
+                "file": "SOMETHINGS/Floor Planner 작업 이력.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "FloorPlanner-시리즈-기획"
+              "title": "Floor Planner 작업 이력"
             }
           },
           {
@@ -41,16 +41,16 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "SOMETHINGS/Floor Planner 작업 이력.md",
+                "file": "AD7280A-시리즈-기획.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Floor Planner 작업 이력"
+              "title": "AD7280A-시리즈-기획"
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -214,23 +214,24 @@
       "bases:새 베이스 생성하기": false
     }
   },
-  "active": "99a14ee916e721c5",
+  "active": "8feb1e25321495b4",
   "lastOpenFiles": [
+    "FloorPlanner-시리즈-기획.md",
+    "AD7280A-시리즈-기획.md",
+    "content/posts/ghidra-stm32-quick-start.md",
+    "content/posts/BMS/ad7280a-bms-dev-12.md",
     "content/posts/BMS/ad7280a-bms-dev-11.md",
+    "SOMETHINGS/Floor Planner 작업 이력.md",
     "static/imgs/ghidra-stm32-quick-start-2.png",
     "static/imgs/ghidra-stm32-quick-start-1.png",
     "static/imgs/Pasted image 20251209100328.png",
     "static/imgs/Pasted image 20251209100003.png",
-    "content/posts/ghidra-stm32-quick-start.md",
     "content/posts/BMS/ad7280a-bms-dev-10.md",
     "STM32-Bootloader-시리즈-기획.md",
     "Ghidra-역분석-시리즈-기획.md",
     "SOMETHINGS/function",
-    "FloorPlanner-시리즈-기획.md",
-    "SOMETHINGS/Floor Planner 작업 이력.md",
     "SOMETHINGS",
     "content/posts/BMS/ad7280a-bms-dev-09.md",
-    "AD7280A-시리즈-기획.md",
     "content/posts/BMS/ad7280a-bms-dev-08.md",
     "content/posts/FloorPlanner",
     "content/posts/Floor-Planner/floor-planner-progress.md",
@@ -257,7 +258,6 @@
     "CAO/history/Chat 2025-12-07 08-53-07.md",
     "CAO/history/Chat 2025-12-07 08-37-23.md",
     "content/posts/무제.md",
-    "static/imgs/img-9ab93811.png",
-    "archetypes/default.md"
+    "static/imgs/img-9ab93811.png"
   ]
 }
