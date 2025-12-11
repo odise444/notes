@@ -4,25 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "6b45f7ecba60ae0c",
+        "id": "19a5f86b491d7f89",
         "type": "tabs",
         "children": [
           {
-            "id": "040cfe1b233962f5",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "FloorPlanner-시리즈-기획.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "FloorPlanner-시리즈-기획"
-            }
-          },
-          {
-            "id": "8feb1e25321495b4",
+            "id": "754c6bb06cfb021b",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -34,23 +20,8 @@
               "icon": "lucide-file",
               "title": "Ghidra-역분석-시리즈-기획"
             }
-          },
-          {
-            "id": "b1c1588e131533c6",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "AD7280A-시리즈-기획.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "AD7280A-시리즈-기획"
-            }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -70,10 +41,10 @@
               "type": "file-explorer",
               "state": {
                 "sortOrder": "alphabetical",
-                "autoReveal": false
+                "autoReveal": true
               },
               "icon": "lucide-folder-closed",
-              "title": "파일 탐색기"
+              "title": "Files"
             }
           },
           {
@@ -204,38 +175,39 @@
   },
   "left-ribbon": {
     "hiddenItems": {
-      "github-sync:Sync with Remote": false,
-      "switcher:빠른 전환기 열기": false,
-      "graph:그래프 뷰 열기": false,
-      "canvas:새 캔버스 만들기": false,
-      "daily-notes:오늘의 일일 노트 열기": false,
-      "templates:템플릿 삽입": false,
-      "command-palette:명령어 팔레트 열기": false,
-      "bases:새 베이스 생성하기": false
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false,
+      "github-sync:Sync with Remote": false
     }
   },
-  "active": "8feb1e25321495b4",
+  "active": "754c6bb06cfb021b",
   "lastOpenFiles": [
+    "content/posts/Ghidra/ghidra-stm32-re-06.md",
     "content/posts/Ghidra/ghidra-stm32-re-05.md",
-    "SOMETHINGS/Floor Planner 작업 이력.md",
-    "Ghidra-역분석-시리즈-기획.md.10ff05a23edd1e08ea6e2a24cc6f91f6.tmp",
     "content/posts/Ghidra/ghidra-stm32-re-04.md",
     "content/posts/Ghidra/ghidra-stm32-re-03.md",
     "content/posts/Ghidra/ghidra-stm32-re-02.md",
-    "content/posts/Ghidra/ghidra-stm32-quick-start.md",
     "content/posts/Ghidra/ghidra-stm32-re-01.md",
-    "FloorPlanner-시리즈-기획.md",
-    "AD7280A-시리즈-기획.md",
-    "content/posts/ghidra-stm32-quick-start.md",
+    "content/posts/Ghidra/ghidra-stm32-quick-start.md",
+    "content/posts/Ghidra",
     "content/posts/BMS/ad7280a-bms-dev-12.md",
     "content/posts/BMS/ad7280a-bms-dev-11.md",
+    "FloorPlanner-시리즈-기획.md",
+    "content/posts/ghidra-stm32-quick-start.md",
     "static/imgs/ghidra-stm32-quick-start-2.png",
-    "static/imgs/ghidra-stm32-quick-start-1.png",
     "static/imgs/Pasted image 20251209100328.png",
+    "static/imgs/ghidra-stm32-quick-start-1.png",
     "static/imgs/Pasted image 20251209100003.png",
+    "Ghidra-역분석-시리즈-기획.md",
+    "AD7280A-시리즈-기획.md",
     "content/posts/BMS/ad7280a-bms-dev-10.md",
     "STM32-Bootloader-시리즈-기획.md",
-    "Ghidra-역분석-시리즈-기획.md",
+    "SOMETHINGS/Floor Planner 작업 이력.md",
     "SOMETHINGS/function",
     "SOMETHINGS",
     "content/posts/BMS/ad7280a-bms-dev-09.md",
@@ -258,7 +230,6 @@
     "layouts/partials/adsens_code.html",
     "layouts/partials",
     "static/ads.txt",
-    "content/search.md",
     "static/imgs/img-9ab93811.png"
   ]
 }
