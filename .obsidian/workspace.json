@@ -187,6 +187,7 @@
   },
   "active": "754c6bb06cfb021b",
   "lastOpenFiles": [
+    "content/posts/Ghidra/ghidra-stm32-re-07.md",
     "content/posts/Ghidra/ghidra-stm32-re-06.md",
     "content/posts/Ghidra/ghidra-stm32-re-05.md",
     "content/posts/Ghidra/ghidra-stm32-re-04.md",
@@ -224,7 +225,6 @@
     "static/imgs/ad7280a-bms-dev-01-2.png",
     "static/imgs/ad7280a-bms-dev-01-1.png",
     "static/imgs/ad7280a-bms-dev-03-1.png",
-    "content/posts/BMS/ad7280a-bms-dev-02.md",
     "static/imgs/ad7280a-resistor-divider.png",
     "layouts/partials/extend_head.html",
     "layouts/partials/adsens_code.html",
