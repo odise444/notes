@@ -27,14 +27,14 @@
 | 7 | 부트로더 경계 찾기 | 16KB 확인, 앱 시작 주소 | ✅ 완료 |
 | 8 | 전역 변수 영역 분석 | .data, .bss, 구조체 추정 | ✅ 완료 |
 
-## Part 3: 주변장치 역분석편
+## Part 3: 주변장치 역분석편 ✅
 
 | # | 제목 | 핵심 내용 | 상태 |
 |---|------|----------|------|
-| 9 | RCC 설정 복원하기 | 클럭 트리, PLL 설정 | |
-| 10 | GPIO 초기화 분석 | LED, 버튼 핀 찾기 | |
-| 11 | CAN 초기화 역분석 | 500kbps 설정, 필터 구성 | |
-| 12 | Flash 접근 함수 찾기 | Unlock, Erase, Program | |
+| 9 | RCC 설정 복원하기 | 클럭 트리, PLL 설정 | ✅ 완료 |
+| 10 | GPIO 초기화 분석 | LED, 버튼 핀 찾기 | ✅ 완료 |
+| 11 | CAN 초기화 역분석 | 500kbps 설정, 필터 구성 | ✅ 완료 |
+| 12 | Flash 접근 함수 찾기 | Unlock, Erase, Program | ✅ 완료 |
 
 ## Part 4: CAN IAP 프로토콜 역분석편
 
@@ -105,7 +105,7 @@
 ```
 Part 1: 입문편           [████████████] 4/4  ✅
 Part 2: STM32 구조       [████████████] 4/4  ✅
-Part 3: 주변장치         [            ] 0/4
+Part 3: 주변장치         [████████████] 4/4  ✅
 Part 4: CAN IAP 프로토콜 [            ] 0/6
 Part 5: 핵심 로직        [            ] 0/4
 Part 6: 삽질 & 트러블    [            ] 0/4
@@ -114,7 +114,7 @@ Part 8: 검증 & 활용      [            ] 0/4
 번외편                   [            ] 0/4
 추가 가이드              [████████████] 1/1  ✅
 
-총 진행: 9/39 (23%)
+총 진행: 13/39 (33%)
 ```
 
 ---
@@ -195,6 +195,20 @@ PC → BMS (0x5FF)          BMS → PC (0x5FE)
 uint32_t calc = FwChk ^ (FwDate << 8);  // XOR 연산 추정
 ```
 
+### Part 3에서 밝혀낸 내용
+
+| 항목 | 발견 내용 |
+|------|----------|
+| 클럭 | HSE 8MHz × PLL 9 = 72MHz |
+| APB1 | 36MHz |
+| APB2 | 72MHz |
+| CAN TX | PA12 (AF Open-Drain) |
+| CAN RX | PA11 (AF Input) |
+| LED | PB0, PB1, PC13 |
+| 버튼 | PB2 (Active Low) |
+| Flash Key1 | 0x45670123 |
+| Flash Key2 | 0xCDEF89AB |
+
 ---
 
 ## Ghidra 설정 가이드
@@ -239,7 +253,11 @@ content/posts/Ghidra/
 ├── ghidra-stm32-re-05.md         # #5 Vector Table 분석 ✅
 ├── ghidra-stm32-re-06.md         # #6 메모리 맵 추정하기 ✅
 ├── ghidra-stm32-re-07.md         # #7 부트로더 경계 찾기 ✅
-└── ghidra-stm32-re-08.md         # #8 전역 변수 영역 분석 ✅
+├── ghidra-stm32-re-08.md         # #8 전역 변수 영역 분석 ✅
+├── ghidra-stm32-re-09.md         # #9 RCC 설정 복원하기 ✅
+├── ghidra-stm32-re-10.md         # #10 GPIO 초기화 분석 ✅
+├── ghidra-stm32-re-11.md         # #11 CAN 초기화 역분석 ✅
+└── ghidra-stm32-re-12.md         # #12 Flash 접근 함수 찾기 ✅
 ```
 
 ---
@@ -256,8 +274,8 @@ content/posts/Ghidra/
 ## 메모
 
 - 총 39개 글 (본편 34 + 번외 4 + 가이드 1)
-- Part 1~2 완료 (9개, 23%)
-- 다음 작성: Part 3 (#9 RCC 설정 복원하기)
+- Part 1~3 완료 (13개, 33%)
+- 다음 작성: Part 4 (#13 CAN 수신 핸들러 분석)
 - 실제 역분석 경험 기반
 - 보안/법적 주의사항 포함
 - Ghidra 초보자도 따라할 수 있게 구성
