@@ -36,16 +36,16 @@
 | 11 | CAN 초기화 역분석 | 500kbps 설정, 필터 구성 | ✅ 완료 |
 | 12 | Flash 접근 함수 찾기 | Unlock, Erase, Program | ✅ 완료 |
 
-## Part 4: CAN IAP 프로토콜 역분석편
+## Part 4: CAN IAP 프로토콜 역분석편 ✅
 
 | # | 제목 | 핵심 내용 | 상태 |
 |---|------|----------|------|
-| 13 | CAN 수신 핸들러 분석 | FIFO, 메시지 파싱 | |
-| 14 | 명령 코드 체계 파악 | 0x30/0x40 시리즈 발견 | |
-| 15 | 상태 머신 복원 | switch-case 구조, 상태 전이 | |
-| 16 | Connection Key 알고리즘 | FwChk, FwDate, XOR 연산 | |
-| 17 | 페이지 전송 프로토콜 | 2KB 페이지, 시작/종료 마커 | |
-| 18 | CRC 검증 함수 분석 | HW CRC32 vs SW 구현 | |
+| 13 | CAN 수신 핸들러 분석 | FIFO, 메시지 파싱, 인터럽트→플래그 | ✅ 완료 |
+| 14 | 명령 코드 체계 파악 | 0x30/0x40 시리즈, 요청/응답 쌍 | ✅ 완료 |
+| 15 | 상태 머신 복원 | 7개 상태, 상태 전이, 타임아웃 | ✅ 완료 |
+| 16 | Connection Key 알고리즘 | FwChk ⊕ FwDate + bit mixing | ✅ 완료 |
+| 17 | 페이지 전송 프로토콜 | 2KB/256프레임, 데이터 구분 | ✅ 완료 |
+| 18 | CRC 검증 함수 분석 | STM32 HW CRC-32 (0x04C11DB7) | ✅ 완료 |
 
 ## Part 5: 핵심 로직 역분석편
 
@@ -106,7 +106,7 @@
 Part 1: 입문편           [████████████] 4/4  ✅
 Part 2: STM32 구조       [████████████] 4/4  ✅
 Part 3: 주변장치         [████████████] 4/4  ✅
-Part 4: CAN IAP 프로토콜 [            ] 0/6
+Part 4: CAN IAP 프로토콜 [████████████] 6/6  ✅
 Part 5: 핵심 로직        [            ] 0/4
 Part 6: 삽질 & 트러블    [            ] 0/4
 Part 7: 소스코드 복원    [            ] 0/4
@@ -114,7 +114,7 @@ Part 8: 검증 & 활용      [            ] 0/4
 번외편                   [            ] 0/4
 추가 가이드              [████████████] 1/1  ✅
 
-총 진행: 13/39 (33%)
+총 진행: 19/39 (49%)
 ```
 
 ---
@@ -167,7 +167,7 @@ RAM (64KB)
 └─────────────────────┘ 0x20000000
 ```
 
-### 역분석으로 밝혀낸 프로토콜
+### 역분석으로 밝혀낸 프로토콜 (Part 4 완료)
 
 ```
 PC → BMS (0x5FF)          BMS → PC (0x5FE)
@@ -178,36 +178,41 @@ PC → BMS (0x5FF)          BMS → PC (0x5FE)
 0x32: 크기 응답        →
                        ←  0x43: 페이지 요청
 0x33: 페이지 시작      →
-[data]: 페이지 데이터  →
+[data]: 페이지 데이터  →  (256 프레임/페이지)
 0x34: 페이지 끝        →
                        ←  0x45: 검증 시작
-                       ←  0x46: 검증 완료
-0x36: 검증 결과        →
+0x36: CRC 결과         →
+                       ←  0x46: 완료
 ```
 
-### Connection Key 알고리즘 (추정)
+### Connection Key 알고리즘 (Part 4에서 확정)
 
 ```c
-// BMS가 보내는 0x40 응답:
-// [0x40] [FwChk1] [FwChk2] [FwChk3] [FwChk4] [FwDate1] [FwDate2] [FwDate3]
-
-// PC가 계산해서 0x31로 보내는 값:
-uint32_t calc = FwChk ^ (FwDate << 8);  // XOR 연산 추정
+uint32_t IAP_CalcKey(void) {
+    uint32_t fw_chk = g_fw_check;
+    uint32_t fw_date = g_fw_date[0] | (g_fw_date[1] << 8) | (g_fw_date[2] << 16);
+    
+    uint32_t result = fw_chk ^ fw_date;
+    result ^= (result >> 16);
+    result ^= (result >> 8);
+    
+    return result;
+}
 ```
 
-### Part 3에서 밝혀낸 내용
+### Part 3~4에서 밝혀낸 내용
 
 | 항목 | 발견 내용 |
 |------|----------|
 | 클럭 | HSE 8MHz × PLL 9 = 72MHz |
-| APB1 | 36MHz |
-| APB2 | 72MHz |
-| CAN TX | PA12 (AF Open-Drain) |
-| CAN RX | PA11 (AF Input) |
+| APB1/APB2 | 36MHz / 72MHz |
+| CAN TX/RX | PA12 / PA11 |
 | LED | PB0, PB1, PC13 |
 | 버튼 | PB2 (Active Low) |
-| Flash Key1 | 0x45670123 |
-| Flash Key2 | 0xCDEF89AB |
+| Flash Key | 0x45670123, 0xCDEF89AB |
+| 상태 머신 | 7개 상태, 10초 타임아웃 |
+| CRC | STM32 HW CRC-32 (0x04C11DB7) |
+| 페이지 크기 | 2KB (256 CAN 프레임) |
 
 ---
 
@@ -257,7 +262,13 @@ content/posts/Ghidra/
 ├── ghidra-stm32-re-09.md         # #9 RCC 설정 복원하기 ✅
 ├── ghidra-stm32-re-10.md         # #10 GPIO 초기화 분석 ✅
 ├── ghidra-stm32-re-11.md         # #11 CAN 초기화 역분석 ✅
-└── ghidra-stm32-re-12.md         # #12 Flash 접근 함수 찾기 ✅
+├── ghidra-stm32-re-12.md         # #12 Flash 접근 함수 찾기 ✅
+├── ghidra-stm32-re-13.md         # #13 CAN 수신 핸들러 분석 ✅
+├── ghidra-stm32-re-14.md         # #14 명령 코드 체계 파악 ✅
+├── ghidra-stm32-re-15.md         # #15 상태 머신 복원 ✅
+├── ghidra-stm32-re-16.md         # #16 Connection Key 알고리즘 ✅
+├── ghidra-stm32-re-17.md         # #17 페이지 전송 프로토콜 ✅
+└── ghidra-stm32-re-18.md         # #18 CRC 검증 함수 분석 ✅
 ```
 
 ---
@@ -274,8 +285,8 @@ content/posts/Ghidra/
 ## 메모
 
 - 총 39개 글 (본편 34 + 번외 4 + 가이드 1)
-- Part 1~3 완료 (13개, 33%)
-- 다음 작성: Part 4 (#13 CAN 수신 핸들러 분석)
+- Part 1~4 완료 (19개, 49%)
+- 다음 작성: Part 5 (#19 부트 진입 조건 분석)
 - 실제 역분석 경험 기반
 - 보안/법적 주의사항 포함
 - Ghidra 초보자도 따라할 수 있게 구성
