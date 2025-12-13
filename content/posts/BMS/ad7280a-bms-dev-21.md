@@ -1,52 +1,53 @@
 ---
 title: "AD7280A BMS 개발 삽질기 #21 - SOH 추정"
-date: 2024-12-14
+date: 2024-12-13
 draft: false
 tags: ["AD7280A", "BMS", "STM32", "SOH", "배터리수명", "내부저항"]
 categories: ["BMS 개발"]
 series: ["AD7280A BMS 개발"]
-summary: "배터리 건강 상태는 어떻게 알까? 용량 열화와 내부 저항으로 SOH를 추정한다."
+summary: "배터리가 얼마나 늙었는지 어떻게 알까? SOH 추정의 두 가지 접근법 - 용량 열화와 내부 저항."
 ---
 
 ## 지난 글 요약
 
-[Part 6](/posts/bms/ad7280a-bms-dev-20/)에서 통신과 진단을 완료했다. CAN 프로토콜, SOC, 로깅, CLI. 이제 **고급 기능**으로 넘어가자. 첫 번째는 **SOH(State of Health)**.
+[Part 6](/posts/bms/ad7280a-bms-dev-20/)에서 진단 인터페이스를 구현했다. CLI, CAN 진단. 이제 **고급 기능**으로 넘어가자. 첫 번째는 **SOH(State of Health)**.
 
 ## SOH란?
 
-**SOH** = 현재 최대 용량 / 초기 용량 × 100%
+**SOH** = 현재 상태 / 새 배터리 상태 × 100%
 
 ```
-새 배터리:    [████████████████████] 100Ah = 100% SOH
-3년 후:      [████████████████    ] 80Ah  = 80% SOH
-수명 종료:   [████████████        ] 60Ah  = 60% SOH (교체 권장)
-```
+새 배터리:     SOH 100%
+┌────────────────────────────────────┐
+│████████████████████████████████████│ 100Ah 용량
+└────────────────────────────────────┘
 
-**왜 중요한가?**
-- 배터리 교체 시기 판단
-- 잔여 수명 예측
-- 보증(Warranty) 판정
-- 중고 배터리 가치 평가
+3년 사용 후:   SOH 80%
+┌────────────────────────────────────┐
+│████████████████████████████░░░░░░░░│ 80Ah 용량
+└────────────────────────────────────┘
+             ↑ 20% 열화
+```
 
 ## SOH 추정 방법
 
-| 방법 | 정확도 | 복잡도 | 실시간 |
-|------|--------|--------|--------|
-| 용량 기반 | 높음 | 중간 | ❌ |
-| 내부 저항 기반 | 중간 | 낮음 | ✅ |
-| EIS (임피던스) | 매우 높음 | 높음 | ❌ |
-| 머신 러닝 | 높음 | 매우 높음 | ✅ |
+| 방법 | 측정 대상 | 정확도 | 복잡도 |
+|------|----------|--------|--------|
+| 용량 기반 | 실제 방전 용량 | 높음 | 낮음 |
+| 저항 기반 | 내부 저항 증가 | 중간 | 중간 |
+| EIS | 임피던스 스펙트럼 | 매우 높음 | 높음 |
+| 모델 기반 | 전기화학 모델 | 높음 | 매우 높음 |
+
+**실용적 선택**: 용량 + 저항 조합
 
 ## 방법 1: 용량 기반 SOH
 
 ### 원리
 
-**완전 충방전 사이클**에서 실제 용량 측정:
+완충 → 완방 사이클에서 실제 용량 측정:
 
 ```
-충전 시작 (0% SOC) ──────────────► 충전 완료 (100% SOC)
-                    
-                    ∫I(t)dt = 실제 용량 (Ah)
+SOH_capacity = (실측 용량 / 정격 용량) × 100%
 ```
 
 ### 구현
@@ -55,200 +56,167 @@ summary: "배터리 건강 상태는 어떻게 알까? 용량 열화와 내부 �
 // soh_capacity.c
 
 typedef struct {
-    float initial_capacity_ah;   // 공칭 용량
-    float measured_capacity_ah;  // 측정 용량
-    float soh_capacity;          // 용량 기반 SOH (%)
+    float nominal_capacity_ah;    // 정격 용량
+    float measured_capacity_ah;   // 실측 용량
+    float soh_capacity;           // 용량 기반 SOH (%)
+    bool measurement_valid;
     
     // 측정 상태
-    bool measuring;
-    float accumulated_ah;
-    uint8_t start_soc;
+    float charge_start_soc;
+    float discharge_start_ah;
+    float total_discharged_ah;
 } soh_capacity_t;
 
 static soh_capacity_t g_soh_cap;
 
-void SOH_Capacity_Init(float initial_capacity) {
-    g_soh_cap.initial_capacity_ah = initial_capacity;
-    g_soh_cap.measured_capacity_ah = initial_capacity;
+void SOH_Capacity_Init(float nominal_ah) {
+    g_soh_cap.nominal_capacity_ah = nominal_ah;
+    g_soh_cap.measured_capacity_ah = nominal_ah;  // 초기값
     g_soh_cap.soh_capacity = 100.0f;
-    g_soh_cap.measuring = false;
-}
-
-void SOH_Capacity_StartMeasurement(uint8_t current_soc) {
-    // 낮은 SOC에서 시작해야 정확
-    if (current_soc > 10) {
-        return;  // 10% 이하에서만 시작
-    }
-    
-    g_soh_cap.measuring = true;
-    g_soh_cap.accumulated_ah = 0;
-    g_soh_cap.start_soc = current_soc;
-}
-
-void SOH_Capacity_Update(float current_a) {
-    if (!g_soh_cap.measuring) return;
-    
-    // 충전 전류만 적분 (음수 = 충전)
-    if (current_a < 0) {
-        float dt_hours = 0.1f / 3600.0f;  // 100ms 주기
-        g_soh_cap.accumulated_ah += (-current_a) * dt_hours;
-    }
-}
-
-void SOH_Capacity_EndMeasurement(uint8_t current_soc) {
-    if (!g_soh_cap.measuring) return;
-    
-    // 높은 SOC에서 종료해야 정확
-    if (current_soc < 95) {
-        return;  // 95% 이상에서만 종료
-    }
-    
-    g_soh_cap.measuring = false;
-    
-    // SOC 범위 보정
-    float soc_range = (current_soc - g_soh_cap.start_soc) / 100.0f;
-    
-    // 실제 용량 계산
-    g_soh_cap.measured_capacity_ah = g_soh_cap.accumulated_ah / soc_range;
-    
-    // SOH 계산
-    g_soh_cap.soh_capacity = 
-        (g_soh_cap.measured_capacity_ah / g_soh_cap.initial_capacity_ah) * 100.0f;
-    
-    // 범위 제한
-    if (g_soh_cap.soh_capacity > 100.0f) g_soh_cap.soh_capacity = 100.0f;
-    if (g_soh_cap.soh_capacity < 0.0f) g_soh_cap.soh_capacity = 0.0f;
+    g_soh_cap.measurement_valid = false;
 }
 ```
 
-### 자동 측정 트리거
+### 용량 측정 트리거
+
+완충 후 완방 시 측정:
 
 ```c
-void SOH_Capacity_AutoTrigger(void) {
-    static bool was_charging = false;
-    bool is_charging = (g_bms.pack_current_ma < -100);  // 100mA 이상 충전
-    
-    // 충전 시작 감지
-    if (is_charging && !was_charging) {
-        if (g_bms.soc <= 10) {
-            SOH_Capacity_StartMeasurement(g_bms.soc);
-        }
+void SOH_Capacity_OnChargeComplete(void) {
+    // 충전 완료 시점 기록
+    g_soh_cap.charge_start_soc = 100.0f;
+    g_soh_cap.discharge_start_ah = 0;
+    g_soh_cap.total_discharged_ah = 0;
+}
+
+void SOH_Capacity_OnDischargeComplete(void) {
+    // 방전 완료 → 용량 계산
+    if (g_soh_cap.charge_start_soc >= 95.0f) {  // 거의 완충에서 시작
+        g_soh_cap.measured_capacity_ah = g_soh_cap.total_discharged_ah;
+        
+        g_soh_cap.soh_capacity = 
+            (g_soh_cap.measured_capacity_ah / g_soh_cap.nominal_capacity_ah) * 100.0f;
+        
+        // 범위 제한
+        if (g_soh_cap.soh_capacity > 100.0f) g_soh_cap.soh_capacity = 100.0f;
+        if (g_soh_cap.soh_capacity < 0.0f) g_soh_cap.soh_capacity = 0.0f;
+        
+        g_soh_cap.measurement_valid = true;
+        
+        // 통계에 기록
+        Log_Event(EVT_SOH_MEASURED, 0, 
+                  (uint16_t)(g_soh_cap.soh_capacity * 10),
+                  (uint16_t)(g_soh_cap.measured_capacity_ah * 10), 0);
     }
-    
-    // 충전 완료 감지
-    if (!is_charging && was_charging) {
-        if (g_bms.soc >= 95) {
-            SOH_Capacity_EndMeasurement(g_bms.soc);
-        }
+}
+
+void SOH_Capacity_Update(float current_a, float dt_hours) {
+    if (current_a > 0) {  // 방전 중
+        g_soh_cap.total_discharged_ah += current_a * dt_hours;
     }
-    
-    was_charging = is_charging;
 }
 ```
+
+### 용량 기반 SOH의 한계
+
+1. **완전 사이클 필요**: 완충→완방이 드묾
+2. **시간 소요**: 대용량 배터리는 수 시간
+3. **사용 패턴 의존**: 부분 사이클만 사용하면 측정 불가
 
 ## 방법 2: 내부 저항 기반 SOH
 
 ### 원리
 
-배터리 열화 → **내부 저항 증가**:
+배터리 노화 → 내부 저항 증가:
 
 ```
-새 배터리:     Ri = 5mΩ
-열화된 배터리:  Ri = 10mΩ  (2배 증가 → SOH 낮음)
+        새 배터리              노화된 배터리
+        ┌─────┐               ┌─────┐
+    ─┤├─┤ R_i ├─         ─┤├─┤ R_i'├─
+        └─────┘               └─────┘
+        R_i = 5mΩ            R_i' = 10mΩ
+                                ↑ 2배 증가
 ```
 
-내부 저항 측정:
+### DC 펄스 방식
 
-```
-        ΔV = V_noload - V_load
-Ri = ─────────────────────────
-              ΔI
-```
-
-### 구현
+전류 펄스를 인가하고 전압 강하 측정:
 
 ```c
 // soh_resistance.c
 
 typedef struct {
-    float internal_resistance_mohm;  // 현재 내부 저항 (mΩ)
-    float initial_resistance_mohm;   // 초기 내부 저항
-    float soh_resistance;            // 저항 기반 SOH (%)
+    float internal_resistance_mohm;   // 내부 저항 (mΩ)
+    float initial_resistance_mohm;    // 초기 저항 (새 배터리)
+    float soh_resistance;             // 저항 기반 SOH (%)
     
-    // 측정 버퍼
-    float voltage_samples[10];
-    float current_samples[10];
-    uint8_t sample_index;
-    bool buffer_full;
+    // 측정용
+    float v_before;
+    float v_after;
+    float pulse_current;
 } soh_resistance_t;
 
 static soh_resistance_t g_soh_res;
 
-void SOH_Resistance_Init(float initial_resistance) {
-    g_soh_res.initial_resistance_mohm = initial_resistance;
-    g_soh_res.internal_resistance_mohm = initial_resistance;
-    g_soh_res.soh_resistance = 100.0f;
-    g_soh_res.sample_index = 0;
-    g_soh_res.buffer_full = false;
-}
-
-void SOH_Resistance_AddSample(float voltage_v, float current_a) {
-    g_soh_res.voltage_samples[g_soh_res.sample_index] = voltage_v;
-    g_soh_res.current_samples[g_soh_res.sample_index] = current_a;
+float SOH_Resistance_Measure(void) {
+    // 1. 휴식 상태 전압 측정
+    g_soh_res.v_before = BMS_GetPackVoltage();
     
-    g_soh_res.sample_index++;
-    if (g_soh_res.sample_index >= 10) {
-        g_soh_res.sample_index = 0;
-        g_soh_res.buffer_full = true;
+    // 2. 부하 인가 (또는 자연 발생 펄스 이용)
+    // 실제로는 방전 시작 순간의 전압 강하 이용
+    HAL_Delay(100);  // 100ms 후
+    
+    // 3. 부하 상태 전압 측정
+    g_soh_res.v_after = BMS_GetPackVoltage();
+    g_soh_res.pulse_current = BMS_GetPackCurrent();
+    
+    // 4. 저항 계산: R = ΔV / I
+    if (fabsf(g_soh_res.pulse_current) > 1.0f) {  // 최소 1A
+        float delta_v = g_soh_res.v_before - g_soh_res.v_after;
+        g_soh_res.internal_resistance_mohm = 
+            (delta_v * 1000.0f) / g_soh_res.pulse_current;
     }
-}
-
-float SOH_Resistance_Calculate(void) {
-    if (!g_soh_res.buffer_full) return 0;
-    
-    // 선형 회귀: V = OCV - I * Ri
-    // 최소자승법으로 Ri 추정
-    
-    float sum_i = 0, sum_v = 0, sum_ii = 0, sum_iv = 0;
-    int n = 10;
-    
-    for (int i = 0; i < n; i++) {
-        float I = g_soh_res.current_samples[i];
-        float V = g_soh_res.voltage_samples[i];
-        
-        sum_i += I;
-        sum_v += V;
-        sum_ii += I * I;
-        sum_iv += I * V;
-    }
-    
-    // 기울기 = -Ri
-    float slope = (n * sum_iv - sum_i * sum_v) / 
-                  (n * sum_ii - sum_i * sum_i);
-    
-    float ri_ohm = -slope;
-    g_soh_res.internal_resistance_mohm = ri_ohm * 1000.0f;  // Ω → mΩ
     
     return g_soh_res.internal_resistance_mohm;
 }
 ```
 
-### 저항 기반 SOH 계산
+### 방전 시작 순간 이용
+
+자연스러운 방전 시작 시점 활용:
 
 ```c
-void SOH_Resistance_UpdateSOH(void) {
-    float ri = SOH_Resistance_Calculate();
-    if (ri <= 0) return;
+void SOH_Resistance_OnLoadChange(float v_before, float v_after, 
+                                  float current_before, float current_after) {
+    // 전류 변화가 충분할 때만
+    float delta_i = fabsf(current_after - current_before);
     
-    float ri_initial = g_soh_res.initial_resistance_mohm;
-    float ri_eol = ri_initial * 2.0f;  // EOL = 초기의 2배
+    if (delta_i > 5.0f) {  // 5A 이상 변화
+        float delta_v = v_before - v_after;
+        
+        // 팩 저항 계산
+        float pack_r = (delta_v * 1000.0f) / delta_i;  // mΩ
+        
+        // 셀당 저항 (24셀 직렬)
+        g_soh_res.internal_resistance_mohm = pack_r / 24.0f;
+        
+        // SOH 계산
+        SOH_Resistance_Calculate();
+    }
+}
+
+void SOH_Resistance_Calculate(void) {
+    // 저항 증가율로 SOH 추정
+    // 일반적으로 저항 2배 = EOL (End of Life)
     
-    // 선형 보간
-    // ri_initial → 100% SOH
-    // ri_eol → 0% SOH
+    float resistance_ratio = g_soh_res.internal_resistance_mohm / 
+                             g_soh_res.initial_resistance_mohm;
     
-    g_soh_res.soh_resistance = 
-        100.0f * (ri_eol - ri) / (ri_eol - ri_initial);
+    // 선형 모델: SOH = 100% - (ratio - 1) × 100%
+    // ratio 1.0 → SOH 100%
+    // ratio 2.0 → SOH 0%
+    
+    g_soh_res.soh_resistance = (2.0f - resistance_ratio) * 100.0f;
     
     // 범위 제한
     if (g_soh_res.soh_resistance > 100.0f) g_soh_res.soh_resistance = 100.0f;
@@ -256,214 +224,185 @@ void SOH_Resistance_UpdateSOH(void) {
 }
 ```
 
-### 펄스 방전 기반 측정
+### 온도 보정
 
-더 정확한 측정을 위해 **펄스 부하** 사용:
+저항은 온도에 민감:
 
 ```c
-float SOH_Resistance_PulseMeasure(void) {
-    // 1. 휴식 상태 전압 측정 (OCV)
-    float v_rest = BMS_GetPackVoltage();
-    float i_rest = BMS_GetPackCurrent();  // ~0A
+// 25°C 기준으로 보정
+float SOH_Resistance_TempCompensate(float measured_r, int8_t temp_c) {
+    // LiFePO4 온도 계수: 약 0.5%/°C
+    float temp_factor = 1.0f + 0.005f * (temp_c - 25);
     
-    // 2. 부하 인가 (테스트 저항 또는 실제 부하)
-    // 외부에서 부하 스위치 제어 필요
-    
-    HAL_Delay(100);  // 안정화 대기
-    
-    // 3. 부하 상태 전압 측정
-    float v_load = BMS_GetPackVoltage();
-    float i_load = BMS_GetPackCurrent();  // 예: 10A
-    
-    // 4. 내부 저항 계산
-    float delta_v = v_rest - v_load;
-    float delta_i = i_load - i_rest;
-    
-    if (fabsf(delta_i) < 1.0f) {
-        return 0;  // 전류 변화 부족
-    }
-    
-    float ri_ohm = delta_v / delta_i;
-    
-    return ri_ohm * 1000.0f;  // mΩ
+    return measured_r / temp_factor;
 }
 ```
 
-## 통합 SOH 추정
+## 복합 SOH 계산
+
+두 방법 조합:
 
 ```c
 // soh_combined.c
 
 typedef struct {
-    float soh_capacity;      // 용량 기반 (0~100%)
-    float soh_resistance;    // 저항 기반 (0~100%)
-    float soh_combined;      // 통합 SOH
-    float weight_capacity;   // 용량 가중치
-    float weight_resistance; // 저항 가중치
+    float soh_capacity;      // 용량 기반 (%)
+    float soh_resistance;    // 저항 기반 (%)
+    float soh_combined;      // 최종 SOH (%)
+    float confidence;        // 신뢰도 (0~1)
 } soh_combined_t;
 
 static soh_combined_t g_soh;
 
-void SOH_Combined_Init(void) {
-    g_soh.soh_capacity = 100.0f;
-    g_soh.soh_resistance = 100.0f;
-    g_soh.soh_combined = 100.0f;
+void SOH_UpdateCombined(void) {
+    float w_cap = 0.7f;   // 용량 가중치
+    float w_res = 0.3f;   // 저항 가중치
     
-    // 가중치 설정 (용량이 더 신뢰성 높음)
-    g_soh.weight_capacity = 0.7f;
-    g_soh.weight_resistance = 0.3f;
-}
-
-void SOH_Combined_Update(void) {
-    g_soh.soh_capacity = g_soh_cap.soh_capacity;
-    g_soh.soh_resistance = g_soh_res.soh_resistance;
-    
-    // 가중 평균
-    g_soh.soh_combined = 
-        g_soh.soh_capacity * g_soh.weight_capacity +
-        g_soh.soh_resistance * g_soh.weight_resistance;
-    
-    // 두 방법의 차이가 크면 낮은 값 사용 (보수적)
-    float diff = fabsf(g_soh.soh_capacity - g_soh.soh_resistance);
-    if (diff > 20.0f) {
-        g_soh.soh_combined = fminf(g_soh.soh_capacity, g_soh.soh_resistance);
+    // 용량 측정이 유효하면 가중치 높임
+    if (g_soh_cap.measurement_valid) {
+        w_cap = 0.8f;
+        w_res = 0.2f;
     }
-}
-
-float SOH_GetSOH(void) {
-    return g_soh.soh_combined;
+    
+    // 용량 측정이 오래됐으면 저항 가중치 높임
+    if (g_soh_cap.days_since_measurement > 30) {
+        w_cap = 0.5f;
+        w_res = 0.5f;
+    }
+    
+    g_soh.soh_combined = 
+        g_soh.soh_capacity * w_cap + 
+        g_soh.soh_resistance * w_res;
+    
+    // 신뢰도 계산
+    float diff = fabsf(g_soh.soh_capacity - g_soh.soh_resistance);
+    g_soh.confidence = 1.0f - (diff / 50.0f);  // 차이 50%면 신뢰도 0
+    if (g_soh.confidence < 0) g_soh.confidence = 0;
 }
 ```
 
 ## 사이클 카운트 기반 추정
 
-경험적 모델:
+측정 없이 대략적 추정:
 
 ```c
-// 사이클 수 기반 SOH 추정
-float SOH_EstimateFromCycles(uint16_t cycle_count) {
-    // LiFePO4: 약 3000 사이클에서 80% SOH
-    // 선형 모델 (실제로는 비선형)
-    
-    float cycles_to_80pct = 3000.0f;
-    float degradation_per_cycle = 20.0f / cycles_to_80pct;
-    
-    float soh = 100.0f - (cycle_count * degradation_per_cycle);
+// 사이클 수명 모델
+// LiFePO4: 약 3000 사이클 @ 80% DOD
+#define CYCLE_LIFE_ESTIMATE     3000
+
+float SOH_FromCycleCount(uint16_t cycles) {
+    // 선형 모델
+    float degradation = (float)cycles / CYCLE_LIFE_ESTIMATE;
+    float soh = (1.0f - degradation) * 100.0f;
     
     if (soh < 0) soh = 0;
+    if (soh > 100) soh = 100;
     
     return soh;
 }
 ```
 
-## 온도 보정
+## SOH 기반 동작 조정
 
-고온 운영 = 빠른 열화:
+### 충전 전류 제한
 
 ```c
-// 온도에 따른 열화 가속 계수
-float SOH_GetDegradationFactor(int8_t temp_c) {
-    // 25°C 기준
-    if (temp_c <= 25) {
-        return 1.0f;
-    } else if (temp_c <= 35) {
-        return 1.5f;  // 10°C 상승 → 1.5배
-    } else if (temp_c <= 45) {
-        return 2.0f;  // 20°C 상승 → 2배
+float BMS_GetMaxChargeCurrent(void) {
+    float base_current = 50.0f;  // 정격 1C
+    
+    // SOH에 따른 제한
+    float soh = g_soh.soh_combined;
+    
+    if (soh >= 80.0f) {
+        return base_current;  // 100%
+    } else if (soh >= 60.0f) {
+        return base_current * 0.8f;  // 80%
+    } else if (soh >= 40.0f) {
+        return base_current * 0.5f;  // 50%
     } else {
-        return 3.0f;  // 45°C 이상 → 3배
+        return base_current * 0.3f;  // 30%
     }
 }
-
-void SOH_AccumulateDegradation(float dt_hours, int8_t temp_c) {
-    static float accumulated_stress = 0;
-    
-    float factor = SOH_GetDegradationFactor(temp_c);
-    accumulated_stress += dt_hours * factor;
-    
-    // 1000시간 스트레스 = 1% 열화 (예시)
-    float degradation = accumulated_stress / 1000.0f;
-    
-    g_soh.soh_combined -= degradation;
-    if (g_soh.soh_combined < 0) g_soh.soh_combined = 0;
-}
 ```
 
-## 삽질: 측정 조건
-
-SOH 측정은 **조건이 중요**:
+### 사용 가능 용량 조정
 
 ```c
-// 잘못된 측정
-// - 충전/방전 중 측정 → 분극 영향
-// - 온도 변동 중 → OCV 변화
-// - 부분 충방전 → 용량 과소평가
-
-// 올바른 측정 조건
-bool SOH_IsMeasurementValid(void) {
-    // 1. 충분한 휴식 (분극 해소)
-    if (g_bms.rest_time_ms < 60000) return false;  // 최소 1분
-    
-    // 2. 안정된 온도
-    int8_t temp_diff = g_bms.max_temp - g_bms.min_temp;
-    if (temp_diff > 5) return false;  // 5°C 이내
-    
-    // 3. 적절한 SOC 범위
-    if (g_bms.soc < 20 || g_bms.soc > 80) return false;
-    
-    return true;
+float BMS_GetUsableCapacity(void) {
+    return g_bms.nominal_capacity_ah * (g_soh.soh_combined / 100.0f);
 }
 ```
 
-## 삽질: 내부 저항의 SOC 의존성
-
-내부 저항은 SOC에 따라 변함:
-
-```
-Ri (mΩ)
-   │
-12 ├────╮                    ╭────
-   │     ╲                  ╱
- 8 ├──────╲────────────────╱──────
-   │       ╲              ╱
- 4 ├────────╲────────────╱────────
-   │         ╲──────────╱
-   └────┴────┴────┴────┴────┴────► SOC (%)
-        0   20   40   60   80  100
-```
-
-**해결책**: 같은 SOC에서 측정 비교
+### EOL 경고
 
 ```c
-// SOC 50% 기준 내부 저항 보정
-float SOH_NormalizeResistance(float ri_measured, uint8_t soc) {
-    // SOC별 보정 계수 (실험 데이터)
-    static const float soc_factor[] = {
-        1.20f,  // 0%
-        1.10f,  // 20%
-        1.05f,  // 40%
-        1.00f,  // 60% (기준)
-        1.02f,  // 80%
-        1.15f,  // 100%
-    };
-    
-    int idx = soc / 20;
-    if (idx > 5) idx = 5;
-    
-    return ri_measured / soc_factor[idx];
+void SOH_CheckWarnings(void) {
+    if (g_soh.soh_combined < 80.0f && g_soh.soh_combined >= 70.0f) {
+        // 주의: 배터리 교체 권장
+        BMS_SetWarning(WARN_SOH_LOW);
+    } else if (g_soh.soh_combined < 70.0f) {
+        // 경고: 배터리 교체 필요
+        BMS_SetWarning(WARN_SOH_CRITICAL);
+    }
 }
+```
+
+## 삽질: 저항 측정 노이즈
+
+전압/전류 측정 노이즈로 저항 오차 큼:
+
+```c
+// 잘못된 코드: 단일 측정
+float r = delta_v / delta_i;  // 노이즈 영향 큼
+
+// 올바른 코드: 이동 평균
+#define R_FILTER_SIZE   10
+static float r_samples[R_FILTER_SIZE];
+static int r_index = 0;
+
+void SOH_AddResistanceSample(float r) {
+    r_samples[r_index++] = r;
+    if (r_index >= R_FILTER_SIZE) r_index = 0;
+}
+
+float SOH_GetFilteredResistance(void) {
+    float sum = 0;
+    for (int i = 0; i < R_FILTER_SIZE; i++) {
+        sum += r_samples[i];
+    }
+    return sum / R_FILTER_SIZE;
+}
+```
+
+## 삽질: 온도 미보정
+
+25°C에서 5mΩ인 셀이 0°C에서 7mΩ 측정:
+
+```c
+// 잘못된 해석
+// "저항이 40% 증가! SOH 60%?"
+
+// 올바른 해석
+float compensated = SOH_Resistance_TempCompensate(7.0f, 0);
+// → 약 5.3mΩ (온도 보정 후)
+// SOH 거의 100%
 ```
 
 ## 정리
 
-| 방법 | 장점 | 단점 | 용도 |
-|------|------|------|------|
-| 용량 기반 | 정확함 | 완전 사이클 필요 | 정기 점검 |
-| 저항 기반 | 실시간 | SOC 의존성 | 상시 모니터링 |
-| 사이클 기반 | 간단함 | 부정확 | 참고용 |
-| 통합 | 균형 잡힘 | 복잡 | 제품 적용 |
+| 방법 | 장점 | 단점 |
+|------|------|------|
+| 용량 기반 | 정확함 | 완전 사이클 필요 |
+| 저항 기반 | 빠른 측정 | 온도 영향 |
+| 사이클 카운트 | 간단함 | 부정확 |
+| 복합 | 균형 | 복잡 |
 
-**다음 글에서**: 칼만 필터 적용 - SOC 추정 정밀도 향상.
+**실용적 조합**:
+1. 평소: 저항 + 사이클 카운트
+2. 완전 사이클 시: 용량 측정 업데이트
+3. 두 방법 교차 검증
+
+**다음 글에서**: 칼만 필터 적용 - SOC 정밀도 향상.
 
 ---
 
@@ -479,6 +418,6 @@ float SOH_NormalizeResistance(float ri_measured, uint8_t soc) {
 
 ## 참고 자료
 
-- [Battery SOH Estimation](https://www.sciencedirect.com/science/article/pii/S2352152X20313360)
+- [Battery SOH Estimation](https://www.mdpi.com/2079-9292/10/22/2835)
 - [Internal Resistance Measurement](https://batteryuniversity.com/article/bu-902-how-to-measure-internal-resistance)
-- [LiFePO4 Cycle Life](https://www.epectec.com/batteries/cell-comparison.html)
+- [LiFePO4 Aging Characteristics](https://www.sciencedirect.com/science/article/pii/S0378775315004449)
