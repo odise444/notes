@@ -214,8 +214,10 @@
       "bases:새 베이스 생성하기": false
     }
   },
-  "active": "99a14ee916e721c5",
+  "active": "b1c1588e131533c6",
   "lastOpenFiles": [
+    "content/posts/BMS/ad7280a-bms-dev-18.md",
+    "content/posts/BMS/ad7280a-bms-dev-17.md",
     "content/posts/Ghidra/ghidra-stm32-re-12.md",
     "content/posts/Ghidra/ghidra-stm32-re-11.md",
     "content/posts/Ghidra/ghidra-stm32-re-10.md",
@@ -245,10 +247,8 @@
     "static/imgs/Pasted image 20251209100328.png",
     "static/imgs/Pasted image 20251209100003.png",
     "content/posts/BMS/ad7280a-bms-dev-10.md",
-    "STM32-Bootloader-시리즈-기획.md",
     "SOMETHINGS/function",
     "SOMETHINGS",
-    "content/posts/BMS/ad7280a-bms-dev-09.md",
     "content/posts/FloorPlanner",
     "static/imgs/ad7280a-bms-dev-07-1.png",
     "static/imgs/ad7280a-bms-dev-01-2.png",
