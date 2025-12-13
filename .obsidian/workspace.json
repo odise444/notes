@@ -107,7 +107,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "d24e91da01741ffc",
@@ -216,6 +217,9 @@
   },
   "active": "b1c1588e131533c6",
   "lastOpenFiles": [
+    "content/posts/Ghidra/ghidra-stm32-re-15.md",
+    "content/posts/Ghidra/ghidra-stm32-re-14.md",
+    "content/posts/Ghidra/ghidra-stm32-re-13.md",
     "content/posts/BMS/ad7280a-bms-dev-20.md",
     "content/posts/BMS/ad7280a-bms-dev-19.md",
     "content/posts/BMS/ad7280a-bms-dev-18.md",
@@ -240,9 +244,6 @@
     "content/posts/Ghidra/ghidra-stm32-re-02.md",
     "content/posts/Ghidra/ghidra-stm32-quick-start.md",
     "content/posts/Ghidra/ghidra-stm32-re-01.md",
-    "FloorPlanner-시리즈-기획.md",
-    "content/posts/ghidra-stm32-quick-start.md",
-    "content/posts/BMS/ad7280a-bms-dev-12.md",
     "static/imgs/ghidra-stm32-quick-start-2.png",
     "static/imgs/ghidra-stm32-quick-start-1.png",
     "static/imgs/Pasted image 20251209100328.png",
