@@ -82,7 +82,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "path:\"layouts/partials/\" ",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -103,7 +103,8 @@
               "title": "북마크"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -216,6 +217,7 @@
   },
   "active": "b1c1588e131533c6",
   "lastOpenFiles": [
+    "content/posts/BMS/ad7280a-bms-dev-22.md",
     "static/imgs/ad7280a-bms-dev-22-1.png",
     "content/posts/BMS/ad7280a-bms-dev-12.md",
     "content/posts/BMS/ad7280a-bms-dev-13.md",
@@ -227,7 +229,6 @@
     "content/posts/BMS/ad7280a-bms-dev-19.md",
     "content/posts/BMS/ad7280a-bms-dev-20.md",
     "content/posts/BMS/ad7280a-bms-dev-21.md",
-    "content/posts/BMS/ad7280a-bms-dev-22.md",
     "AD7280A-시리즈-기획.md",
     "content/posts/BMS/ad7280a-bms-dev-08.md",
     "content/posts/BMS/ad7280a-bms-dev-24.md",
@@ -258,7 +259,6 @@
     "layouts/partials/extend_head.html",
     "layouts/partials/adsens_code.html",
     "layouts/partials",
-    "static/ads.txt",
-    "static/imgs/img-9ab93811.png"
+    "static/ads.txt"
   ]
 }
