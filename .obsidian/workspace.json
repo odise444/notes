@@ -41,12 +41,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "content/posts/BMS/ad7280a-bms-dev-13.md",
+                "file": "content/posts/BMS/ad7280a-bms-dev-22.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "ad7280a-bms-dev-13"
+              "title": "ad7280a-bms-dev-22"
             }
           }
         ],
@@ -216,6 +216,9 @@
   },
   "active": "b1c1588e131533c6",
   "lastOpenFiles": [
+    "static/imgs/ad7280a-bms-dev-22-1.png",
+    "content/posts/BMS/ad7280a-bms-dev-12.md",
+    "content/posts/BMS/ad7280a-bms-dev-13.md",
     "content/posts/BMS/ad7280a-bms-dev-14.md",
     "content/posts/BMS/ad7280a-bms-dev-15.md",
     "content/posts/BMS/ad7280a-bms-dev-16.md",
@@ -239,9 +242,6 @@
     "content/posts/Ghidra/ghidra-stm32-re-12.md",
     "content/posts/Ghidra/ghidra-stm32-re-11.md",
     "content/posts/Ghidra/ghidra-stm32-re-10.md",
-    "content/posts/Ghidra/ghidra-stm32-re-09.md",
-    "content/posts/Ghidra/ghidra-stm32-re-08.md",
-    "content/posts/Ghidra/ghidra-stm32-re-07.md",
     "Ghidra-역분석-시리즈-기획.md.10ff05a23edd1e08ea6e2a24cc6f91f6.tmp",
     "static/imgs/ghidra-stm32-quick-start-2.png",
     "static/imgs/ghidra-stm32-quick-start-1.png",
