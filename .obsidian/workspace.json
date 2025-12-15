@@ -41,12 +41,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "AD7280A-시리즈-기획.md",
+                "file": "content/posts/BMS/ad7280a-bms-dev-18.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "AD7280A-시리즈-기획"
+              "title": "ad7280a-bms-dev-18"
             }
           }
         ],
@@ -107,7 +107,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "d24e91da01741ffc",
@@ -216,6 +217,11 @@
   },
   "active": "b1c1588e131533c6",
   "lastOpenFiles": [
+    "static/imgs/ad7280a-bms-dev-18-4.png",
+    "static/imgs/ad7280a-bms-dev-18-3.png",
+    "static/imgs/ad7280a-bms-dev-18-2.png",
+    "static/imgs/ad7280a-bms-dev-18-1.png",
+    "AD7280A-시리즈-기획.md",
     "content/posts/BMS/ad7280a-bms-dev-22.md",
     "static/imgs/ad7280a-bms-dev-22-1.png",
     "content/posts/BMS/ad7280a-bms-dev-12.md",
@@ -228,7 +234,6 @@
     "content/posts/BMS/ad7280a-bms-dev-19.md",
     "content/posts/BMS/ad7280a-bms-dev-20.md",
     "content/posts/BMS/ad7280a-bms-dev-21.md",
-    "AD7280A-시리즈-기획.md",
     "content/posts/BMS/ad7280a-bms-dev-08.md",
     "content/posts/BMS/ad7280a-bms-dev-24.md",
     "Ghidra-역분석-시리즈-기획.md",
@@ -252,9 +257,6 @@
     "content/posts/FloorPlanner",
     "static/imgs/ad7280a-bms-dev-07-1.png",
     "static/imgs/ad7280a-bms-dev-01-2.png",
-    "static/imgs/ad7280a-bms-dev-01-1.png",
-    "static/imgs/ad7280a-bms-dev-03-1.png",
-    "static/imgs/ad7280a-resistor-divider.png",
     "layouts/partials/extend_head.html",
     "layouts/partials/adsens_code.html",
     "layouts/partials",
