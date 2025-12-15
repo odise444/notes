@@ -41,12 +41,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "content/posts/BMS/ad7280a-bms-dev-31.md",
+                "file": "content/posts/BMS/ad7280a-bms-dev-32.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "ad7280a-bms-dev-31"
+              "title": "ad7280a-bms-dev-32"
             }
           }
         ],
@@ -185,13 +185,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "content/posts/BMS/ad7280a-bms-dev-31.md",
+                "file": "content/posts/BMS/ad7280a-bms-dev-32.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "ad7280a-bms-dev-31 의 개요"
+              "title": "ad7280a-bms-dev-32 의 개요"
             }
           }
         ],
@@ -216,11 +216,13 @@
   },
   "active": "b1c1588e131533c6",
   "lastOpenFiles": [
+    "content/posts/BMS/ad7280a-bms-dev-b2.md",
+    "content/posts/BMS/ad7280a-bms-dev-b1.md",
+    "content/posts/BMS/ad7280a-bms-dev-31.md",
     "content/posts/BMS/ad7280a-bms-dev-30.md",
     "content/posts/BMS/ad7280a-bms-dev-29.md",
     "content/posts/BMS/ad7280a-bms-dev-18.md",
     "content/posts/BMS/ad7280a-bms-dev-32.md",
-    "content/posts/BMS/ad7280a-bms-dev-31.md",
     "static/imgs/ad7280a-bms-dev-18-4.png",
     "static/imgs/ad7280a-bms-dev-18-3.png",
     "static/imgs/ad7280a-bms-dev-18-2.png",
@@ -245,8 +247,6 @@
     "content/posts/Ghidra/ghidra-stm32-re-17.md",
     "content/posts/Ghidra/ghidra-stm32-re-16.md",
     "content/posts/Ghidra/ghidra-stm32-re-15.md",
-    "content/posts/Ghidra/ghidra-stm32-re-14.md",
-    "content/posts/Ghidra/ghidra-stm32-re-13.md",
     "Ghidra-역분석-시리즈-기획.md.10ff05a23edd1e08ea6e2a24cc6f91f6.tmp",
     "static/imgs/ghidra-stm32-quick-start-2.png",
     "static/imgs/ghidra-stm32-quick-start-1.png",
