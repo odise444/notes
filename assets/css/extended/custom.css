@@ -2,3 +2,27 @@
   height: auto;
   max-width: 100%;
 }
+
+/* ASCII art 한글 깨짐 방지 - 한글 지원 monospace 폰트 */
+pre, code, .highlight code, .post-content pre, .post-content code {
+  font-family: 
+    "Noto Sans Mono",     /* Google Fonts 웹폰트 (한글 지원) */
+    "D2Coding",           /* 한글 개발자 폰트 (로컬) */
+    "Consolas",
+    "Monaco", 
+    monospace !important;
+  font-size: 0.875em;
+  line-height: 1.6;
+  letter-spacing: 0;
+}
+
+/* 코드 블록 내부 정렬 */
+pre {
+  white-space: pre;
+  overflow-x: auto;
+}
+
+/* 한글 문자 폭 고정 (East Asian Width) */
+pre code {
+  font-variant-east-asian: full-width;
+}
