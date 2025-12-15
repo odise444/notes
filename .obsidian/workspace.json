@@ -217,6 +217,7 @@
   },
   "active": "b1c1588e131533c6",
   "lastOpenFiles": [
+    "content/posts/BMS/ad7280a-bms-dev-29.md",
     "static/imgs/ad7280a-bms-dev-18-4.png",
     "static/imgs/ad7280a-bms-dev-18-3.png",
     "static/imgs/ad7280a-bms-dev-18-2.png",
@@ -256,7 +257,6 @@
     "SOMETHINGS",
     "content/posts/FloorPlanner",
     "static/imgs/ad7280a-bms-dev-07-1.png",
-    "static/imgs/ad7280a-bms-dev-01-2.png",
     "layouts/partials/extend_head.html",
     "layouts/partials/adsens_code.html",
     "layouts/partials",
