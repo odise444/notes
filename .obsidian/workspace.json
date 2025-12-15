@@ -216,6 +216,8 @@
   },
   "active": "b1c1588e131533c6",
   "lastOpenFiles": [
+    "content/posts/BMS/ad7280a-bms-dev-b4.md",
+    "content/posts/BMS/ad7280a-bms-dev-b3.md",
     "content/posts/BMS/ad7280a-bms-dev-b2.md",
     "content/posts/BMS/ad7280a-bms-dev-b1.md",
     "content/posts/BMS/ad7280a-bms-dev-31.md",
@@ -245,8 +247,6 @@
     "content/posts/BMS/ad7280a-bms-dev-23.md",
     "content/posts/Ghidra/ghidra-stm32-re-18.md",
     "content/posts/Ghidra/ghidra-stm32-re-17.md",
-    "content/posts/Ghidra/ghidra-stm32-re-16.md",
-    "content/posts/Ghidra/ghidra-stm32-re-15.md",
     "Ghidra-역분석-시리즈-기획.md.10ff05a23edd1e08ea6e2a24cc6f91f6.tmp",
     "static/imgs/ghidra-stm32-quick-start-2.png",
     "static/imgs/ghidra-stm32-quick-start-1.png",
