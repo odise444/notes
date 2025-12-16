@@ -130,7 +130,7 @@ void SOC_Coulomb_Update(float current_a) {
 ### 원리
 
 **무부하 전압**과 **SOC**의 관계:
-![](ad7280a-bms-dev-18-1.png)
+![](Ghidra-역분석-시리즈-기획-1.png)
 ### LiFePO4 OCV 테이블
 
 ```c
