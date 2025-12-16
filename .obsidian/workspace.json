@@ -13,10 +13,10 @@
             "state": {
               "type": "image",
               "state": {
-                "file": "static/imgs/KakaoTalk_20251216_145922389.jpg"
+                "file": "static/imgs/KakaoTalk_20251216_145922389_04.jpg"
               },
               "icon": "lucide-image",
-              "title": "KakaoTalk_20251216_145922389"
+              "title": "KakaoTalk_20251216_145922389_04"
             }
           }
         ]
@@ -185,14 +185,15 @@
   },
   "active": "754c6bb06cfb021b",
   "lastOpenFiles": [
+    "static/imgs/EVAL_AD7280A.jpg",
+    "static/imgs/pico.jpg",
+    "static/imgs/img-4f0b177c.png",
+    "static/imgs/6cells.jpg",
+    "static/imgs/12cells.jpg",
     "Ghidra-역분석-시리즈-기획.md",
     "static/imgs/KakaoTalk_20251216_145922389_06.jpg",
     "static/imgs/KakaoTalk_20251216_145922389_05.jpg",
     "static/imgs/KakaoTalk_20251216_145922389_04.jpg",
-    "static/imgs/KakaoTalk_20251216_145922389_03.jpg",
-    "static/imgs/KakaoTalk_20251216_145922389_02.jpg",
-    "static/imgs/KakaoTalk_20251216_145922389_01.jpg",
-    "static/imgs/KakaoTalk_20251216_145922389.jpg",
     "static/imgs/ad7280a-bms-dev-22-1.png",
     "static/imgs/ad7280a-bms-dev-18-4.png",
     "static/imgs/ad7280a-bms-dev-18-3.png",
@@ -220,7 +221,6 @@
     "content/posts/BMS/ad7280a-bms-dev-25.md",
     "content/posts/BMS/ad7280a-bms-dev-24.md",
     "content/posts/BMS/ad7280a-bms-dev-23.md",
-    "content/posts/BMS/ad7280a-bms-dev-22.md",
     "Ghidra-역분석-시리즈-기획.md.d2b622a871801e80a48d6f590608987b.tmp",
     "content/posts/Ghidra",
     "SOMETHINGS/function",
