@@ -1,78 +1,228 @@
 ---
 title: "AD7280A BMS 개발기 #20 - 진단 인터페이스"
-date: 2024-12-13
+date: 2024-02-03
 draft: false
-tags: ["AD7280A", "BMS", "STM32", "UART", "CLI"]
+tags: ["AD7280A", "BMS", "STM32", "진단", "CLI"]
 categories: ["BMS 개발"]
 series: ["AD7280A BMS 개발"]
-summary: "개발하고 디버깅하려면 CLI가 필요하다. UART로 간단하게 만들었다."
+summary: "개발 중에도, 현장에서도 BMS 상태를 봐야 한다. 진단 인터페이스 만들기."
 ---
 
-개발 중에 상태 확인하려면 매번 디버거 붙이기 귀찮다. UART CLI를 만들어두면 편하다.
+개발할 때마다 디버거 연결하기 귀찮다. 간단한 명령으로 상태 보고 설정할 수 있으면 좋겠다.
 
----
-
-간단한 명령어들:
-
-```
-> status
-State: IDLE
-Pack: 72.4V, 0.2A
-SOC: 85%
-Temp: 28°C / 31°C
-
-> cells
-Cell 01: 3.201V
-Cell 02: 3.198V
-Cell 03: 3.203V
-...
-Cell 24: 3.195V
-Min: 3.195V (Cell 24)
-Max: 3.203V (Cell 03)
-Delta: 8mV
-
-> balance
-Balancing: OFF
-Target mask: 0x000000
-
-> log
-[14:23:01] EVT_CHARGE_START
-[14:35:22] EVT_PERIODIC V=72.1V I=5.2A
-[14:45:22] EVT_PERIODIC V=73.5V I=4.8A
-...
-```
+UART CLI 만들었다.
 
 ---
 
-구현은 간단하다.
+## CLI 구조
 
 ```c
-void CLI_Process(char *cmd) {
-    if (strcmp(cmd, "status") == 0) {
-        printf("State: %s\n", StateToString(bms_state));
-        printf("Pack: %.1fV, %.1fA\n", pack_voltage, pack_current);
-        printf("SOC: %d%%\n", soc);
+typedef struct {
+    const char *cmd;
+    void (*handler)(int argc, char **argv);
+    const char *help;
+} CLI_Command_t;
+
+const CLI_Command_t commands[] = {
+    {"help",   CLI_Help,     "Show commands"},
+    {"status", CLI_Status,   "Show BMS status"},
+    {"cells",  CLI_Cells,    "Show cell voltages"},
+    {"temp",   CLI_Temp,     "Show temperatures"},
+    {"log",    CLI_Log,      "Show/clear logs"},
+    {"bal",    CLI_Balance,  "Balance control"},
+    {"reset",  CLI_Reset,    "Reset BMS"},
+    {NULL, NULL, NULL}
+};
+```
+
+---
+
+## 명령 파싱
+
+```c
+void CLI_Process(char *line) {
+    char *argv[8];
+    int argc = 0;
+    
+    // 공백으로 분리
+    char *token = strtok(line, " ");
+    while (token && argc < 8) {
+        argv[argc++] = token;
+        token = strtok(NULL, " ");
     }
-    else if (strcmp(cmd, "cells") == 0) {
-        for (int i = 0; i < 24; i++) {
-            printf("Cell %02d: %.3fV\n", i+1, cell_mv[i]/1000.0f);
+    
+    if (argc == 0) return;
+    
+    // 명령 찾기
+    for (int i = 0; commands[i].cmd; i++) {
+        if (strcmp(argv[0], commands[i].cmd) == 0) {
+            commands[i].handler(argc, argv);
+            return;
         }
     }
-    else if (strcmp(cmd, "reset") == 0) {
-        NVIC_SystemReset();
+    
+    printf("Unknown command: %s\n", argv[0]);
+}
+```
+
+---
+
+## status 명령
+
+```c
+void CLI_Status(int argc, char **argv) {
+    printf("=== BMS Status ===\n");
+    printf("State: %s\n", state_names[g_bms.state]);
+    printf("Pack: %.1fV, %.1fA\n", 
+        g_bms.pack_voltage_mv / 1000.0f,
+        g_bms.pack_current_ma / 1000.0f);
+    printf("SOC: %d%%\n", g_bms.soc);
+    printf("Temp: %d~%d C\n", g_bms.min_temp / 10, g_bms.max_temp / 10);
+    printf("Cells: %dmV ~ %dmV (delta %dmV)\n",
+        g_bms.min_cell_mv, g_bms.max_cell_mv,
+        g_bms.max_cell_mv - g_bms.min_cell_mv);
+}
+```
+
+출력:
+
+```
+=== BMS Status ===
+State: NORMAL
+Pack: 72.3V, 15.2A
+SOC: 85%
+Temp: 28~32 C
+Cells: 3312mV ~ 3348mV (delta 36mV)
+```
+
+---
+
+## cells 명령
+
+```c
+void CLI_Cells(int argc, char **argv) {
+    printf("=== Cell Voltages ===\n");
+    for (int i = 0; i < 24; i++) {
+        char bal = g_balancing[i] ? '*' : ' ';
+        printf("C%02d: %4dmV %c", i + 1, g_cells_mv[i], bal);
+        if ((i + 1) % 4 == 0) printf("\n");
     }
-    else {
-        printf("Unknown command\n");
+}
+```
+
+출력:
+
+```
+=== Cell Voltages ===
+C01: 3312mV   C02: 3320mV   C03: 3315mV   C04: 3348mV *
+C05: 3318mV   C06: 3325mV   C07: 3330mV   C08: 3342mV *
+...
+```
+
+`*` 표시가 밸런싱 중인 셀.
+
+---
+
+## bal 명령
+
+수동 밸런싱 제어:
+
+```c
+void CLI_Balance(int argc, char **argv) {
+    if (argc < 2) {
+        printf("Usage: bal <on|off|auto> [cell]\n");
+        return;
+    }
+    
+    if (strcmp(argv[1], "on") == 0 && argc >= 3) {
+        int cell = atoi(argv[2]);
+        if (cell >= 1 && cell <= 24) {
+            g_balancing[cell - 1] = true;
+            printf("Cell %d balance ON\n", cell);
+        }
+    }
+    else if (strcmp(argv[1], "off") == 0) {
+        for (int i = 0; i < 24; i++) g_balancing[i] = false;
+        printf("All balance OFF\n");
+    }
+    else if (strcmp(argv[1], "auto") == 0) {
+        g_balance_mode = BALANCE_AUTO;
+        printf("Auto balance mode\n");
     }
 }
 ```
 
 ---
 
-나중에 양산하면 CAN으로 진단하는 UDS 프로토콜도 추가했다. 근데 개발 단계에서는 UART CLI가 훨씬 편하다.
+## 시리얼 수신
+
+인터럽트로 한 줄씩 받기:
+
+```c
+char rx_buf[64];
+int rx_idx = 0;
+
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
+    char c = rx_char;
+    
+    if (c == '\r' || c == '\n') {
+        rx_buf[rx_idx] = '\0';
+        if (rx_idx > 0) {
+            CLI_Process(rx_buf);
+        }
+        rx_idx = 0;
+        printf("> ");  // 프롬프트
+    } else {
+        if (rx_idx < sizeof(rx_buf) - 1) {
+            rx_buf[rx_idx++] = c;
+        }
+    }
+    
+    HAL_UART_Receive_IT(huart, &rx_char, 1);
+}
+```
 
 ---
 
-이걸로 기본 기능은 끝. 다음 글부터 고급 기능을 다룬다.
+## CAN 진단
+
+UDS(Unified Diagnostic Services) 간략 버전:
+
+```c
+void CAN_DiagHandler(uint8_t *data) {
+    uint8_t service = data[0];
+    
+    switch (service) {
+        case 0x22:  // Read Data By ID
+            CAN_DiagReadData(data[1], data[2]);
+            break;
+        case 0x2E:  // Write Data By ID
+            CAN_DiagWriteData(data[1], data[2], &data[3]);
+            break;
+        case 0x19:  // Read DTC
+            CAN_DiagReadDTC();
+            break;
+        case 0x14:  // Clear DTC
+            CAN_DiagClearDTC();
+            break;
+    }
+}
+```
+
+---
+
+## 정리
+
+- UART CLI: 개발/디버깅용
+- 명령: status, cells, temp, log, bal, reset
+- CAN 진단: UDS 기반
+
+현장 가서 노트북 연결하고 `status` 치면 바로 상태 파악.
+
+---
+
+Part 6 통신 & 진단편 끝.
+
+다음은 고급 기능.
 
 [#21 - SOH 추정](/posts/bms/ad7280a-bms-dev-21/)

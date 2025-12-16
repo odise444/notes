@@ -1,93 +1,188 @@
 ---
 title: "AD7280A BMS 개발기 #19 - 데이터 로깅"
-date: 2024-12-13
+date: 2024-02-02
 draft: false
-tags: ["AD7280A", "BMS", "STM32", "Flash", "로깅"]
+tags: ["AD7280A", "BMS", "STM32", "로깅", "Flash"]
 categories: ["BMS 개발"]
 series: ["AD7280A BMS 개발"]
-summary: "나중에 문제 생기면 원인을 찾아야 한다. Flash에 이력을 저장하자."
+summary: "문제 생기면 원인 찾아야 한다. 데이터 로깅 필수."
 ---
 
-"어제 배터리가 갑자기 꺼졌는데 왜 그런 거죠?"
+현장에서 문제 생기면 "그때 뭐가 어땠는데?"라고 묻는다.
 
-로깅이 없으면 답을 못 한다. 로깅이 있으면 "어제 14:23에 Cell 5가 2.4V로 떨어졌습니다"라고 답할 수 있다.
+기록이 없으면 답을 못 한다. 로깅 필수.
 
 ---
 
-STM32 내부 Flash에 저장한다. 외부 EEPROM을 쓸 수도 있는데, 내부 Flash가 간단하다.
+## 뭘 기록할까
 
-링 버퍼 구조로 만든다. 가득 차면 오래된 데이터부터 덮어쓴다.
+1. **이벤트 로그**: 알람, 상태 변화, 폴트
+2. **주기적 데이터**: 전압, 전류, 온도, SOC
+3. **통계**: 사이클 수, 최대/최소값
+
+---
+
+## 저장 위치
+
+옵션:
+- 내부 Flash: 용량 작음, 쓰기 횟수 제한
+- 외부 EEPROM: 느림, 용량 작음
+- SD 카드: 용량 큼, 탈착 가능
+- 외부 Flash (W25Q): 빠름, 용량 적당
+
+나는 내부 Flash + 외부 SPI Flash 조합.
+
+- 내부 Flash: 설정값, 통계 (자주 안 바뀜)
+- 외부 Flash: 이벤트 로그, 주기 데이터
+
+---
+
+## 링 버퍼
+
+Flash는 쓰기 횟수 제한이 있다. 한 곳만 계속 쓰면 수명 줄어든다.
+
+링 버퍼로 분산:
 
 ```c
-#define LOG_SECTOR_START    0x08060000  // Flash 섹터 주소
-#define LOG_SECTOR_SIZE     0x20000     // 128KB
-#define LOG_ENTRY_SIZE      32
+#define LOG_SECTOR_SIZE  4096
+#define LOG_SECTOR_COUNT 64    // 256KB
 
 typedef struct {
-    uint32_t timestamp;
-    uint8_t  event_type;
-    uint8_t  severity;
-    uint16_t cell_voltages[6];  // 대표값만
-    int8_t   temperatures[2];
-    int16_t  current;
-    uint8_t  soc;
-    uint8_t  reserved[5];
-} LogEntry_t;
-```
+    uint32_t write_ptr;
+    uint32_t read_ptr;
+    uint32_t count;
+} LogBuffer_t;
 
----
-
-Flash 쓰기는 좀 귀찮다. 쓰기 전에 지워야 하고, 섹터 단위로만 지울 수 있다.
-
-```c
-void Log_WriteEntry(LogEntry_t *entry) {
-    // 다음 쓸 위치 계산
-    uint32_t addr = LOG_SECTOR_START + (log_index * LOG_ENTRY_SIZE);
+void Log_Write(uint8_t *data, uint16_t len) {
+    uint32_t addr = LOG_BASE + (g_log.write_ptr % (LOG_SECTOR_SIZE * LOG_SECTOR_COUNT));
     
-    // 섹터 경계 넘으면 지우기
-    if (addr >= LOG_SECTOR_START + LOG_SECTOR_SIZE) {
-        HAL_FLASH_Unlock();
-        FLASH_Erase_Sector(FLASH_SECTOR_7, VOLTAGE_RANGE_3);
-        HAL_FLASH_Lock();
-        log_index = 0;
-        addr = LOG_SECTOR_START;
+    Flash_Write(addr, data, len);
+    
+    g_log.write_ptr += len;
+    g_log.count++;
+    
+    // 섹터 가득 차면 다음 섹터 erase
+    if ((g_log.write_ptr % LOG_SECTOR_SIZE) == 0) {
+        uint32_t next_sector = g_log.write_ptr / LOG_SECTOR_SIZE;
+        Flash_EraseSector(LOG_BASE + next_sector * LOG_SECTOR_SIZE);
     }
-    
-    // 쓰기
-    HAL_FLASH_Unlock();
-    uint32_t *data = (uint32_t *)entry;
-    for (int i = 0; i < LOG_ENTRY_SIZE / 4; i++) {
-        HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD, addr + i*4, data[i]);
-    }
-    HAL_FLASH_Lock();
-    
-    log_index++;
 }
 ```
 
 ---
 
-이벤트 종류:
+## 이벤트 로그 구조
 
 ```c
-#define EVT_POWER_ON        0x01
-#define EVT_POWER_OFF       0x02
-#define EVT_FAULT_OV        0x10
-#define EVT_FAULT_UV        0x11
-#define EVT_FAULT_OT        0x12
-#define EVT_CHARGE_START    0x20
-#define EVT_CHARGE_END      0x21
-#define EVT_PERIODIC        0x80  // 주기적 기록 (1분마다)
+typedef struct __attribute__((packed)) {
+    uint32_t timestamp;    // ms since boot
+    uint8_t  event_type;   // 이벤트 종류
+    uint8_t  data[3];      // 추가 데이터
+} EventLog_t;  // 8 bytes
+
+typedef enum {
+    EVT_BOOT = 0,
+    EVT_FAULT,
+    EVT_FAULT_CLEAR,
+    EVT_STATE_CHANGE,
+    EVT_OV_ALARM,
+    EVT_UV_ALARM,
+    EVT_OT_ALARM,
+    // ...
+} EventType_t;
+```
+
+이벤트 발생 시:
+
+```c
+void Log_Event(EventType_t type, uint8_t d1, uint8_t d2, uint8_t d3) {
+    EventLog_t log;
+    log.timestamp = HAL_GetTick();
+    log.event_type = type;
+    log.data[0] = d1;
+    log.data[1] = d2;
+    log.data[2] = d3;
+    
+    Log_Write((uint8_t*)&log, sizeof(log));
+}
+
+// 사용 예
+Log_Event(EVT_OV_ALARM, cell_index, voltage_mv >> 8, voltage_mv & 0xFF);
 ```
 
 ---
 
-Wear Leveling도 고려해야 한다. Flash는 쓰기 횟수 제한이 있다 (보통 10만 회). 같은 위치에 계속 쓰면 빨리 닳는다.
+## 주기 데이터
 
-링 버퍼 구조면 자연스럽게 분산되긴 하는데, 더 신경 쓰려면 별도 처리가 필요하다.
+1분마다 상태 스냅샷:
+
+```c
+typedef struct __attribute__((packed)) {
+    uint32_t timestamp;
+    uint16_t pack_voltage;
+    int16_t  pack_current;
+    uint8_t  soc;
+    int8_t   max_temp;
+    uint16_t max_cell_mv;
+    uint16_t min_cell_mv;
+} PeriodicLog_t;  // 14 bytes
+
+void Log_Periodic(void) {
+    static uint32_t last_log = 0;
+    
+    if (HAL_GetTick() - last_log > 60000) {  // 1분
+        last_log = HAL_GetTick();
+        
+        PeriodicLog_t log;
+        log.timestamp = HAL_GetTick();
+        log.pack_voltage = g_bms.pack_voltage_mv / 10;
+        log.pack_current = g_bms.pack_current_ma / 10;
+        log.soc = g_bms.soc;
+        log.max_temp = g_bms.max_temp / 10;
+        log.max_cell_mv = g_bms.max_cell_mv;
+        log.min_cell_mv = g_bms.min_cell_mv;
+        
+        Log_Write((uint8_t*)&log, sizeof(log));
+    }
+}
+```
 
 ---
 
-다음 글에서 진단 인터페이스를 다룬다.
+## 로그 읽기
+
+UART로 덤프:
+
+```c
+void Log_Dump(void) {
+    uint32_t addr = LOG_BASE;
+    EventLog_t log;
+    
+    printf("=== Event Log ===\n");
+    
+    for (int i = 0; i < g_log.count; i++) {
+        Flash_Read(addr, (uint8_t*)&log, sizeof(log));
+        
+        printf("[%lu] Type:%d Data:%02X %02X %02X\n",
+            log.timestamp, log.event_type,
+            log.data[0], log.data[1], log.data[2]);
+        
+        addr += sizeof(log);
+    }
+}
+```
+
+---
+
+## 정리
+
+- 링 버퍼로 Flash 수명 관리
+- 이벤트 로그: 알람, 상태 변화
+- 주기 로그: 1분마다 스냅샷
+- UART/CAN으로 덤프
+
+---
+
+다음은 진단 인터페이스.
 
 [#20 - 진단 인터페이스](/posts/bms/ad7280a-bms-dev-20/)
