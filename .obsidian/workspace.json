@@ -4,19 +4,19 @@
     "type": "split",
     "children": [
       {
-        "id": "19a5f86b491d7f89",
+        "id": "2fcd019dc25e99a5",
         "type": "tabs",
         "children": [
           {
-            "id": "754c6bb06cfb021b",
+            "id": "36bd58b5d685bd6c",
             "type": "leaf",
             "state": {
               "type": "image",
               "state": {
-                "file": "static/imgs/KakaoTalk_20251216_145922389_04.jpg"
+                "file": "static/imgs/ad7280a-bms-dev-22-1.png"
               },
               "icon": "lucide-image",
-              "title": "KakaoTalk_20251216_145922389_04"
+              "title": "ad7280a-bms-dev-22-1"
             }
           }
         ]
@@ -183,20 +183,20 @@
       "github-sync:Sync with Remote": false
     }
   },
-  "active": "754c6bb06cfb021b",
+  "active": "36bd58b5d685bd6c",
   "lastOpenFiles": [
-    "static/imgs/EVAL_AD7280A.jpg",
-    "static/imgs/pico.jpg",
-    "static/imgs/img-4f0b177c.png",
-    "static/imgs/6cells.jpg",
-    "static/imgs/12cells.jpg",
-    "Ghidra-역분석-시리즈-기획.md",
-    "static/imgs/KakaoTalk_20251216_145922389_06.jpg",
-    "static/imgs/KakaoTalk_20251216_145922389_05.jpg",
-    "static/imgs/KakaoTalk_20251216_145922389_04.jpg",
-    "static/imgs/ad7280a-bms-dev-22-1.png",
     "static/imgs/ad7280a-bms-dev-18-4.png",
     "static/imgs/ad7280a-bms-dev-18-3.png",
+    "static/imgs/ad7280a-bms-dev-18-2.png",
+    "static/imgs/ad7280a-bms-dev-03-1.png",
+    "static/imgs/ad7280a-bms-dev-01-2.png",
+    "static/imgs/ad7280a-bms-dev-01-1.png",
+    "static/imgs/Pasted image 20251209100328.png",
+    "static/imgs/Pasted image 20251209100003.png",
+    "static/imgs/KakaoTalk_20251216_145922389_05.jpg",
+    "static/imgs/box.jpg",
+    "static/imgs/cells connection.jpg",
+    "Ghidra-역분석-시리즈-기획.md",
     "content/posts/Ghidra/ghidra-stm32-re-18.md",
     "content/posts/Ghidra/ghidra-stm32-re-17.md",
     "content/posts/Ghidra/ghidra-stm32-re-16.md",
