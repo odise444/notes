@@ -1,89 +1,172 @@
 ---
-title: "AD7280A BMS 개발기 #4 - 레지스터 맵"
-date: 2024-12-04
+title: "AD7280A BMS 개발기 #4 - 레지스터 맵 정복하기"
+date: 2024-01-18
 draft: false
 tags: ["AD7280A", "BMS", "STM32", "레지스터"]
 categories: ["BMS 개발"]
 series: ["AD7280A BMS 개발"]
-summary: "레지스터가 30개 넘는다. 자주 쓰는 것만 정리했다."
+summary: "60페이지 데이터시트에서 진짜 필요한 레지스터는 10개 정도다."
 ---
 
-AD7280A 레지스터가 30개가 넘는다. 데이터시트 보면 머리 아프다.
+데이터시트가 60페이지다. 처음엔 다 읽으려고 했는데 포기했다.
 
-자주 쓰는 것만 추리면 이 정도다.
+실제로 자주 쓰는 레지스터만 정리.
+
+---
+
+## 주요 레지스터
+
+| 주소 | 이름 | 용도 |
+|------|------|------|
+| 0x00 | Cell Voltage 1 | 셀 1 전압 (읽기 전용) |
+| 0x01 | Cell Voltage 2 | 셀 2 전압 |
+| ... | ... | ... |
+| 0x05 | Cell Voltage 6 | 셀 6 전압 |
+| 0x06 | AUX ADC 1 | 보조 ADC (온도 등) |
+| 0x0D | Self Test | 자가 진단 결과 |
+| 0x0E | Control HB | 제어 레지스터 상위 |
+| 0x0F | Control LB | 제어 레지스터 하위 |
+| 0x10 | Cell OV | 과전압 임계값 |
+| 0x11 | Cell UV | 저전압 임계값 |
+| 0x14 | Cell Balance | 밸런싱 제어 |
+
+셀 전압 읽고, 밸런싱 하고, 알람 설정하는 게 전부다. 10개 레지스터면 BMS 기본 기능 다 된다.
+
+---
+
+## Control 레지스터
+
+CTRL_HB (0x0E):
+
+```
+Bit 7-6: Conversion input (00=Cell, 01=AUX, ...)
+Bit 5: Conversion start method
+Bit 4: Read type
+Bit 3: Averaging enable
+Bit 2-0: Reserved
+```
+
+CTRL_LB (0x0F):
+
+```
+Bit 7: Software reset
+Bit 6: PD (Power Down)
+Bit 5: Acquisition time
+Bit 4: Thermistor enable
+Bit 3-2: Increment device addr
+Bit 1: Must set 1
+Bit 0: ADDR_RD_EN
+```
+
+처음엔 이게 뭔 소린가 싶었는데, 필요할 때마다 찾아보면 된다.
+
+자주 쓰는 설정:
 
 ```c
-// 자주 쓰는 레지스터
-#define REG_CELL_VTG1       0x00  // Cell 1 전압
-#define REG_CELL_VTG2       0x01  // Cell 2 전압
-#define REG_CELL_VTG3       0x02  // Cell 3 전압
-#define REG_CELL_VTG4       0x03  // Cell 4 전압
-#define REG_CELL_VTG5       0x04  // Cell 5 전압
-#define REG_CELL_VTG6       0x05  // Cell 6 전압
-#define REG_AUX_ADC1        0x06  // 보조 ADC (온도)
-#define REG_AUX_ADC2        0x07
-#define REG_AUX_ADC3        0x08
-#define REG_AUX_ADC4        0x09
-#define REG_AUX_ADC5        0x0A
-#define REG_AUX_ADC6        0x0B
-#define REG_SELF_TEST       0x0C  // 자가진단 결과
-#define REG_CONTROL_HB      0x0D  // 제어 레지스터 상위
-#define REG_CONTROL_LB      0x0E  // 제어 레지스터 하위
-#define REG_CELL_OVERVTG    0x0F  // 과전압 임계값
-#define REG_CELL_UNDERVTG   0x10  // 저전압 임계값
-#define REG_CELL_BALANCE    0x14  // 밸런싱 제어
-#define REG_ALERT           0x18  // 알람 상태
+#define CTRL_HB_CONV_CELL    0x00  // 셀 전압 변환
+#define CTRL_HB_CONV_AUX     0x40  // AUX ADC 변환
+#define CTRL_HB_READ_ALL     0x10  // 전체 읽기
+
+#define CTRL_LB_RESET        0x80  // 소프트웨어 리셋
+#define CTRL_LB_THERM_EN     0x10  // 서미스터 활성화
+#define CTRL_LB_MUST_SET     0x02  // 항상 1로 설정
 ```
 
 ---
 
-레지스터 구조를 보면 특징이 있다.
+## 셀 전압 레지스터
 
-0x00~0x0B: 측정 결과 (읽기 전용)
-0x0D~0x1B: 제어/설정 (읽기/쓰기)
+0x00~0x05가 Cell 1~6 전압.
 
-Cell 전압 레지스터는 12비트 값이 들어있다. 이걸 mV로 바꾸려면 계산이 필요하다.
-
-```c
-// AD7280A 전압 변환
-// Vout = (raw / 4096) * 5V + 1V
-// 측정 범위: 1V ~ 6V
-
-float raw_to_mv(uint16_t raw) {
-    return ((float)raw / 4096.0f) * 5000.0f + 1000.0f;
-}
-```
-
-1V 오프셋이 있는 게 특이하다. 리튬 셀 전압이 보통 2.5V~4.2V니까 1V~6V 범위면 충분하긴 하다.
-
----
-
-Control 레지스터가 좀 복잡하다.
+12비트 값이 들어있다. mV로 변환하려면:
 
 ```c
-// CONTROL_HB (0x0D)
-// Bit 7: CONV_START - 변환 시작
-// Bit 6: READ_ALL - 연속 읽기 모드
-// Bit 5: SW_RESET - 소프트웨어 리셋
-// Bit 4: PD - 파워 다운
-// Bit 3-0: CONV_INPUT - 변환 채널 선택
-
-// CONTROL_LB (0x0E)  
-// Bit 7-5: AQ_TIME - Acquisition time
-// Bit 4: THERMISTOR - 서미스터 모드
-// Bit 3-0: 예약
+// 12bit raw → mV
+// 공식: V = (raw * 0.976mV) + 1000mV
+uint16_t raw = ReadRegister(CELL_VOLTAGE_1);
+float voltage_mv = raw * 0.976f + 1000.0f;
 ```
 
-변환을 시작하려면 CONTROL_HB에 CONV_START 비트를 세팅해야 한다. 이게 One-shot이라 매번 세팅해줘야 한다.
+AD7280A는 1V~5V 범위를 측정한다. 리튬 셀이 보통 2.5V~4.2V니까 충분하다.
 
 ---
 
-처음에 레지스터 주소를 잘못 써서 엉뚱한 값이 나온 적 있다. 
+## 밸런싱 레지스터
 
-0x00이 Cell 1인데 나는 습관적으로 0x01부터 시작했다. 그래서 Cell 2 값이 Cell 1에 찍히고 그랬다. 데이터시트 인덱스가 0부터 시작하는지 1부터 시작하는지 확인해야 한다.
+CELL_BALANCE (0x14):
+
+```
+Bit 5: CB6 (Cell 6 밸런싱)
+Bit 4: CB5
+Bit 3: CB4
+Bit 2: CB3
+Bit 1: CB2
+Bit 0: CB1
+```
+
+해당 비트 1로 설정하면 그 셀의 밸런싱 스위치가 ON.
+
+```c
+// Cell 1, 3 밸런싱 ON
+WriteRegister(CELL_BALANCE, 0x05);  // 0b00000101
+```
+
+내부에 밸런싱 스위치가 있어서 외부 저항만 달면 된다. 편하다.
 
 ---
 
-다음 글에서 읽기/쓰기 프레임 구조를 정리한다. 이게 좀 복잡하다.
+## Alert 레지스터
+
+CELL_OV (0x10): 과전압 임계값
+CELL_UV (0x11): 저전압 임계값
+
+```c
+// 임계값 계산
+// 값 = (전압mV - 1000) / 6
+// 예: 4.2V → (4200 - 1000) / 6 = 533
+
+#define OV_4V2  533  // 4.2V
+#define UV_2V5  250  // 2.5V
+```
+
+임계값 넘으면 Alert 핀이 Low로 떨어진다.
+
+---
+
+## 레지스터 정의
+
+코드에서 쓰기 편하게 define:
+
+```c
+// Cell Voltage Registers
+#define AD7280A_CELL_V1      0x00
+#define AD7280A_CELL_V2      0x01
+#define AD7280A_CELL_V3      0x02
+#define AD7280A_CELL_V4      0x03
+#define AD7280A_CELL_V5      0x04
+#define AD7280A_CELL_V6      0x05
+
+// AUX ADC
+#define AD7280A_AUX_ADC1     0x06
+#define AD7280A_AUX_ADC2     0x07
+
+// Control
+#define AD7280A_CTRL_HB      0x0E
+#define AD7280A_CTRL_LB      0x0F
+
+// Threshold
+#define AD7280A_CELL_OV      0x10
+#define AD7280A_CELL_UV      0x11
+
+// Balance
+#define AD7280A_CELL_BAL     0x14
+
+// Alert
+#define AD7280A_ALERT        0x18
+```
+
+---
+
+다음은 프레임 구조. 32비트 안에 주소, 데이터, CRC가 어떻게 들어가는지.
 
 [#5 - 프레임 구조](/posts/bms/ad7280a-bms-dev-5/)

@@ -1,100 +1,198 @@
 ---
-title: "AD7280A BMS 개발기 #7 - 드디어 셀 전압이 읽힌다"
-date: 2024-12-07
+title: "AD7280A BMS 개발기 #7 - 셀 전압 읽기, 드디어 측정"
+date: 2024-01-21
 draft: false
-tags: ["AD7280A", "BMS", "STM32", "전압측정"]
+tags: ["AD7280A", "BMS", "STM32", "전압측정", "ADC"]
 categories: ["BMS 개발"]
 series: ["AD7280A BMS 개발"]
-summary: "CRC 문제 해결하고 드디어 셀 전압을 읽었다. 실제 값이랑 비교해봤다."
+summary: "CRC 문제 해결하고 드디어 셀 전압을 읽었다. 뭔가 숫자가 나온다!"
 ---
 
-CRC가 드디어 맞았다. 이제 셀 전압을 읽어볼 차례다.
+CRC 문제 해결하고 이제 진짜 셀 전압을 읽어보자.
+
+![6셀 테스트](/imgs/6cells.jpg)
+
+일단 6셀로 테스트.
 
 ---
 
-셀 전압 읽기 순서:
+## 변환 과정
+
+AD7280A로 셀 전압 읽는 순서:
 
 1. 변환 시작 명령
-2. 변환 완료 대기 (~500us)
-3. 결과 레지스터 읽기
+2. 변환 완료 대기 (~1ms)
+3. 결과 읽기
+
+간단하다.
+
+---
+
+## 변환 시작
+
+CTRL_HB 레지스터에 변환 시작 명령:
 
 ```c
 void AD7280A_StartConversion(void) {
-    // CONTROL_HB에 CONV_START 비트 세팅
-    uint8_t ctrl = 0x80;  // Bit 7 = CONV_START
-    AD7280A_WriteReg(REG_CONTROL_HB, ctrl);
-}
-
-uint16_t AD7280A_ReadCellVoltage(uint8_t cell) {
-    // cell 0~5
-    uint32_t resp = AD7280A_ReadReg(REG_CELL_VTG1 + cell);
-    uint16_t raw = (resp >> 13) & 0x0FFF;  // 12비트 추출
-    return raw;
+    // 모든 디바이스에 변환 시작
+    uint32_t frame = AD7280A_BuildWriteFrame(
+        0x1F,              // 브로드캐스트
+        AD7280A_CTRL_HB,
+        0x03               // 셀 전압 변환, 즉시 시작
+    );
+    AD7280A_Transfer(frame);
 }
 ```
+
+0x1F는 브로드캐스트 주소. 모든 디바이스가 동시에 변환 시작.
 
 ---
 
-처음 읽었을 때 값이 이상했다.
+## 결과 읽기
 
-```
-Cell 0: 0x8A3 (2211 decimal)
-mV 변환: 2211/4096 * 5000 + 1000 = 3699 mV
-```
-
-3.7V? 근데 실제로 멀티미터로 재보니 3.25V였다.
-
-변환 공식이 틀렸나 싶었는데, 데이터시트를 다시 보니까 수식이 좀 달랐다.
+변환 끝나면 CELL_V1 ~ CELL_V6 레지스터에 값이 들어간다.
 
 ```c
-// 올바른 변환
-// Vcell = (raw + 512) * 1.0mV
-float raw_to_mv(uint16_t raw) {
-    return (float)(raw + 512);
+uint16_t AD7280A_ReadCellVoltage(uint8_t device, uint8_t cell) {
+    // 읽기 명령 전송
+    uint32_t cmd = AD7280A_BuildReadFrame(device, AD7280A_CELL_V1 + cell);
+    AD7280A_Transfer(cmd);
+    
+    // 응답 수신
+    uint32_t response = AD7280A_Transfer(0x00000000);  // 더미 전송
+    
+    // CRC 체크
+    if (!AD7280A_CheckCRC(response)) {
+        return 0xFFFF;  // 에러
+    }
+    
+    // 12비트 데이터 추출 (bit 23~12)
+    return (response >> 11) & 0x0FFF;
 }
 ```
 
-이렇게 하니까 3.25V 근처가 나왔다.
+---
+
+## mV 변환
+
+12비트 raw 값을 mV로 변환:
+
+```c
+float AD7280A_RawToMillivolt(uint16_t raw) {
+    // 공식: V = (raw * 0.976mV) + 1000mV
+    return raw * 0.976f + 1000.0f;
+}
+```
+
+AD7280A는 1V~5V 범위를 측정한다. 0이면 1000mV, 4096이면 약 5000mV.
 
 ---
 
-6셀 전체를 읽어서 찍어봤다.
+## 전체 셀 읽기
 
-![셀 전압 측정 결과](/imgs/ad7280a-bms-dev-07-1.png)
-
-실제 측정값과 5mV 이내로 맞았다. 드디어 된다!
-
----
-
-24셀 전체를 읽으려면 4개 디바이스를 순서대로 읽어야 한다.
+24셀 전체를 읽는 함수:
 
 ```c
 void AD7280A_ReadAllCells(uint16_t *cells) {
-    // 모든 디바이스에 동시 변환 명령
-    AD7280A_WriteAll(REG_CONTROL_HB, 0x80);
-    HAL_Delay(1);  // 변환 대기
+    AD7280A_StartConversion();
+    HAL_Delay(2);  // 변환 대기
     
-    // 각 디바이스에서 6셀씩 읽기
     for (int dev = 0; dev < 4; dev++) {
         for (int cell = 0; cell < 6; cell++) {
-            cells[dev * 6 + cell] = AD7280A_ReadCell(dev, cell);
+            uint16_t raw = AD7280A_ReadCellVoltage(dev, cell);
+            cells[dev * 6 + cell] = raw;
         }
     }
 }
 ```
 
-나중에 알았는데 이렇게 하면 느리다. 연속 읽기(Read All) 모드를 쓰면 훨씬 빠르다. 그건 나중에 최적화하기로.
+이렇게 하면 cells[0]~cells[23]에 24셀 전압이 들어간다.
 
 ---
 
-실제 셀에 연결해서 테스트했다.
+## 첫 측정 결과
 
-![6셀 테스트](/imgs/6cells.jpg)
+```
+Cell  0: 3312 (raw) → 3232mV
+Cell  1: 3308 → 3228mV
+Cell  2: 3315 → 3235mV
+Cell  3: 3310 → 3231mV
+Cell  4: 3318 → 3238mV
+Cell  5: 3305 → 3225mV
+```
 
-일단 6셀로 단일 디바이스 검증하고, 괜찮으면 확장했다.
+![측정 결과](/imgs/ad7280a-bms-dev-07-1.png)
+
+멀티미터로 확인해보니까 대충 맞다. 오차 5mV 정도.
 
 ---
 
-다음 글에서 자가진단 기능을 테스트한다.
+## 버스트 읽기
+
+위 코드는 셀마다 SPI 트랜잭션을 한다. 느리다.
+
+AD7280A는 연속 읽기 모드를 지원한다. 변환 한 번 하고 전체 데이터를 줄줄이 읽을 수 있다.
+
+```c
+void AD7280A_ReadAllCellsBurst(uint16_t *cells) {
+    // 변환 시작
+    AD7280A_StartConversion();
+    HAL_Delay(2);
+    
+    // 연속 읽기 모드 설정
+    uint32_t cmd = AD7280A_BuildReadFrame(0x1F, AD7280A_CELL_V1);
+    AD7280A_Transfer(cmd);
+    
+    // 24개 연속 수신
+    for (int i = 0; i < 24; i++) {
+        uint32_t response = AD7280A_Transfer(0x00000000);
+        cells[i] = (response >> 11) & 0x0FFF;
+    }
+}
+```
+
+이게 훨씬 빠르다. 50ms → 5ms 정도.
+
+---
+
+## 문제: 간헐적 오류
+
+가끔 이상한 값이 읽혔다. 0이나 4095 같은.
+
+```
+Cell 0: 3312
+Cell 1: 0      ← 이상
+Cell 2: 3315
+Cell 3: 4095   ← 이상
+```
+
+CRC 에러였다. 노이즈 때문에 통신이 깨지는 경우가 있었다.
+
+CRC 체크 실패하면 다시 읽도록 수정:
+
+```c
+uint16_t AD7280A_ReadCellVoltageWithRetry(uint8_t dev, uint8_t cell) {
+    for (int retry = 0; retry < 3; retry++) {
+        uint16_t raw = AD7280A_ReadCellVoltage(dev, cell);
+        if (raw != 0xFFFF) {
+            return raw;
+        }
+    }
+    return 0xFFFF;  // 3번 실패
+}
+```
+
+---
+
+## 정리
+
+- 변환 시작 → 대기 → 읽기
+- raw * 0.976 + 1000 = mV
+- 버스트 읽기가 빠름
+- CRC 에러 시 재시도
+
+---
+
+다음은 자가진단 기능. Self-test로 IC 상태 확인하기.
 
 [#8 - 자가진단](/posts/bms/ad7280a-bms-dev-8/)

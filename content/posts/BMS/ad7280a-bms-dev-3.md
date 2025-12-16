@@ -1,99 +1,172 @@
 ---
-title: "AD7280A BMS 개발기 #3 - SPI 통신 시작"
-date: 2024-12-03
+title: "AD7280A BMS 개발기 #3 - SPI 통신, 첫 응답 받기"
+date: 2024-01-17
 draft: false
-tags: ["AD7280A", "BMS", "STM32", "SPI"]
+tags: ["AD7280A", "BMS", "STM32", "SPI", "HAL"]
 categories: ["BMS 개발"]
 series: ["AD7280A BMS 개발"]
-summary: "STM32로 AD7280A랑 첫 통신. 생각보다 안 됐다."
+summary: "STM32 SPI 설정하고 AD7280A랑 첫 통신 시도. 삽질의 시작."
 ---
 
-STM32F103을 쓰기로 했다. 익숙하기도 하고 회사에 재고가 많아서.
+데이지체인 구조 이해했으니 이제 실제로 통신해보자.
 
-CubeMX로 SPI 설정부터 했다.
-
-```
-SPI 설정:
-- Mode: Full-Duplex Master
-- Prescaler: 64 (클럭 느리게)
-- CPOL: High
-- CPHA: 2 Edge
-- Data Size: 8 bit
-- First Bit: MSB
-```
-
-AD7280A는 CPOL=1, CPHA=1이다. 데이터시트에 타이밍 다이어그램이 있는데 처음엔 뭔 소린지 모르겠어서 그냥 둘 다 시도해봤다.
+STM32F103의 SPI1 사용. CubeMX에서 설정.
 
 ---
 
-첫 통신 시도.
+## SPI 설정
+
+AD7280A SPI 스펙:
+- 클럭: 최대 1MHz
+- CPOL=0, CPHA=1 (Mode 1)
+- MSB First
+- 32비트 프레임
+
+CubeMX 설정:
+
+```
+Mode: Full-Duplex Master
+Prescaler: 64 (72MHz/64 = 1.125MHz → 좀 빠름)
+CPOL: Low
+CPHA: 2 Edge
+First Bit: MSB
+Data Size: 8 bit
+```
+
+데이터 사이즈가 8비트인데 AD7280A는 32비트 프레임이다. 4번 연속으로 보내면 된다.
+
+---
+
+## 핀 연결
+
+```
+STM32          AD7280A
+PA5 (SCK)  --> SCLK
+PA6 (MISO) <-- DOUT (마지막 디바이스)
+PA7 (MOSI) --> DIN
+PA4 (GPIO) --> CS
+```
+
+CS는 하드웨어 NSS 안 쓰고 GPIO로 제어했다. 타이밍 제어하기 편해서.
+
+---
+
+## 첫 통신 시도
+
+간단하게 레지스터 읽기 시도.
 
 ```c
-uint8_t tx_data[4] = {0x00, 0x00, 0x00, 0x00};
-uint8_t rx_data[4] = {0};
+uint8_t tx[4] = {0x00, 0x00, 0x00, 0x00};
+uint8_t rx[4] = {0};
 
-HAL_GPIO_WritePin(CS_GPIO_Port, CS_Pin, GPIO_PIN_RESET);
-HAL_SPI_TransmitReceive(&hspi1, tx_data, rx_data, 4, 100);
-HAL_GPIO_WritePin(CS_GPIO_Port, CS_Pin, GPIO_PIN_SET);
+HAL_GPIO_WritePin(CS_GPIO, CS_PIN, GPIO_PIN_RESET);
+HAL_SPI_TransmitReceive(&hspi1, tx, rx, 4, 100);
+HAL_GPIO_WritePin(CS_GPIO, CS_PIN, GPIO_PIN_SET);
+
+printf("RX: %02X %02X %02X %02X\n", rx[0], rx[1], rx[2], rx[3]);
 ```
 
-결과: `rx_data = {0xFF, 0xFF, 0xFF, 0xFF}`
+결과: `RX: 00 00 00 00`
 
-뭔가 잘못됐다. 0xFF면 보통 연결이 안 됐거나 설정이 틀린 거다.
-
----
-
-오실로스코프로 파형을 찍어봤다.
-
-CLK은 나가는데 MISO가 항상 High다. IC가 응답을 안 하는 거다.
-
-확인해본 것들:
-- 배선: 멀쩡함
-- 전원: 5V 들어감
-- CS: Low로 떨어짐
-
-한참 헤매다가 데이터시트를 다시 읽었다. AD7280A는 전원 인가 후 초기화 시퀀스가 필요하다고 써있었다. 그냥 전원 넣고 바로 통신하면 안 된다.
+아무것도 안 온다.
 
 ---
 
-초기화 시퀀스:
+## 삽질 1: CPOL/CPHA
 
-1. 전원 인가
-2. 최소 1ms 대기
-3. Software Reset 명령 전송
-4. 다시 1ms 대기
-5. 이제 통신 가능
+로직 분석기로 찍어봤다.
+
+![SPI 파형](/imgs/ad7280a-bms-dev-03-1.png)
+
+클럭은 나가는데 MISO가 항상 Low. AD7280A가 응답을 안 한다.
+
+CPOL/CPHA 조합을 다 바꿔봤다.
+
+```
+Mode 0 (CPOL=0, CPHA=0): 안 됨
+Mode 1 (CPOL=0, CPHA=1): 안 됨
+Mode 2 (CPOL=1, CPHA=0): 안 됨
+Mode 3 (CPOL=1, CPHA=1): 안 됨
+```
+
+다 안 된다. CPOL/CPHA 문제가 아니었다.
+
+---
+
+## 삽질 2: 전원
+
+멀티미터로 전원 확인.
+
+VDD: 4.8V (5V 레귤레이터에서)
+DVDD: 0V
+
+DVDD가 안 들어가고 있었다. 회로도 다시 보니까 DVDD는 별도로 연결해야 했다. VDD에서 자동으로 나오는 게 아니었다.
+
+점퍼 연결하고 다시 시도.
+
+결과: `RX: FF FF FF FF`
+
+뭔가 온다!
+
+---
+
+## 삽질 3: 프레임 구조
+
+FF가 오긴 하는데 이게 정상인지 모르겠다.
+
+데이터시트 다시 읽어보니까, 읽기 명령을 제대로 보내야 응답이 온다. 그냥 0x00 보내면 안 된다.
+
+AD7280A 프레임 구조:
+
+```
+[31:27] Device Address (5bit)
+[26:21] Register Address (6bit)
+[20:13] Data (8bit)
+[12]    Write/Read bit
+[11:3]  Reserved + CRC
+[2:0]   Reserved
+```
+
+32비트 중에 CRC까지 계산해서 보내야 한다. CRC가 틀리면 무시한다.
+
+이게 다음 글 주제다. CRC 계산에서 3일 날렸다.
+
+---
+
+## 일단 여기까지
+
+SPI 하드웨어 설정은 됐다. AD7280A가 응답은 한다.
+
+근데 제대로 된 명령을 보내려면 프레임 구조랑 CRC를 알아야 한다.
 
 ```c
+// 지금까지 코드
 void AD7280A_Init(void) {
-    HAL_Delay(10);  // 전원 안정화
+    // SPI 이미 CubeMX에서 초기화됨
+    // CS High (Idle)
+    HAL_GPIO_WritePin(CS_GPIO, CS_PIN, GPIO_PIN_SET);
+}
+
+uint32_t AD7280A_Transfer(uint32_t tx) {
+    uint8_t tx_buf[4], rx_buf[4];
     
-    // Software Reset
-    AD7280A_WriteReg(AD7280A_CONTROL_HB, 0x10);
-    HAL_Delay(10);
+    // 32bit를 8bit 4개로 분할 (Big Endian)
+    tx_buf[0] = (tx >> 24) & 0xFF;
+    tx_buf[1] = (tx >> 16) & 0xFF;
+    tx_buf[2] = (tx >> 8) & 0xFF;
+    tx_buf[3] = tx & 0xFF;
     
-    // 기본 설정
-    AD7280A_WriteReg(AD7280A_CONTROL_LB, 0x00);
+    HAL_GPIO_WritePin(CS_GPIO, CS_PIN, GPIO_PIN_RESET);
+    HAL_SPI_TransmitReceive(&hspi1, tx_buf, rx_buf, 4, 100);
+    HAL_GPIO_WritePin(CS_GPIO, CS_PIN, GPIO_PIN_SET);
+    
+    return (rx_buf[0] << 24) | (rx_buf[1] << 16) | 
+           (rx_buf[2] << 8) | rx_buf[3];
 }
 ```
 
-이렇게 하니까 드디어 응답이 왔다.
-
 ---
 
-근데 응답 값이 이상했다.
-
-```
-보낸 값: 0x038101E2 (Read Device ID)
-받은 값: 0x1C0800E4 (???)
-```
-
-나중에 알았는데 AD7280A 응답 포맷이 좀 특이하다. 32비트인데 그 안에 디바이스 주소, 레지스터 주소, 데이터, CRC가 다 들어있다.
-
-이거 파싱하는 게 다음 과제다.
-
----
-
-다음 글에서 레지스터 맵이랑 프레임 구조를 정리한다.
+다음은 레지스터 맵이랑 프레임 구조. 32비트 안에 뭐가 들어가는지.
 
 [#4 - 레지스터 맵](/posts/bms/ad7280a-bms-dev-4/)
