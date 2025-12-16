@@ -1,83 +1,131 @@
 ---
-title: "AD7280A BMS 개발기 #13 - 과전압/저전압 알람"
-date: 2024-12-13
+title: "AD7280A BMS 개발기 #13 - 과전압/저전압 알람 설정"
+date: 2024-01-27
 draft: false
 tags: ["AD7280A", "BMS", "STM32", "알람", "보호"]
 categories: ["BMS 개발"]
 series: ["AD7280A BMS 개발"]
-summary: "셀 전압이 범위를 벗어나면 알람이 뜬다. 하드웨어 보호 기능."
+summary: "셀 전압이 위험 범위 넘으면 알람이 떠야 한다. 임계값 설정하기."
 ---
 
-소프트웨어가 죽어도 IC 자체가 과전압/저전압을 감지해서 알람을 띄워준다. 안전을 위한 하드웨어 보호 기능이다.
+밸런싱까지 됐으니 이제 보호 기능. 과충전/과방전 되면 알람 띄우고 차단해야 한다.
+
+AD7280A에 하드웨어 알람 기능이 있다. 임계값 설정해두면 자동으로 Alert 핀이 떨어진다.
 
 ---
 
-LiFePO4 기준으로 임계값 설정:
+## 임계값 레지스터
+
+- CELL_OV (0x10): 과전압 임계값
+- CELL_UV (0x11): 저전압 임계값
+
+8비트 값. 전압 계산 공식:
 
 ```
-과전압: 3.65V (충전 상한)
-저전압: 2.5V (방전 하한)
+임계값(mV) = 레지스터값 × 6 + 1000
+레지스터값 = (임계값 - 1000) / 6
 ```
 
-AD7280A 레지스터 값으로 변환:
+---
+
+## LFP 기준 설정
+
+LiFePO4 기준:
+- 과전압: 3.65V (만충)
+- 저전압: 2.5V (방전 종지)
+
+약간의 마진을 두고:
 
 ```c
-// 임계값 = (전압_mV - 1000) / 6
-// 과전압: (3650 - 1000) / 6 = 441.6 → 442
-// 저전압: (2500 - 1000) / 6 = 250
+// 과전압: 3.7V
+#define OV_THRESHOLD_MV  3700
+#define OV_REG_VALUE     ((3700 - 1000) / 6)  // = 450
 
-#define OV_THRESHOLD    442
-#define UV_THRESHOLD    250
+// 저전압: 2.4V  
+#define UV_THRESHOLD_MV  2400
+#define UV_REG_VALUE     ((2400 - 1000) / 6)  // = 233
+```
 
-void AD7280A_SetThresholds(void) {
-    AD7280A_WriteAll(REG_CELL_OVERVTG, OV_THRESHOLD);
-    AD7280A_WriteAll(REG_CELL_UNDERVTG, UV_THRESHOLD);
+---
+
+## 설정 코드
+
+```c
+void AD7280A_SetAlarmThresholds(uint8_t device) {
+    // 과전압 설정
+    AD7280A_Write(device, AD7280A_CELL_OV, OV_REG_VALUE);
+    
+    // 저전압 설정
+    AD7280A_Write(device, AD7280A_CELL_UV, UV_REG_VALUE);
 }
-```
 
-해상도가 6mV라서 정확한 값은 못 맞춘다. 그래서 약간 마진을 둔다.
-
----
-
-처음에 임계값 계산을 잘못해서 알람이 계속 떴다.
-
-```
-잘못된 계산:
-OV = 3650 / 6 = 608  (틀림)
-UV = 2500 / 6 = 416  (틀림)
-
-→ 정상 전압에서도 알람 발생
-```
-
-1000mV 오프셋을 빼야 한다는 걸 놓쳤다.
-
----
-
-알람이 발생하면 ALERT 핀이 Low로 떨어진다. 이걸 MCU 인터럽트로 받아서 처리한다.
-
-```c
-void EXTI_ALERT_Callback(void) {
-    // 알람 상태 읽기
-    uint8_t alert_a = AD7280A_ReadReg(REG_ALERT_A);
-    uint8_t alert_b = AD7280A_ReadReg(REG_ALERT_B);
-    uint8_t alert_c = AD7280A_ReadReg(REG_ALERT_C);
-    
-    if (alert_a & OV_MASK) {
-        // 과전압 처리
-        BMS_StopCharging();
-    }
-    if (alert_a & UV_MASK) {
-        // 저전압 처리  
-        BMS_StopDischarging();
-    }
-    
-    // 알람 클리어
-    AD7280A_WriteAll(REG_ALERT, 0xFF);
+void BMS_InitAlarms(void) {
+    // 모든 디바이스에 설정 (브로드캐스트)
+    AD7280A_Write(0x1F, AD7280A_CELL_OV, OV_REG_VALUE);
+    AD7280A_Write(0x1F, AD7280A_CELL_UV, UV_REG_VALUE);
 }
 ```
 
 ---
 
-다음 글에서 Alert 핀 인터럽트 설정을 자세히 다룬다.
+## 해상도 문제
+
+6mV 단위라서 정밀하게 못 맞춘다.
+
+```
+원하는 값: 3650mV
+계산: (3650 - 1000) / 6 = 441.67 → 441
+실제 값: 441 × 6 + 1000 = 3646mV
+```
+
+4mV 오차. 큰 문제는 아닌데 알고는 있어야 한다.
+
+---
+
+## AUX 임계값
+
+온도 알람용 AUX 임계값도 있다:
+
+- AUX_OV (0x12): AUX 과전압
+- AUX_UV (0x13): AUX 저전압
+
+NTC 전압 범위에 맞춰 설정하면 과열/저온 알람으로 쓸 수 있다.
+
+```c
+// 과열 (60°C): NTC 전압 약 1.5V
+#define AUX_OV_VALUE  ((1500 - 1000) / 6)  // 약 83
+
+// 저온 (0°C): NTC 전압 약 3.8V
+#define AUX_UV_VALUE  ((3800 - 1000) / 6)  // 약 466
+```
+
+근데 나는 AUX 알람은 안 쓰고 소프트웨어로 처리했다. 더 유연해서.
+
+---
+
+## 테스트
+
+파워서플라이로 셀 하나에 과전압 인가:
+
+```
+설정: OV = 3.7V
+인가: 3.8V
+결과: Alert 핀 Low
+```
+
+동작한다.
+
+---
+
+## 정리
+
+- OV/UV 레지스터로 임계값 설정
+- 공식: mV = reg × 6 + 1000
+- 6mV 해상도
+- 브로드캐스트로 전체 설정 가능
+
+---
+
+다음은 Alert 핀 인터럽트 처리.
 
 [#14 - Alert 인터럽트](/posts/bms/ad7280a-bms-dev-14/)

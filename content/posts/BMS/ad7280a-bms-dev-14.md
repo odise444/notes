@@ -1,62 +1,139 @@
 ---
-title: "AD7280A BMS 개발기 #14 - Alert 핀 인터럽트"
-date: 2024-12-13
+title: "AD7280A BMS 개발기 #14 - Alert 핀 인터럽트 처리"
+date: 2024-01-28
 draft: false
-tags: ["AD7280A", "BMS", "STM32", "인터럽트", "EXTI"]
+tags: ["AD7280A", "BMS", "STM32", "인터럽트", "Alert"]
 categories: ["BMS 개발"]
 series: ["AD7280A BMS 개발"]
-summary: "Alert 핀이 Open-drain이라 풀업이 필요하다. 처음에 몰라서 한참 헤맸다."
+summary: "Alert 핀이 떨어지면 뭔가 문제가 생긴 거다. 인터럽트로 빠르게 잡자."
 ---
 
-AD7280A ALERT 핀은 알람 발생 시 Low로 떨어진다. 이걸 STM32 외부 인터럽트로 받는다.
+임계값 설정했으니 이제 Alert 핀 처리. 알람 발생하면 Alert 핀이 Low로 떨어진다.
 
 ---
 
-연결 구성:
+## Alert 핀 특성
+
+- Open Drain 출력
+- Active Low
+- 여러 디바이스 Alert를 Wired-OR로 연결 가능
+
+외부에 풀업 저항 필요:
 
 ```
-AD7280A ALERT (Open-drain)
-       │
-       ├── 10kΩ 풀업 ── 3.3V
-       │
-       └── STM32 GPIO (EXTI)
+VDD (3.3V)
+    │
+   [10kΩ]
+    │
+    ├──── MCU GPIO (PB0)
+    │
+    └──── AD7280A Alert (모든 디바이스)
 ```
 
-처음에 풀업 없이 직결했더니 인터럽트가 안 들어왔다. Open-drain은 High를 못 만들어서 풀업이 필수다.
+4개 디바이스 Alert를 한 핀에 연결. 어느 하나라도 알람 나면 Low.
 
 ---
 
-STM32 설정:
+## STM32 EXTI 설정
+
+CubeMX에서:
+- PB0: GPIO_EXTI0
+- Mode: External Interrupt Mode with Falling edge trigger
+- Pull-up: Enable
 
 ```c
-// GPIO 설정
-GPIO_InitTypeDef GPIO_InitStruct = {0};
-GPIO_InitStruct.Pin = ALERT_PIN;
-GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;  // 하강 에지
-GPIO_InitStruct.Pull = GPIO_PULLUP;           // 내부 풀업도 가능
-HAL_GPIO_Init(ALERT_GPIO_PORT, &GPIO_InitStruct);
-
-// NVIC 설정
-HAL_NVIC_SetPriority(EXTI_IRQn, 1, 0);
-HAL_NVIC_EnableIRQ(EXTI_IRQn);
+// EXTI 콜백
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
+    if (GPIO_Pin == ALERT_PIN) {
+        g_alert_flag = true;
+    }
+}
 ```
-
-내부 풀업을 쓸 수도 있는데, 저항값이 좀 약해서(~40kΩ) 노이즈에 민감할 수 있다. 외부 10kΩ이 더 안정적.
 
 ---
 
-데이지체인에서 ALERT 핀은 어떻게 되냐면, 모든 IC의 ALERT가 OR로 묶여있다. 
+## 디바운싱
 
-어느 IC에서든 알람이 발생하면 하나의 ALERT 라인이 Low가 된다. 그래서 인터럽트는 하나만 받고, 어떤 IC인지는 레지스터 읽어서 확인해야 한다.
+노이즈 때문에 가짜 인터럽트가 뜰 수 있다. 디바운싱 필요.
 
 ```c
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
     if (GPIO_Pin == ALERT_PIN) {
-        // 어떤 디바이스에서 알람인지 확인
-        for (int dev = 0; dev < 4; dev++) {
-            uint8_t alert = AD7280A_ReadReg(dev, REG_ALERT);
-            if (alert) {
-                HandleAlert(dev, alert);
+        // 실제 Low인지 다시 확인
+        if (HAL_GPIO_ReadPin(ALERT_GPIO, ALERT_PIN) == GPIO_PIN_RESET) {
+            g_alert_flag = true;
+        }
+    }
+}
+```
+
+ISR에서는 플래그만 세우고, 메인 루프에서 처리:
+
+```c
+void BMS_Task(void) {
+    if (g_alert_flag) {
+        g_alert_flag = false;
+        
+        // 50ms 후에도 Low면 진짜 알람
+        HAL_Delay(50);
+        if (HAL_GPIO_ReadPin(ALERT_GPIO, ALERT_PIN) == GPIO_PIN_RESET) {
+            BMS_HandleAlert();
+        }
+    }
+}
+```
+
+---
+
+## 어떤 디바이스인지 확인
+
+Alert가 떴는데 4개 중 어디서 난 건지 알아야 한다.
+
+각 디바이스의 Alert 레지스터 읽기:
+
+```c
+void BMS_HandleAlert(void) {
+    for (int dev = 0; dev < 4; dev++) {
+        uint8_t alert = AD7280A_ReadRegister(dev, AD7280A_ALERT);
+        
+        if (alert & 0x3F) {  // 셀 알람 비트
+            printf("Dev %d Alert: 0x%02X\n", dev, alert);
+            BMS_ProcessAlert(dev, alert);
+        }
+    }
+    
+    // Alert 클리어
+    AD7280A_Write(0x1F, AD7280A_ALERT, 0x00);
+}
+```
+
+---
+
+## Alert 비트 해석
+
+Alert 레지스터(0x18) 비트맵:
+
+```
+Bit 5: Cell 6 알람
+Bit 4: Cell 5 알람
+Bit 3: Cell 4 알람
+Bit 2: Cell 3 알람
+Bit 1: Cell 2 알람
+Bit 0: Cell 1 알람
+```
+
+OV인지 UV인지는 실제 전압 읽어서 판단:
+
+```c
+void BMS_ProcessAlert(uint8_t dev, uint8_t alert) {
+    for (int cell = 0; cell < 6; cell++) {
+        if (alert & (1 << cell)) {
+            uint16_t mv = AD7280A_ReadCellMillivolt(dev, cell);
+            
+            if (mv > OV_THRESHOLD_MV) {
+                BMS_SetFault(FAULT_OVERVOLTAGE, dev * 6 + cell);
+            } else if (mv < UV_THRESHOLD_MV) {
+                BMS_SetFault(FAULT_UNDERVOLTAGE, dev * 6 + cell);
             }
         }
     }
@@ -65,22 +142,36 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
 
 ---
 
-디바운싱도 고려해야 한다. 노이즈로 오동작할 수 있어서.
+## 문제: Alert가 안 클리어됨
+
+처음에 Alert 클리어가 안 됐다. 계속 Low 상태.
+
+이유: 알람 조건이 해제 안 됐다. OV 상태에서 Alert 클리어해봤자 바로 다시 뜬다.
 
 ```c
-void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
-    static uint32_t last_time = 0;
-    uint32_t now = HAL_GetTick();
+void BMS_HandleAlert(void) {
+    // 알람 원인 확인 및 조치
+    BMS_ProcessAlert();
     
-    if (now - last_time < 10) return;  // 10ms 디바운싱
-    last_time = now;
-    
-    // 알람 처리...
+    // 조치 후에도 조건 유지되면 클리어 안 함
+    if (BMS_IsAlarmConditionCleared()) {
+        AD7280A_Write(0x1F, AD7280A_ALERT, 0x00);
+    }
 }
 ```
 
 ---
 
-다음 글에서 알람 상태 읽기와 비트 해석을 다룬다.
+## 정리
+
+- Alert: Open Drain, Active Low
+- Wired-OR로 4개 연결 가능
+- EXTI 인터럽트로 빠르게 감지
+- 디바운싱 필요
+- 클리어 전에 조건 해제 확인
+
+---
+
+다음은 Alert 레지스터 상세 분석.
 
 [#15 - 알람 상태 읽기](/posts/bms/ad7280a-bms-dev-15/)
