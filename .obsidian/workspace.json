@@ -11,14 +11,12 @@
             "id": "754c6bb06cfb021b",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "image",
               "state": {
-                "file": "Ghidra-역분석-시리즈-기획.md",
-                "mode": "source",
-                "source": false
+                "file": "static/imgs/KakaoTalk_20251216_145922389.jpg"
               },
-              "icon": "lucide-file",
-              "title": "Ghidra-역분석-시리즈-기획"
+              "icon": "lucide-image",
+              "title": "KakaoTalk_20251216_145922389"
             }
           }
         ]
@@ -187,11 +185,17 @@
   },
   "active": "754c6bb06cfb021b",
   "lastOpenFiles": [
+    "Ghidra-역분석-시리즈-기획.md",
+    "static/imgs/KakaoTalk_20251216_145922389_06.jpg",
+    "static/imgs/KakaoTalk_20251216_145922389_05.jpg",
+    "static/imgs/KakaoTalk_20251216_145922389_04.jpg",
+    "static/imgs/KakaoTalk_20251216_145922389_03.jpg",
+    "static/imgs/KakaoTalk_20251216_145922389_02.jpg",
+    "static/imgs/KakaoTalk_20251216_145922389_01.jpg",
+    "static/imgs/KakaoTalk_20251216_145922389.jpg",
     "static/imgs/ad7280a-bms-dev-22-1.png",
     "static/imgs/ad7280a-bms-dev-18-4.png",
     "static/imgs/ad7280a-bms-dev-18-3.png",
-    "static/imgs/ad7280a-bms-dev-18-2.png",
-    "static/imgs/Ghidra-역분석-시리즈-기획-1.png",
     "content/posts/Ghidra/ghidra-stm32-re-18.md",
     "content/posts/Ghidra/ghidra-stm32-re-17.md",
     "content/posts/Ghidra/ghidra-stm32-re-16.md",
@@ -219,15 +223,9 @@
     "content/posts/BMS/ad7280a-bms-dev-22.md",
     "Ghidra-역분석-시리즈-기획.md.d2b622a871801e80a48d6f590608987b.tmp",
     "content/posts/Ghidra",
-    "static/imgs/ghidra-stm32-quick-start-2.png",
-    "static/imgs/Pasted image 20251209100328.png",
-    "static/imgs/ghidra-stm32-quick-start-1.png",
-    "static/imgs/Pasted image 20251209100003.png",
     "SOMETHINGS/function",
     "SOMETHINGS",
     "content/posts/FloorPlanner",
-    "static/imgs/ad7280a-bms-dev-07-1.png",
-    "static/imgs/ad7280a-bms-dev-01-2.png",
     "layouts/partials/extend_head.html",
     "layouts/partials/adsens_code.html",
     "layouts/partials",
