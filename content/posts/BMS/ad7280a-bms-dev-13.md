@@ -1,562 +1,131 @@
 ---
-title: "AD7280A BMS 개발 삽질기 #13 - 과전압/저전압 알람 설정"
-date: 2024-12-11
+title: "AD7280A BMS 개발기 #13 - 과전압/저전압 알람 설정"
+date: 2024-01-27
 draft: false
-tags: ["AD7280A", "BMS", "STM32", "배터리", "알람", "과전압", "저전압"]
+tags: ["AD7280A", "BMS", "STM32", "알람", "보호"]
 categories: ["BMS 개발"]
-summary: "셀 전압이 위험 수준이면 즉시 알려줘야 한다. AD7280A의 알람 기능을 파헤쳐보자."
+series: ["AD7280A BMS 개발"]
+summary: "셀 전압이 위험 범위 넘으면 알람이 떠야 한다. 임계값 설정하기."
 ---
 
-## 지난 글 요약
+밸런싱까지 됐으니 이제 보호 기능. 과충전/과방전 되면 알람 띄우고 차단해야 한다.
 
-[지난 글](/posts/bms/ad7280a-bms-dev-12/)에서 밸런싱 중 발열 관리를 다뤘다. 체커보드 패턴과 듀티 제어로 온도를 26°C나 낮췄다. 이제 진짜 중요한 **보호 기능**으로 넘어간다.
+AD7280A에 하드웨어 알람 기능이 있다. 임계값 설정해두면 자동으로 Alert 핀이 떨어진다.
 
-## 왜 알람이 필요한가
+---
 
-배터리 보호의 기본:
+## 임계값 레지스터
 
-```
-과전압 (Over Voltage)
-├─ 원인: 과충전
-├─ 위험: 열폭주, 발화, 폭발
-└─ 대응: 즉시 충전 중단
+- CELL_OV (0x10): 과전압 임계값
+- CELL_UV (0x11): 저전압 임계값
 
-저전압 (Under Voltage)
-├─ 원인: 과방전
-├─ 위험: 셀 손상, 용량 감소
-└─ 대응: 즉시 방전 중단
-```
-
-**LiFePO4 (LFP) 기준:**
-- 과전압: 3.65V 이상 → 위험
-- 저전압: 2.5V 이하 → 위험
-- 정상 범위: 2.8V ~ 3.5V
-
-## AD7280A 알람 구조
-
-AD7280A는 **하드웨어 레벨** 알람 기능 제공:
+8비트 값. 전압 계산 공식:
 
 ```
-┌─────────────────────────────────────────┐
-│              AD7280A                    │
-│                                         │
-│  Cell 1 ──→ [비교기] ──→ OV/UV Flag ──┐ │
-│  Cell 2 ──→ [비교기] ──→ OV/UV Flag ──┤ │
-│  Cell 3 ──→ [비교기] ──→ OV/UV Flag ──┼─┼──→ ALERT 핀
-│  Cell 4 ──→ [비교기] ──→ OV/UV Flag ──┤ │
-│  Cell 5 ──→ [비교기] ──→ OV/UV Flag ──┤ │
-│  Cell 6 ──→ [비교기] ──→ OV/UV Flag ──┘ │
-│                                         │
-│  [OV Threshold Register]                │
-│  [UV Threshold Register]                │
-└─────────────────────────────────────────┘
+임계값(mV) = 레지스터값 × 6 + 1000
+레지스터값 = (임계값 - 1000) / 6
 ```
 
-**장점**: CPU 개입 없이 실시간 감시!
+---
 
-## 알람 관련 레지스터
+## LFP 기준 설정
 
-### 1. Cell Overvoltage Register (0x09)
+LiFePO4 기준:
+- 과전압: 3.65V (만충)
+- 저전압: 2.5V (방전 종지)
 
-```
-┌─────────────────────────────────────┐
-│  Bit 7-0: D7 D6 D5 D4 D3 D2 D1 D0  │
-│           └────────────────────────┴─ 8비트 임계값
-└─────────────────────────────────────┘
-
-값 계산: V_threshold = (D[7:0] + 1) × 1.536V / 256
-         = (D[7:0] + 1) × 6mV
-```
-
-| 원하는 전압 | D[7:0] 값 | 계산 |
-|-------------|-----------|------|
-| 3.6V | 0xE2 (226) | (226+1) × 6mV = 3.582V |
-| 3.65V | 0xE7 (231) | (231+1) × 6mV = 3.612V |
-| 3.7V | 0xEC (236) | (236+1) × 6mV = 3.642V |
-
-### 2. Cell Undervoltage Register (0x0A)
-
-동일한 계산 방식:
-
-```
-값 계산: V_threshold = (D[7:0] + 1) × 6mV
-```
-
-| 원하는 전압 | D[7:0] 값 | 계산 |
-|-------------|-----------|------|
-| 2.5V | 0xA0 (160) | (160+1) × 6mV = 2.502V |
-| 2.8V | 0xC9 (201) | (201+1) × 6mV = 2.844V |
-| 3.0V | 0xE8 (232) | (232+1) × 6mV = 3.018V |
-
-### 3. Alert Register (0x0D)
-
-알람 발생 상태 확인:
-
-```
-┌─────────────────────────────────────────────┐
-│  Bit 7: Cell 6 OV    Bit 3: Cell 6 UV      │
-│  Bit 6: Cell 5 OV    Bit 2: Cell 5 UV      │
-│  Bit 5: Cell 4 OV    Bit 1: Cell 4 UV      │
-│  Bit 4: Cell 3 OV    Bit 0: Cell 3 UV      │
-│  ...                                        │
-└─────────────────────────────────────────────┘
-```
-
-**주의**: Cell 1, 2는 별도 레지스터 (0x0E)
-
-### 4. Cell Balance Register (0x14)
-
-밸런싱도 알람과 연동 가능:
-- 알람 발생 시 밸런싱 자동 중단 설정
-
-## 임계값 계산 함수
+약간의 마진을 두고:
 
 ```c
-#define AD7280A_VOLT_RESOLUTION  0.006f  // 6mV
+// 과전압: 3.7V
+#define OV_THRESHOLD_MV  3700
+#define OV_REG_VALUE     ((3700 - 1000) / 6)  // = 450
 
-/**
- * @brief 전압을 레지스터 값으로 변환
- * @param voltage_v 전압 (V)
- * @return 레지스터 값 (0~255)
- */
-uint8_t ad7280a_voltage_to_reg(float voltage_v)
-{
-    // V = (D + 1) × 6mV
-    // D = V / 6mV - 1
-    int32_t reg_val = (int32_t)(voltage_v / AD7280A_VOLT_RESOLUTION) - 1;
+// 저전압: 2.4V  
+#define UV_THRESHOLD_MV  2400
+#define UV_REG_VALUE     ((2400 - 1000) / 6)  // = 233
+```
+
+---
+
+## 설정 코드
+
+```c
+void AD7280A_SetAlarmThresholds(uint8_t device) {
+    // 과전압 설정
+    AD7280A_Write(device, AD7280A_CELL_OV, OV_REG_VALUE);
     
-    // 범위 제한
-    if (reg_val < 0) reg_val = 0;
-    if (reg_val > 255) reg_val = 255;
-    
-    return (uint8_t)reg_val;
+    // 저전압 설정
+    AD7280A_Write(device, AD7280A_CELL_UV, UV_REG_VALUE);
 }
 
-/**
- * @brief 레지스터 값을 전압으로 변환
- * @param reg_val 레지스터 값
- * @return 전압 (V)
- */
-float ad7280a_reg_to_voltage(uint8_t reg_val)
-{
-    return (reg_val + 1) * AD7280A_VOLT_RESOLUTION;
+void BMS_InitAlarms(void) {
+    // 모든 디바이스에 설정 (브로드캐스트)
+    AD7280A_Write(0x1F, AD7280A_CELL_OV, OV_REG_VALUE);
+    AD7280A_Write(0x1F, AD7280A_CELL_UV, UV_REG_VALUE);
 }
 ```
 
-## 알람 임계값 설정
+---
 
-### 전체 설정 함수
+## 해상도 문제
+
+6mV 단위라서 정밀하게 못 맞춘다.
+
+```
+원하는 값: 3650mV
+계산: (3650 - 1000) / 6 = 441.67 → 441
+실제 값: 441 × 6 + 1000 = 3646mV
+```
+
+4mV 오차. 큰 문제는 아닌데 알고는 있어야 한다.
+
+---
+
+## AUX 임계값
+
+온도 알람용 AUX 임계값도 있다:
+
+- AUX_OV (0x12): AUX 과전압
+- AUX_UV (0x13): AUX 저전압
+
+NTC 전압 범위에 맞춰 설정하면 과열/저온 알람으로 쓸 수 있다.
 
 ```c
-#define REG_CELL_OV_THRESHOLD   0x09
-#define REG_CELL_UV_THRESHOLD   0x0A
-#define REG_AUX_OV_THRESHOLD    0x0B
-#define REG_AUX_UV_THRESHOLD    0x0C
+// 과열 (60°C): NTC 전압 약 1.5V
+#define AUX_OV_VALUE  ((1500 - 1000) / 6)  // 약 83
 
-typedef struct {
-    float cell_ov_v;    // 셀 과전압 임계값 (V)
-    float cell_uv_v;    // 셀 저전압 임계값 (V)
-    float aux_ov_v;     // AUX 과전압 임계값 (V)
-    float aux_uv_v;     // AUX 저전압 임계값 (V)
-} ad7280a_alarm_config_t;
-
-/**
- * @brief 알람 임계값 설정
- */
-HAL_StatusTypeDef ad7280a_set_alarm_thresholds(
-    ad7280a_handle_t *handle,
-    const ad7280a_alarm_config_t *config)
-{
-    HAL_StatusTypeDef status;
-    uint8_t reg_val;
-    
-    // Cell OV 임계값
-    reg_val = ad7280a_voltage_to_reg(config->cell_ov_v);
-    status = ad7280a_write_all(handle, REG_CELL_OV_THRESHOLD, reg_val);
-    if (status != HAL_OK) return status;
-    
-    // Cell UV 임계값
-    reg_val = ad7280a_voltage_to_reg(config->cell_uv_v);
-    status = ad7280a_write_all(handle, REG_CELL_UV_THRESHOLD, reg_val);
-    if (status != HAL_OK) return status;
-    
-    // AUX OV 임계값 (온도 센서용)
-    reg_val = ad7280a_voltage_to_reg(config->aux_ov_v);
-    status = ad7280a_write_all(handle, REG_AUX_OV_THRESHOLD, reg_val);
-    if (status != HAL_OK) return status;
-    
-    // AUX UV 임계값
-    reg_val = ad7280a_voltage_to_reg(config->aux_uv_v);
-    status = ad7280a_write_all(handle, REG_AUX_UV_THRESHOLD, reg_val);
-    if (status != HAL_OK) return status;
-    
-    return HAL_OK;
-}
+// 저온 (0°C): NTC 전압 약 3.8V
+#define AUX_UV_VALUE  ((3800 - 1000) / 6)  // 약 466
 ```
 
-### LiFePO4 기본 설정
+근데 나는 AUX 알람은 안 쓰고 소프트웨어로 처리했다. 더 유연해서.
 
-```c
-void ad7280a_init_lfp_alarms(ad7280a_handle_t *handle)
-{
-    ad7280a_alarm_config_t config = {
-        .cell_ov_v = 3.65f,    // LFP 과전압
-        .cell_uv_v = 2.50f,    // LFP 저전압
-        .aux_ov_v  = 3.0f,     // NTC 고온 (저항 감소 → 전압 증가)
-        .aux_uv_v  = 0.5f,     // NTC 저온 (저항 증가 → 전압 감소)
-    };
-    
-    ad7280a_set_alarm_thresholds(handle, &config);
-    
-    printf("Alarm thresholds set:\n");
-    printf("  Cell OV: %.3fV (reg: 0x%02X)\n", 
-           config.cell_ov_v, ad7280a_voltage_to_reg(config.cell_ov_v));
-    printf("  Cell UV: %.3fV (reg: 0x%02X)\n",
-           config.cell_uv_v, ad7280a_voltage_to_reg(config.cell_uv_v));
-}
-```
+---
 
-출력:
-```
-Alarm thresholds set:
-  Cell OV: 3.650V (reg: 0xE3)
-  Cell UV: 2.500V (reg: 0x9F)
-```
+## 테스트
 
-## 알람 활성화
-
-임계값 설정만으론 부족. **알람 기능을 켜야** 한다.
-
-### Control Register (0x01)
+파워서플라이로 셀 하나에 과전압 인가:
 
 ```
-┌─────────────────────────────────────────────────┐
-│  Bit 7: ALERT_HIGH  - ALERT 핀 활성 레벨        │
-│  Bit 6: ALERT_EN    - ALERT 핀 활성화           │
-│  Bit 5: COMP_EN     - 비교기 활성화             │ ← 핵심!
-│  Bit 4: CONV_EN     - 연속 변환 모드            │
-│  Bit 3-0: Reserved                              │
-└─────────────────────────────────────────────────┘
+설정: OV = 3.7V
+인가: 3.8V
+결과: Alert 핀 Low
 ```
 
-### 알람 활성화 함수
+동작한다.
 
-```c
-#define REG_CONTROL     0x01
-
-#define CTRL_ALERT_HIGH (1 << 7)  // ALERT 핀 Active High
-#define CTRL_ALERT_EN   (1 << 6)  // ALERT 핀 활성화
-#define CTRL_COMP_EN    (1 << 5)  // 비교기 (알람) 활성화
-#define CTRL_CONV_EN    (1 << 4)  // 연속 변환 모드
-
-/**
- * @brief 알람 기능 활성화
- */
-HAL_StatusTypeDef ad7280a_enable_alarms(ad7280a_handle_t *handle)
-{
-    uint8_t ctrl_val = CTRL_ALERT_EN | CTRL_COMP_EN;
-    
-    // ALERT 핀을 Active Low로 설정 (기본)
-    // Active High 원하면: ctrl_val |= CTRL_ALERT_HIGH;
-    
-    return ad7280a_write_all(handle, REG_CONTROL, ctrl_val);
-}
-
-/**
- * @brief 알람 기능 비활성화
- */
-HAL_StatusTypeDef ad7280a_disable_alarms(ad7280a_handle_t *handle)
-{
-    return ad7280a_write_all(handle, REG_CONTROL, 0x00);
-}
-```
-
-## 알람 상태 읽기
-
-### Alert Register 구조
-
-Cell 1~6의 OV/UV 상태가 2개 레지스터에 분산:
-
-```
-Alert Register A (0x0D):
-  Bit 7: Cell 6 OV    Bit 6: Cell 5 OV
-  Bit 5: Cell 4 OV    Bit 4: Cell 3 OV
-  Bit 3: Cell 6 UV    Bit 2: Cell 5 UV
-  Bit 1: Cell 4 UV    Bit 0: Cell 3 UV
-
-Alert Register B (0x0E):
-  Bit 7: AUX 6 OV     Bit 6: AUX 5 OV
-  Bit 5: AUX 4 OV     Bit 4: AUX 3 OV
-  Bit 3: Cell 2 OV    Bit 2: Cell 1 OV
-  Bit 1: Cell 2 UV    Bit 0: Cell 1 UV
-```
-
-### 알람 상태 구조체
-
-```c
-typedef struct {
-    uint8_t cell_ov;    // 셀 과전압 비트맵 (bit 0~5 = cell 1~6)
-    uint8_t cell_uv;    // 셀 저전압 비트맵
-    uint8_t aux_ov;     // AUX 과전압 비트맵
-    uint8_t aux_uv;     // AUX 저전압 비트맵
-} ad7280a_alert_status_t;
-
-/**
- * @brief 알람 상태 읽기
- */
-HAL_StatusTypeDef ad7280a_read_alert_status(
-    ad7280a_handle_t *handle,
-    uint8_t device_addr,
-    ad7280a_alert_status_t *status)
-{
-    uint8_t alert_a, alert_b;
-    HAL_StatusTypeDef ret;
-    
-    // Alert Register A 읽기
-    ret = ad7280a_read_register(handle, device_addr, 0x0D, &alert_a);
-    if (ret != HAL_OK) return ret;
-    
-    // Alert Register B 읽기
-    ret = ad7280a_read_register(handle, device_addr, 0x0E, &alert_b);
-    if (ret != HAL_OK) return ret;
-    
-    // 비트맵 재구성
-    status->cell_ov = 0;
-    status->cell_uv = 0;
-    
-    // Cell 1, 2 (from Alert B)
-    if (alert_b & 0x04) status->cell_ov |= (1 << 0);  // Cell 1 OV
-    if (alert_b & 0x08) status->cell_ov |= (1 << 1);  // Cell 2 OV
-    if (alert_b & 0x01) status->cell_uv |= (1 << 0);  // Cell 1 UV
-    if (alert_b & 0x02) status->cell_uv |= (1 << 1);  // Cell 2 UV
-    
-    // Cell 3~6 (from Alert A)
-    if (alert_a & 0x10) status->cell_ov |= (1 << 2);  // Cell 3 OV
-    if (alert_a & 0x20) status->cell_ov |= (1 << 3);  // Cell 4 OV
-    if (alert_a & 0x40) status->cell_ov |= (1 << 4);  // Cell 5 OV
-    if (alert_a & 0x80) status->cell_ov |= (1 << 5);  // Cell 6 OV
-    if (alert_a & 0x01) status->cell_uv |= (1 << 2);  // Cell 3 UV
-    if (alert_a & 0x02) status->cell_uv |= (1 << 3);  // Cell 4 UV
-    if (alert_a & 0x04) status->cell_uv |= (1 << 4);  // Cell 5 UV
-    if (alert_a & 0x08) status->cell_uv |= (1 << 5);  // Cell 6 UV
-    
-    // AUX (from Alert B)
-    status->aux_ov = (alert_b >> 4) & 0x0F;
-    status->aux_uv = 0;  // AUX UV는 별도 처리 필요
-    
-    return HAL_OK;
-}
-```
-
-### 알람 상태 출력
-
-```c
-void ad7280a_print_alert_status(
-    uint8_t device_addr,
-    const ad7280a_alert_status_t *status)
-{
-    printf("Device %d Alert Status:\n", device_addr);
-    
-    // 과전압 체크
-    if (status->cell_ov) {
-        printf("  ⚠️ OVERVOLTAGE: ");
-        for (int i = 0; i < 6; i++) {
-            if (status->cell_ov & (1 << i)) {
-                printf("Cell%d ", i + 1);
-            }
-        }
-        printf("\n");
-    }
-    
-    // 저전압 체크
-    if (status->cell_uv) {
-        printf("  ⚠️ UNDERVOLTAGE: ");
-        for (int i = 0; i < 6; i++) {
-            if (status->cell_uv & (1 << i)) {
-                printf("Cell%d ", i + 1);
-            }
-        }
-        printf("\n");
-    }
-    
-    if (!status->cell_ov && !status->cell_uv) {
-        printf("  ✅ All cells normal\n");
-    }
-}
-```
-
-출력 예시:
-```
-Device 0 Alert Status:
-  ⚠️ OVERVOLTAGE: Cell3 Cell5 
-Device 1 Alert Status:
-  ✅ All cells normal
-```
-
-## 전체 시스템 알람 체크
-
-```c
-typedef struct {
-    bool has_overvoltage;
-    bool has_undervoltage;
-    uint8_t ov_device;      // 과전압 발생 디바이스
-    uint8_t ov_cell;        // 과전압 발생 셀
-    uint8_t uv_device;      // 저전압 발생 디바이스
-    uint8_t uv_cell;        // 저전압 발생 셀
-    float max_voltage;      // 최고 전압
-    float min_voltage;      // 최저 전압
-} bms_alarm_result_t;
-
-/**
- * @brief 전체 BMS 알람 상태 체크
- */
-void bms_check_alarms(
-    ad7280a_handle_t *handle,
-    uint8_t num_devices,
-    bms_alarm_result_t *result)
-{
-    ad7280a_alert_status_t status;
-    
-    memset(result, 0, sizeof(bms_alarm_result_t));
-    result->min_voltage = 999.0f;
-    result->max_voltage = 0.0f;
-    
-    for (uint8_t dev = 0; dev < num_devices; dev++) {
-        ad7280a_read_alert_status(handle, dev, &status);
-        
-        // 과전압 체크
-        if (status.cell_ov) {
-            result->has_overvoltage = true;
-            result->ov_device = dev;
-            // 첫 번째 알람 셀 찾기
-            for (int i = 0; i < 6; i++) {
-                if (status.cell_ov & (1 << i)) {
-                    result->ov_cell = i;
-                    break;
-                }
-            }
-        }
-        
-        // 저전압 체크
-        if (status.cell_uv) {
-            result->has_undervoltage = true;
-            result->uv_device = dev;
-            for (int i = 0; i < 6; i++) {
-                if (status.cell_uv & (1 << i)) {
-                    result->uv_cell = i;
-                    break;
-                }
-            }
-        }
-    }
-}
-```
-
-## 보호 동작 연동
-
-```c
-void bms_protection_handler(bms_alarm_result_t *alarm)
-{
-    if (alarm->has_overvoltage) {
-        printf("🚨 OVERVOLTAGE DETECTED! Dev:%d Cell:%d\n",
-               alarm->ov_device, alarm->ov_cell + 1);
-        
-        // 충전 FET OFF
-        charger_disable();
-        
-        // 밸런싱 시작 (과전압 셀)
-        ad7280a_set_balance(alarm->ov_device, 
-                           1 << alarm->ov_cell, true);
-    }
-    
-    if (alarm->has_undervoltage) {
-        printf("🚨 UNDERVOLTAGE DETECTED! Dev:%d Cell:%d\n",
-               alarm->uv_device, alarm->uv_cell + 1);
-        
-        // 방전 FET OFF
-        load_disconnect();
-        
-        // 밸런싱 중지
-        ad7280a_disable_all_balance();
-    }
-}
-```
-
-## 삽질: 임계값 정밀도
-
-처음에 3.65V 설정했는데 3.64V에서 알람이 안 떴다.
-
-**원인**: 6mV 해상도 때문에 정확히 3.65V 설정 불가
-
-```
-3.65V ÷ 6mV = 608.3
-reg = 608 - 1 = 607 (0x25F) → 8비트 오버플로!
-
-실제 설정: 0xE3 (227)
-실제 임계값: (227 + 1) × 6mV = 3.612V
-```
-
-**해결**: 안전 마진을 고려해서 약간 낮게/높게 설정
-
-```c
-// 과전압: 목표값보다 약간 낮게 (일찍 감지)
-config.cell_ov_v = 3.60f;  // 3.65V 대신
-
-// 저전압: 목표값보다 약간 높게 (일찍 감지)
-config.cell_uv_v = 2.55f;  // 2.50V 대신
-```
-
-## 삽질: 비교기 지연
-
-알람 설정 직후 바로 상태를 읽으면 이전 상태가 나온다.
-
-**원인**: 비교기 안정화 시간 필요
-
-```c
-// 잘못된 코드
-ad7280a_enable_alarms(handle);
-ad7280a_read_alert_status(handle, 0, &status);  // 이전 상태!
-
-// 올바른 코드
-ad7280a_enable_alarms(handle);
-HAL_Delay(10);  // 비교기 안정화 대기
-ad7280a_read_alert_status(handle, 0, &status);  // 정확한 상태
-```
+---
 
 ## 정리
 
-| 레지스터 | 주소 | 용도 |
-|----------|------|------|
-| Control | 0x01 | 알람 활성화 |
-| Cell OV Threshold | 0x09 | 과전압 임계값 |
-| Cell UV Threshold | 0x0A | 저전압 임계값 |
-| Alert A | 0x0D | Cell 3~6 알람 상태 |
-| Alert B | 0x0E | Cell 1~2, AUX 알람 상태 |
-
-| 항목 | 공식 |
-|------|------|
-| 전압 → 레지스터 | D = V / 6mV - 1 |
-| 레지스터 → 전압 | V = (D + 1) × 6mV |
-| 해상도 | 6mV |
-| 범위 | 6mV ~ 1.536V |
-
-**다음 글에서**: ALERT 핀 인터럽트 처리 - 폴링 말고 하드웨어 인터럽트로 즉시 감지.
+- OV/UV 레지스터로 임계값 설정
+- 공식: mV = reg × 6 + 1000
+- 6mV 해상도
+- 브로드캐스트로 전체 설정 가능
 
 ---
 
-## 시리즈 목차
+다음은 Alert 핀 인터럽트 처리.
 
-**Part 1~4**: [이전 글 목록](/tags/ad7280a/)
-
-**Part 5: 알람 & 보호**
-- **#13 - 과전압/저전압 알람 설정** ← 현재 글
-- #14 - Alert 핀 인터럽트 처리
-- #15 - 알람 상태 읽기
-- #16 - 보호 로직 통합
-
----
-
-## 참고 자료
-
-- [AD7280A Datasheet - Alert Registers](https://www.analog.com/media/en/technical-documentation/data-sheets/AD7280A.pdf)
-- [LiFePO4 Safe Operating Limits](https://batteryuniversity.com/article/bu-205-types-of-lithium-ion)
+[#14 - Alert 인터럽트](/posts/bms/ad7280a-bms-dev-14/)
