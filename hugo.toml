@@ -12,6 +12,9 @@ theme = 'PaperMod'
   ShowBreadCrumbs = true
   ShowCodeCopyButtons = true
 
+[params.footer]
+  text = "[About](/about/) · [개인정보처리방침](/privacy/)"
+
 [[menu.main]]
   name = "홈"
   url = "/"
