@@ -16,6 +16,10 @@ copyright = "© 2025 mcu2cloud.kr"
 [params.footer]
   text = "[About](/about/) · [개인정보처리방침](/privacy/)"
 
+# 검색 기능을 위한 JSON 출력
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+
 [[menu.main]]
   name = "홈"
   url = "/"
