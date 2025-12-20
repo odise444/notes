@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="theme-color" content="#f97316">
+  <title>수학 챔피언</title>
+  <link rel="manifest" href="data:application/json,{&quot;name&quot;:&quot;수학 챔피언&quot;,&quot;short_name&quot;:&quot;수학&quot;,&quot;display&quot;:&quot;standalone&quot;,&quot;background_color&quot;:&quot;%23fef3c7&quot;,&quot;theme_color&quot;:&quot;%23f97316&quot;}">
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Jua&family=Gaegu:wght@400;700&display=swap');
+    * { font-family: 'Jua', sans-serif; -webkit-tap-highlight-color: transparent; }
+    .handwriting { font-family: 'Gaegu', cursive; }
+    body { overscroll-behavior: none; }
+    
+    @keyframes fall {
+      0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+    }
+    .animate-fall { animation: fall 2s ease-out forwards; }
+    
+    @keyframes pop {
+      0% { transform: scale(0); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+    .animate-pop { animation: pop 0.3s ease-out forwards; }
+    
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+    .animate-shake { animation: shake 0.3s ease-out; }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+    }
+    .animate-float { animation: float 2s ease-in-out infinite; }
+    
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 0 15px rgba(251, 191, 36, 0.4); }
+      50% { box-shadow: 0 0 30px rgba(251, 191, 36, 0.8); }
+    }
+    .glow { animation: pulse-glow 2s ease-in-out infinite; }
+    
+    .btn-3d {
+      box-shadow: 0 4px 0 rgba(0,0,0,0.2);
+      transition: all 0.1s ease;
+    }
+    .btn-3d:active {
+      transform: translateY(3px);
+      box-shadow: 0 1px 0 rgba(0,0,0,0.2);
+    }
+    
+    .streak-fire {
+      text-shadow: 0 0 8px #ff6b35, 0 0 16px #ff6b35;
+    }
+    
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    input[type="number"] { -moz-appearance: textfield; }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  
+  <script type="text/babel">
+    const { useState, useEffect, useCallback, useRef } = React;
+
+    const DIFFICULTY_SETTINGS = {
+      easy: { maxNum: 10, mulMax: 5, label: '쉬움' },
+      medium: { maxNum: 20, mulMax: 9, label: '보통' },
+      hard: { maxNum: 100, mulMax: 12, label: '어려움' },
+      expert: { maxNum: 500, mulMax: 15, label: '전문가' },
+      master: { maxNum: 1000, mulMax: 20, label: '마스터' }
+    };
+
+    const EMOJIS = ['🌟', '⭐', '🎉', '🎊', '💫', '✨', '🏆', '🥇', '🎯', '💪'];
+    const ENCOURAGEMENTS = ['잘했어!', '멋져!', '최고야!', '대단해!', '훌륭해!', '굉장해!', '완벽해!'];
+
+    // LocalStorage 래퍼
+    const storage = {
+      get: (key) => {
+        try {
+          const item = localStorage.getItem(key);
+          return item ? JSON.parse(item) : null;
+        } catch (e) {
+          return null;
+        }
+      },
+      set: (key, value) => {
+        try {
+          localStorage.setItem(key, JSON.stringify(value));
+        } catch (e) {
+          console.error('Storage error:', e);
+        }
+      },
+      remove: (key) => {
+        try {
+          localStorage.removeItem(key);
+        } catch (e) {
+          console.error('Storage error:', e);
+        }
+      }
+    };
+
+    function MathGame() {
+      const [screen, setScreen] = useState('home');
+      const [playerName, setPlayerName] = useState(() => storage.get('math-player-name') || '');
+      const [difficulty, setDifficulty] = useState('easy');
+      const [operation, setOperation] = useState('addsub');
+      const [problem, setProblem] = useState(null);
+      const [userAnswer, setUserAnswer] = useState('');
+      const [score, setScore] = useState(0);
+      const [streak, setStreak] = useState(0);
+      const [questionCount, setQuestionCount] = useState(0);
+      const [totalQuestions, setTotalQuestions] = useState(10);
+      const [timerSetting, setTimerSetting] = useState(10);
+      const [feedback, setFeedback] = useState(null);
+      const [leaderboard, setLeaderboard] = useState([]);
+      const [stats, setStats] = useState({
+        totalGames: 0,
+        totalQuestions: 0,
+        correctAnswers: 0,
+        bestScore: 0,
+        bestStreak: 0,
+        byDifficulty: {}
+      });
+      const [currentCorrect, setCurrentCorrect] = useState(0);
+      const [bestStreakThisGame, setBestStreakThisGame] = useState(0);
+      const [wrongAnswers, setWrongAnswers] = useState([]);
+      const [isLoading, setIsLoading] = useState(true);
+      const [showConfetti, setShowConfetti] = useState(false);
+      const [timeLeft, setTimeLeft] = useState(4);
+      const timerRef = useRef(null);
+
+      useEffect(() => {
+        setLeaderboard(storage.get('math-leaderboard') || []);
+        setStats(storage.get('math-stats') || {
+          totalGames: 0, totalQuestions: 0, correctAnswers: 0,
+          bestScore: 0, bestStreak: 0, byDifficulty: {}
+        });
+        setWrongAnswers(storage.get('math-wrong-answers') || []);
+        setIsLoading(false);
+      }, []);
+
+      // 이름 저장
+      useEffect(() => {
+        if (playerName) {
+          storage.set('math-player-name', playerName);
+        }
+      }, [playerName]);
+
+      // 타이머 로직
+      useEffect(() => {
+        if (screen === 'game' && feedback === null && problem) {
+          setTimeLeft(timerSetting);
+          if (timerSetting === 0) return; // 타이머 끄기
+          timerRef.current = setInterval(() => {
+            setTimeLeft(prev => {
+              if (prev <= 1) {
+                clearInterval(timerRef.current);
+                return 0;
+              }
+              return prev - 1;
+            });
+          }, 1000);
+          return () => clearInterval(timerRef.current);
+        }
+      }, [screen, problem, feedback, timerSetting]);
+
+      useEffect(() => {
+        if (timeLeft === 0 && feedback === null && screen === 'game' && timerSetting > 0) {
+          handleTimeout();
+        }
+      }, [timeLeft]);
+
+      const handleTimeout = () => {
+        if (feedback !== null || !problem) return;
+        addWrongAnswer(problem.num1, problem.num2, problem.op, null, problem.answer, '시간초과');
+        setStreak(0);
+        setFeedback({
+          correct: false,
+          message: `시간 초과! 정답: ${problem.answer}`,
+          emoji: '⏰'
+        });
+        proceedToNext(false);
+      };
+
+      const saveLeaderboard = (data) => {
+        setLeaderboard(data);
+        storage.set('math-leaderboard', data);
+      };
+
+      const saveStats = (data) => {
+        setStats(data);
+        storage.set('math-stats', data);
+      };
+
+      const saveWrongAnswers = (data) => {
+        setWrongAnswers(data);
+        storage.set('math-wrong-answers', data);
+      };
+
+      const addWrongAnswer = (num1, num2, op, userAns, correctAns, reason) => {
+        const newEntry = {
+          id: Date.now(),
+          num1, num2, op,
+          userAnswer: userAns,
+          correctAnswer: correctAns,
+          reason,
+          difficulty,
+          date: new Date().toISOString(),
+          reviewed: false
+        };
+        const updated = [newEntry, ...wrongAnswers].slice(0, 100);
+        saveWrongAnswers(updated);
+      };
+
+      const markAsReviewed = (id) => {
+        const updated = wrongAnswers.map(w => w.id === id ? { ...w, reviewed: true } : w);
+        saveWrongAnswers(updated);
+      };
+
+      const removeFromWrongAnswers = (id) => {
+        const updated = wrongAnswers.filter(w => w.id !== id);
+        saveWrongAnswers(updated);
+      };
+
+      const clearAllWrongAnswers = () => {
+        if (confirm('정말 오답 노트를 모두 지울까요?')) {
+          setWrongAnswers([]);
+          storage.remove('math-wrong-answers');
+        }
+      };
+
+      const generateProblem = useCallback(() => {
+        const settings = DIFFICULTY_SETTINGS[difficulty];
+        const maxNum = settings.maxNum;
+        const mulMax = settings.mulMax;
+        
+        // 연산 선택
+        let ops = [];
+        if (operation === 'add') ops = ['+'];
+        else if (operation === 'sub') ops = ['-'];
+        else if (operation === 'mul') ops = ['×'];
+        else if (operation === 'div') ops = ['÷'];
+        else if (operation === 'addsub') ops = ['+', '-'];
+        else if (operation === 'muldiv') ops = ['×', '÷'];
+        else ops = ['+', '-', '×', '÷']; // all
+        
+        const op = ops[Math.floor(Math.random() * ops.length)];
+        
+        let num1, num2, answer;
+        
+        if (op === '+') {
+          num1 = Math.floor(Math.random() * maxNum) + 1;
+          num2 = Math.floor(Math.random() * (maxNum - num1)) + 1;
+          answer = num1 + num2;
+        } else if (op === '-') {
+          num1 = Math.floor(Math.random() * maxNum) + 1;
+          num2 = Math.floor(Math.random() * num1) + 1;
+          answer = num1 - num2;
+        } else if (op === '×') {
+          num1 = Math.floor(Math.random() * mulMax) + 1;
+          num2 = Math.floor(Math.random() * mulMax) + 1;
+          answer = num1 * num2;
+        } else { // ÷
+          // 나눗셈은 나누어 떨어지는 문제만 생성
+          num2 = Math.floor(Math.random() * mulMax) + 1;
+          answer = Math.floor(Math.random() * mulMax) + 1;
+          num1 = num2 * answer;
+        }
+        
+        return { num1, num2, op, answer };
+      }, [difficulty, operation]);
+
+      const startGame = () => {
+        if (!playerName.trim()) {
+          alert('이름을 입력해주세요!');
+          return;
+        }
+        setScore(0);
+        setStreak(0);
+        setQuestionCount(0);
+        setCurrentCorrect(0);
+        setBestStreakThisGame(0);
+        setTimeLeft(timerSetting);
+        setProblem(generateProblem());
+        setScreen('game');
+      };
+
+      const proceedToNext = (wasCorrect) => {
+        setTimeout(() => {
+          setFeedback(null);
+          setUserAnswer('');
+          const newCount = questionCount + 1;
+          setQuestionCount(newCount);
+
+          if (newCount >= totalQuestions) {
+            const finalCorrect = wasCorrect ? currentCorrect + 1 : currentCorrect;
+            const finalScore = wasCorrect ? score + 10 + Math.floor(streak / 3) * 5 : score;
+            const finalStreak = wasCorrect ? Math.max(bestStreakThisGame, streak + 1) : bestStreakThisGame;
+
+            const newStats = {
+              totalGames: stats.totalGames + 1,
+              totalQuestions: stats.totalQuestions + totalQuestions,
+              correctAnswers: stats.correctAnswers + finalCorrect,
+              bestScore: Math.max(stats.bestScore, finalScore),
+              bestStreak: Math.max(stats.bestStreak, finalStreak),
+              byDifficulty: {
+                ...stats.byDifficulty,
+                [difficulty]: {
+                  games: (stats.byDifficulty[difficulty]?.games || 0) + 1,
+                  correct: (stats.byDifficulty[difficulty]?.correct || 0) + finalCorrect,
+                  total: (stats.byDifficulty[difficulty]?.total || 0) + totalQuestions
+                }
+              }
+            };
+            saveStats(newStats);
+
+            const newEntry = {
+              name: playerName,
+              score: finalScore,
+              difficulty,
+              operation,
+              date: new Date().toISOString(),
+              id: Date.now()
+            };
+            const updated = [...leaderboard, newEntry].sort((a, b) => b.score - a.score).slice(0, 20);
+            saveLeaderboard(updated);
+
+            setScreen('result');
+          } else {
+            setProblem(generateProblem());
+          }
+        }, 1200);
+      };
+
+      const checkAnswer = () => {
+        if (!userAnswer || feedback !== null) return;
+        clearInterval(timerRef.current);
+        const isCorrect = parseInt(userAnswer) === problem.answer;
+
+        if (isCorrect) {
+          const streakBonus = Math.floor(streak / 3) * 5;
+          const points = 10 + streakBonus;
+          setScore(prev => prev + points);
+          setStreak(prev => prev + 1);
+          setCurrentCorrect(prev => prev + 1);
+          setBestStreakThisGame(prev => Math.max(prev, streak + 1));
+          setFeedback({
+            correct: true,
+            message: ENCOURAGEMENTS[Math.floor(Math.random() * ENCOURAGEMENTS.length)],
+            points,
+            emoji: EMOJIS[Math.floor(Math.random() * EMOJIS.length)]
+          });
+          setShowConfetti(true);
+          setTimeout(() => setShowConfetti(false), 1000);
+        } else {
+          addWrongAnswer(problem.num1, problem.num2, problem.op, parseInt(userAnswer), problem.answer, '오답');
+          setStreak(0);
+          setFeedback({
+            correct: false,
+            message: `정답은 ${problem.answer}`,
+            emoji: '💪'
+          });
+        }
+        proceedToNext(isCorrect);
+      };
+
+      const resetLeaderboard = () => {
+        if (confirm('정말 리더보드를 초기화할까요?')) {
+          setLeaderboard([]);
+          storage.remove('math-leaderboard');
+        }
+      };
+
+      const resetStats = () => {
+        if (confirm('정말 통계를 초기화할까요?')) {
+          const emptyStats = { totalGames: 0, totalQuestions: 0, correctAnswers: 0, bestScore: 0, bestStreak: 0, byDifficulty: {} };
+          setStats(emptyStats);
+          storage.remove('math-stats');
+        }
+      };
+
+      const Confetti = () => (
+        <div className="fixed inset-0 pointer-events-none overflow-hidden z-50">
+          {[...Array(15)].map((_, i) => (
+            <div key={i} className="absolute animate-fall"
+              style={{ left: `${Math.random() * 100}%`, top: '-20px',
+                animationDelay: `${Math.random() * 0.5}s`, fontSize: `${Math.random() * 16 + 16}px` }}>
+              {EMOJIS[Math.floor(Math.random() * EMOJIS.length)]}
+            </div>
+          ))}
+        </div>
+      );
+
+      if (isLoading) {
+        return (
+          <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-amber-100 via-orange-100 to-rose-100">
+            <div className="text-2xl animate-bounce">🔢 로딩중...</div>
+          </div>
+        );
+      }
+
+      return (
+        <div className="min-h-screen bg-gradient-to-br from-amber-100 via-orange-100 to-rose-100 p-3">
+          {showConfetti && <Confetti />}
+          <div className="max-w-md mx-auto">
+
+            {/* HOME */}
+            {screen === 'home' && (
+              <div className="bg-white/90 backdrop-blur rounded-2xl shadow-xl p-4 space-y-4">
+                <div className="text-center">
+                  <div className="text-5xl mb-2 animate-float">🧮</div>
+                  <h1 className="text-3xl text-orange-600">수학 챔피언</h1>
+                  <p className="text-gray-500">덧셈 뺄셈 연습!</p>
+                </div>
+                <div className="space-y-3">
+                  <div>
+                    <label className="block text-sm text-gray-600 mb-1">👤 이름</label>
+                    <input type="text" value={playerName} onChange={(e) => setPlayerName(e.target.value)}
+                      placeholder="이름을 입력하세요"
+                      className="w-full px-4 py-3 text-xl rounded-xl border-2 border-amber-300 focus:border-orange-400 focus:outline-none bg-amber-50 handwriting"
+                      maxLength={10} />
+                  </div>
+                  <div>
+                    <label className="block text-sm text-gray-600 mb-1">📊 난이도</label>
+                    <div className="grid grid-cols-5 gap-1">
+                      {Object.entries(DIFFICULTY_SETTINGS).map(([key, val]) => (
+                        <button key={key} onClick={() => setDifficulty(key)}
+                          className={`py-2 rounded-lg text-xs font-medium btn-3d ${difficulty === key ? 'bg-orange-400 text-white' : 'bg-gray-100 text-gray-600'}`}>
+                          {val.label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-sm text-gray-600 mb-1">🔢 연산</label>
+                    <div className="grid grid-cols-4 gap-1 mb-1">
+                      {[{ key: 'add', label: '➕' }, { key: 'sub', label: '➖' }, { key: 'mul', label: '✖️' }, { key: 'div', label: '➗' }].map(({ key, label }) => (
+                        <button key={key} onClick={() => setOperation(key)}
+                          className={`py-2 rounded-lg text-lg font-medium btn-3d ${operation === key ? 'bg-rose-400 text-white' : 'bg-gray-100 text-gray-600'}`}>
+                          {label}
+                        </button>
+                      ))}
+                    </div>
+                    <div className="grid grid-cols-3 gap-1">
+                      {[{ key: 'addsub', label: '➕➖' }, { key: 'muldiv', label: '✖️➗' }, { key: 'all', label: '전부' }].map(({ key, label }) => (
+                        <button key={key} onClick={() => setOperation(key)}
+                          className={`py-2 rounded-lg text-sm font-medium btn-3d ${operation === key ? 'bg-rose-400 text-white' : 'bg-gray-100 text-gray-600'}`}>
+                          {label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-sm text-gray-600 mb-1">📝 문제 수</label>
+                    <div className="grid grid-cols-4 gap-2">
+                      {[10, 20, 30, 50].map((num) => (
+                        <button key={num} onClick={() => setTotalQuestions(num)}
+                          className={`py-2.5 rounded-lg text-sm font-medium btn-3d ${totalQuestions === num ? 'bg-emerald-400 text-white' : 'bg-gray-100 text-gray-600'}`}>
+                          {num}문제
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-sm text-gray-600 mb-1">⏱️ 타이머</label>
+                    <div className="grid grid-cols-5 gap-1">
+                      {[{v: 0, l: '끄기'}, {v: 3, l: '3초'}, {v: 5, l: '5초'}, {v: 10, l: '10초'}, {v: 15, l: '15초'}].map(({v, l}) => (
+                        <button key={v} onClick={() => setTimerSetting(v)}
+                          className={`py-2 rounded-lg text-xs font-medium btn-3d ${timerSetting === v ? 'bg-cyan-400 text-white' : 'bg-gray-100 text-gray-600'}`}>
+                          {l}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                <button onClick={startGame} className="w-full py-4 bg-gradient-to-r from-orange-400 to-rose-400 text-white text-2xl rounded-xl btn-3d glow">
+                  🚀 시작하기!
+                </button>
+                <button onClick={() => setScreen('leaderboard')} className="w-full py-3 bg-gradient-to-r from-amber-400 to-yellow-400 text-white text-xl rounded-xl btn-3d">
+                  🏆 리더보드
+                </button>
+                <button onClick={() => setScreen('stats')} className="w-full py-3 bg-gradient-to-r from-indigo-400 to-purple-400 text-white text-xl rounded-xl btn-3d">
+                  📈 통계
+                </button>
+                <button onClick={() => setScreen('wrong')} className="w-full py-3 bg-gradient-to-r from-rose-400 to-pink-400 text-white text-xl rounded-xl btn-3d relative">
+                  📝 오답 노트
+                  {wrongAnswers.filter(w => !w.reviewed).length > 0 && (
+                    <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-6 h-6 rounded-full flex items-center justify-center">
+                      {wrongAnswers.filter(w => !w.reviewed).length}
+                    </span>
+                  )}
+                </button>
+              </div>
+            )}
+
+            {/* GAME */}
+            {screen === 'game' && problem && (
+              <div className="bg-white/90 backdrop-blur rounded-2xl shadow-xl p-4 space-y-4">
+                <div className="flex justify-between items-center text-sm">
+                  <span className="text-gray-500">{questionCount + 1} / {totalQuestions}</span>
+                  <div className="flex items-center gap-3">
+                    {streak >= 3 && <span className="text-lg streak-fire animate-pulse">🔥{streak}</span>}
+                    <span className="text-lg text-orange-500 font-bold">⭐{score}</span>
+                  </div>
+                </div>
+                <div className="h-2.5 bg-gray-200 rounded-full overflow-hidden">
+                  <div className="h-full bg-gradient-to-r from-orange-400 to-rose-400 transition-all duration-300"
+                    style={{ width: `${(questionCount / totalQuestions) * 100}%` }} />
+                </div>
+                <div className="flex flex-col items-center gap-1">
+                  {timerSetting === 0 ? (
+                    <div className="text-2xl text-gray-300">⏱️ 끄기</div>
+                  ) : (
+                    <>
+                      <div className={`text-3xl font-bold ${timeLeft <= 1 ? 'text-red-500 animate-pulse' : timeLeft <= 2 ? 'text-orange-500' : 'text-gray-400'}`}>
+                        {feedback === null ? `⏱️ ${timeLeft}` : '⏸️'}
+                      </div>
+                      {feedback === null && (
+                        <div className="w-32 h-2 bg-gray-200 rounded-full overflow-hidden">
+                          <div className={`h-full transition-all duration-1000 ease-linear ${timeLeft <= 1 ? 'bg-red-500' : timeLeft <= 2 ? 'bg-orange-400' : 'bg-emerald-400'}`}
+                            style={{ width: `${(timeLeft / timerSetting) * 100}%` }} />
+                        </div>
+                      )}
+                    </>
+                  )}
+                </div>
+                <div className="flex justify-center py-4">
+                  <div className="bg-amber-50 border-4 border-amber-200 rounded-2xl p-4 inline-block">
+                    <div className="text-right font-mono">
+                      <div className="text-4xl font-bold text-gray-800 tracking-widest">
+                        {String(problem.num1).padStart(4, '\u00A0')}
+                      </div>
+                      <div className="text-4xl font-bold text-gray-800 tracking-widest flex items-center justify-end">
+                        <span className="text-orange-500 mr-2">{problem.op}</span>
+                        {String(problem.num2).padStart(4, '\u00A0')}
+                      </div>
+                      <div className="border-t-4 border-gray-800 mt-2 pt-2">
+                        <div className="text-4xl font-bold text-blue-500 tracking-widest">
+                          {userAnswer ? String(userAnswer).padStart(4, '\u00A0') : '\u00A0\u00A0\u00A0?'}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* 숫자 키패드 */}
+                {feedback === null && (
+                  <div className="grid grid-cols-3 gap-2 max-w-64 mx-auto mt-2">
+                    {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(num => (
+                      <button key={num} onClick={() => setUserAnswer(prev => String(prev) + num)}
+                        className="py-4 text-2xl font-bold bg-white border-2 border-gray-200 rounded-xl btn-3d active:bg-amber-50 active:border-amber-300">
+                        {num}
+                      </button>
+                    ))}
+                    <button onClick={() => setUserAnswer(prev => String(prev).slice(0, -1))}
+                      className="py-4 text-xl font-bold bg-rose-50 border-2 border-rose-200 text-rose-500 rounded-xl btn-3d active:bg-rose-100">
+                      ⌫
+                    </button>
+                    <button onClick={() => setUserAnswer(prev => String(prev) + '0')}
+                      className="py-4 text-2xl font-bold bg-white border-2 border-gray-200 rounded-xl btn-3d active:bg-amber-50 active:border-amber-300">
+                      0
+                    </button>
+                    <button onClick={checkAnswer} disabled={!userAnswer}
+                      className="py-4 text-sm font-bold bg-gradient-to-r from-emerald-400 to-green-500 text-white rounded-xl btn-3d disabled:opacity-50 active:from-emerald-500 active:to-green-600">
+                      제출
+                    </button>
+                  </div>
+                )}
+                {feedback && (
+                  <div className={`text-center py-4 rounded-xl animate-pop ${feedback.correct ? 'bg-gradient-to-r from-emerald-100 to-green-100' : 'bg-gradient-to-r from-rose-100 to-red-100 animate-shake'}`}>
+                    <div className="text-4xl mb-1">{feedback.emoji}</div>
+                    <div className={`text-2xl ${feedback.correct ? 'text-emerald-600' : 'text-rose-600'}`}>{feedback.message}</div>
+                    {feedback.points && <div className="text-lg text-emerald-500">+{feedback.points}점</div>}
+                  </div>
+                )}
+                <button onClick={() => { if (confirm('정말 그만둘까요?')) { clearInterval(timerRef.current); setScreen('home'); } }}
+                  className="w-full py-2 text-gray-400 text-sm">
+                  🏠 홈으로
+                </button>
+              </div>
+            )}
+
+            {/* RESULT */}
+            {screen === 'result' && (
+              <div className="bg-white/90 backdrop-blur rounded-2xl shadow-xl p-4 text-center space-y-4">
+                <div className="text-5xl animate-bounce">🎉</div>
+                <h2 className="text-2xl text-orange-600">{playerName}님 수고했어요!</h2>
+                <div className="py-6 bg-gradient-to-r from-amber-100 to-orange-100 rounded-xl">
+                  <div className="text-5xl font-bold text-orange-500">{score}점</div>
+                  <div className="text-gray-600 mt-1">{totalQuestions}문제 완료!</div>
+                </div>
+                <div className="text-xl">
+                  {score >= totalQuestions * 8 ? '🏆 수학 천재!' : score >= totalQuestions * 5 ? '⭐ 잘했어요!' : '💪 다음엔 더 잘할 수 있어요!'}
+                </div>
+                <div className="grid grid-cols-2 gap-2">
+                  <button onClick={() => { setScreen('game'); setScore(0); setStreak(0); setQuestionCount(0); setCurrentCorrect(0); setBestStreakThisGame(0); setTimeLeft(timerSetting); setProblem(generateProblem()); }}
+                    className="py-3 bg-gradient-to-r from-orange-400 to-rose-400 text-white text-base rounded-xl btn-3d">🔄 다시</button>
+                  <button onClick={() => setScreen('leaderboard')} className="py-3 bg-gradient-to-r from-amber-400 to-yellow-400 text-white text-base rounded-xl btn-3d">🏆 순위</button>
+                  <button onClick={() => setScreen('stats')} className="py-3 bg-gradient-to-r from-indigo-400 to-purple-400 text-white text-base rounded-xl btn-3d">📈 통계</button>
+                  <button onClick={() => setScreen('wrong')} className="py-3 bg-gradient-to-r from-rose-400 to-pink-400 text-white text-base rounded-xl btn-3d">📝 오답</button>
+                </div>
+                <button onClick={() => setScreen('home')} className="w-full py-2 text-gray-400 text-sm">🏠 홈으로</button>
+              </div>
+            )}
+
+            {/* LEADERBOARD */}
+            {screen === 'leaderboard' && (
+              <div className="bg-white/90 backdrop-blur rounded-2xl shadow-xl p-4 space-y-4">
+                <div className="text-center">
+                  <div className="text-4xl mb-1">🏆</div>
+                  <h2 className="text-2xl text-orange-600">리더보드</h2>
+                </div>
+                {leaderboard.length === 0 ? (
+                  <div className="text-center py-10 text-gray-500">아직 기록이 없어요!<br/>첫 번째 챔피언이 되어보세요! 🌟</div>
+                ) : (
+                  <div className="space-y-2 max-h-80 overflow-y-auto">
+                    {leaderboard.map((entry, idx) => (
+                      <div key={entry.id} className={`flex items-center gap-3 p-3 rounded-lg ${idx === 0 ? 'bg-gradient-to-r from-yellow-100 to-amber-100 border-2 border-yellow-300' : idx === 1 ? 'bg-gradient-to-r from-gray-100 to-slate-100 border border-gray-300' : idx === 2 ? 'bg-gradient-to-r from-orange-50 to-amber-50 border border-orange-200' : 'bg-gray-50'}`}>
+                        <div className="text-2xl w-8 text-center">{idx === 0 ? '🥇' : idx === 1 ? '🥈' : idx === 2 ? '🥉' : <span className="text-gray-400 text-lg">{idx + 1}</span>}</div>
+                        <div className="flex-1 min-w-0">
+                          <div className="font-bold truncate">{entry.name}</div>
+                          <div className="text-xs text-gray-400">{DIFFICULTY_SETTINGS[entry.difficulty]?.label}</div>
+                        </div>
+                        <div className="text-xl font-bold text-orange-500">{entry.score}</div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                <button onClick={() => setScreen('home')} className="w-full py-3 bg-gradient-to-r from-orange-400 to-rose-400 text-white text-xl rounded-xl btn-3d">🏠 홈으로</button>
+                {leaderboard.length > 0 && <button onClick={resetLeaderboard} className="w-full py-1.5 text-gray-300 text-xs">리더보드 초기화</button>}
+              </div>
+            )}
+
+            {/* STATS */}
+            {screen === 'stats' && (
+              <div className="bg-white/90 backdrop-blur rounded-2xl shadow-xl p-4 space-y-4">
+                <div className="text-center">
+                  <div className="text-4xl mb-1">📈</div>
+                  <h2 className="text-2xl text-indigo-600">통계</h2>
+                </div>
+                {stats.totalGames === 0 ? (
+                  <div className="text-center py-10 text-gray-500">아직 기록이 없어요!<br/>게임을 시작해보세요! 🎮</div>
+                ) : (
+                  <div className="space-y-4">
+                    <div className="grid grid-cols-2 gap-2">
+                      <div className="bg-gradient-to-br from-blue-50 to-indigo-100 p-3 rounded-xl text-center">
+                        <div className="text-3xl font-bold text-indigo-600">{stats.totalGames}</div>
+                        <div className="text-xs text-gray-500">총 게임</div>
+                      </div>
+                      <div className="bg-gradient-to-br from-green-50 to-emerald-100 p-3 rounded-xl text-center">
+                        <div className="text-3xl font-bold text-emerald-600">{stats.totalQuestions > 0 ? Math.round((stats.correctAnswers / stats.totalQuestions) * 100) : 0}%</div>
+                        <div className="text-xs text-gray-500">정답률</div>
+                      </div>
+                      <div className="bg-gradient-to-br from-amber-50 to-orange-100 p-3 rounded-xl text-center">
+                        <div className="text-3xl font-bold text-orange-600">{stats.bestScore}</div>
+                        <div className="text-xs text-gray-500">최고 점수</div>
+                      </div>
+                      <div className="bg-gradient-to-br from-rose-50 to-pink-100 p-3 rounded-xl text-center">
+                        <div className="text-3xl font-bold text-rose-600">{stats.bestStreak}🔥</div>
+                        <div className="text-xs text-gray-500">최고 연속</div>
+                      </div>
+                    </div>
+                    <div className="bg-gray-50 p-3 rounded-xl space-y-2">
+                      <div className="flex justify-between text-sm"><span className="text-gray-500">총 문제 수</span><span className="font-bold">{stats.totalQuestions}문제</span></div>
+                      <div className="flex justify-between text-sm"><span className="text-gray-500">맞춘 문제</span><span className="font-bold text-emerald-600">{stats.correctAnswers}문제</span></div>
+                      <div className="flex justify-between text-sm"><span className="text-gray-500">틀린 문제</span><span className="font-bold text-rose-500">{stats.totalQuestions - stats.correctAnswers}문제</span></div>
+                    </div>
+                    {Object.keys(stats.byDifficulty).length > 0 && (
+                      <div className="space-y-2">
+                        <div className="text-sm font-bold text-gray-600">난이도별 정답률</div>
+                        {Object.entries(stats.byDifficulty).map(([diff, data]) => (
+                          <div key={diff} className="bg-gray-50 p-2 rounded-lg">
+                            <div className="flex justify-between items-center text-sm">
+                              <span>{DIFFICULTY_SETTINGS[diff]?.label || diff}</span>
+                              <span className="font-bold">{data.total > 0 ? Math.round((data.correct / data.total) * 100) : 0}%</span>
+                            </div>
+                            <div className="h-2 bg-gray-200 rounded-full mt-1 overflow-hidden">
+                              <div className="h-full bg-gradient-to-r from-indigo-400 to-purple-500" style={{ width: `${data.total > 0 ? (data.correct / data.total) * 100 : 0}%` }} />
+                            </div>
+                            <div className="text-xs text-gray-400 mt-1">{data.games}게임 · {data.correct}/{data.total}문제</div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )}
+                <button onClick={() => setScreen('home')} className="w-full py-3 bg-gradient-to-r from-indigo-400 to-purple-400 text-white text-xl rounded-xl btn-3d">🏠 홈으로</button>
+                {stats.totalGames > 0 && <button onClick={resetStats} className="w-full py-1.5 text-gray-300 text-xs">통계 초기화</button>}
+              </div>
+            )}
+
+            {/* WRONG ANSWERS */}
+            {screen === 'wrong' && (
+              <div className="bg-white/90 backdrop-blur rounded-2xl shadow-xl p-4 space-y-4">
+                <div className="text-center">
+                  <div className="text-4xl mb-1">📝</div>
+                  <h2 className="text-2xl text-rose-600">오답 노트</h2>
+                  <p className="text-sm text-gray-500">{wrongAnswers.length}개 ({wrongAnswers.filter(w => !w.reviewed).length}개 미복습)</p>
+                </div>
+                {wrongAnswers.length === 0 ? (
+                  <div className="text-center py-10 text-gray-500">틀린 문제가 없어요!<br/>대단해요! 🌟</div>
+                ) : (
+                  <div className="space-y-2 max-h-80 overflow-y-auto">
+                    {wrongAnswers.map((item) => (
+                      <div key={item.id} className={`p-3 rounded-xl border-2 ${item.reviewed ? 'bg-gray-50 border-gray-200' : 'bg-rose-50 border-rose-200'}`}>
+                        <div className="flex items-start justify-between gap-2">
+                          <div className="flex-1">
+                            <div className="bg-white rounded-lg p-2 inline-block font-mono text-right text-lg">
+                              <div>{String(item.num1).padStart(4, '\u00A0')}</div>
+                              <div><span className="text-orange-500">{item.op}</span>{String(item.num2).padStart(3, '\u00A0')}</div>
+                              <div className="border-t-2 border-gray-300 pt-1">
+                                <span className="text-red-500 line-through mr-2">{item.userAnswer !== null ? item.userAnswer : '?'}</span>
+                                <span className="text-emerald-600 font-bold">{item.correctAnswer}</span>
+                              </div>
+                            </div>
+                            <div className="text-xs text-gray-400 mt-1">{item.reason} · {DIFFICULTY_SETTINGS[item.difficulty]?.label}{item.reviewed && ' · ✓ 복습완료'}</div>
+                          </div>
+                          <div className="flex flex-col gap-1">
+                            {!item.reviewed && <button onClick={() => markAsReviewed(item.id)} className="px-2 py-1 bg-emerald-100 text-emerald-600 text-xs rounded-lg">✓ 복습</button>}
+                            <button onClick={() => removeFromWrongAnswers(item.id)} className="px-2 py-1 bg-gray-100 text-gray-500 text-xs rounded-lg">삭제</button>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                <button onClick={() => setScreen('home')} className="w-full py-3 bg-gradient-to-r from-rose-400 to-pink-400 text-white text-xl rounded-xl btn-3d">🏠 홈으로</button>
+                {wrongAnswers.length > 0 && <button onClick={clearAllWrongAnswers} className="w-full py-1.5 text-gray-300 text-xs">오답 노트 비우기</button>}
+              </div>
+            )}
+
+          </div>
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<MathGame />);
+  </script>
+</body>
+</html>
