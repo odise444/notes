@@ -202,6 +202,7 @@
   },
   "active": "8feb1e25321495b4",
   "lastOpenFiles": [
+    "layouts/partials/search-1.html",
     "layouts/_default/search-1.html",
     "Ghidra-역분석-시리즈-기획.md",
     "content/search.md",
@@ -246,7 +247,6 @@
     "content/posts/FloorPlanner",
     "layouts/partials/extend_head.html",
     "layouts/partials/adsens_code.html",
-    "layouts/partials",
-    "static/ads.txt"
+    "layouts/partials"
   ]
 }
