@@ -202,6 +202,7 @@
   },
   "active": "99a14ee916e721c5",
   "lastOpenFiles": [
+    "layouts/_default/search.html",
     "static/floor-planner/robots.txt",
     "static/floor-planner/index.html",
     "static/floor-planner/favicon.ico",
@@ -246,7 +247,6 @@
     "static/imgs/6cells.jpg",
     "static/imgs/ad7280a-bms-dev-b4-1.jpg",
     "static/imgs/ad7280a-bms-dev-18-4.png",
-    "static/imgs/ad7280a-bms-dev-18-3.png",
-    "Ghidra-역분석-시리즈-기획.md.10ff05a23edd1e08ea6e2a24cc6f91f6.tmp"
+    "static/imgs/ad7280a-bms-dev-18-3.png"
   ]
 }
