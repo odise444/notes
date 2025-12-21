@@ -202,6 +202,12 @@
   },
   "active": "99a14ee916e721c5",
   "lastOpenFiles": [
+    "static/floor-planner/robots.txt",
+    "static/floor-planner/index.html",
+    "static/floor-planner/favicon.ico",
+    "static/floor-planner/404.html",
+    "static/floor-planner/200.html",
+    "static/floor-planner",
     "content/posts/Ghidra/ghidra-stm32-re-b4.md",
     "content/posts/Ghidra/ghidra-stm32-re-b3.md",
     "content/posts/Ghidra/ghidra-stm32-re-b2.md",
@@ -231,7 +237,6 @@
     "content/privacy.md",
     "content/about.md",
     "content/posts/BMS/ad7280a-bms-dev-b4.md",
-    "무제.md",
     "static/imgs/pico.jpg",
     "static/imgs/cells connection.jpg",
     "static/imgs/box.jpg",
@@ -242,11 +247,6 @@
     "static/imgs/ad7280a-bms-dev-b4-1.jpg",
     "static/imgs/ad7280a-bms-dev-18-4.png",
     "static/imgs/ad7280a-bms-dev-18-3.png",
-    "Ghidra-역분석-시리즈-기획.md.10ff05a23edd1e08ea6e2a24cc6f91f6.tmp",
-    "SOMETHINGS/function",
-    "SOMETHINGS",
-    "content/posts/FloorPlanner",
-    "layouts/partials/extend_head.html",
-    "layouts/partials/adsens_code.html"
+    "Ghidra-역분석-시리즈-기획.md.10ff05a23edd1e08ea6e2a24cc6f91f6.tmp"
   ]
 }
