@@ -200,8 +200,13 @@
       "bases:새 베이스 생성하기": false
     }
   },
-  "active": "8feb1e25321495b4",
+  "active": "99a14ee916e721c5",
   "lastOpenFiles": [
+    "content/posts/Ghidra/ghidra-stm32-re-23.md",
+    "content/posts/Ghidra/ghidra-stm32-re-22.md",
+    "content/posts/Ghidra/ghidra-stm32-re-21.md",
+    "content/posts/Ghidra/ghidra-stm32-re-20.md",
+    "content/posts/Ghidra/ghidra-stm32-re-19.md",
     "layouts/partials/search-1.html",
     "layouts/_default/search-1.html",
     "Ghidra-역분석-시리즈-기획.md",
@@ -237,16 +242,11 @@
     "content/posts/BMS/ad7280a-bms-dev-18.md",
     "static/imgs/ad7280a-bms-dev-18-4.png",
     "static/imgs/ad7280a-bms-dev-18-3.png",
-    "AD7280A-시리즈-기획.md",
-    "content/posts/BMS/ad7280a-bms-dev-22.md",
-    "content/posts/BMS/ad7280a-bms-dev-12.md",
-    "content/posts/BMS/ad7280a-bms-dev-13.md",
     "Ghidra-역분석-시리즈-기획.md.10ff05a23edd1e08ea6e2a24cc6f91f6.tmp",
     "SOMETHINGS/function",
     "SOMETHINGS",
     "content/posts/FloorPlanner",
     "layouts/partials/extend_head.html",
-    "layouts/partials/adsens_code.html",
-    "layouts/partials"
+    "layouts/partials/adsens_code.html"
   ]
 }
