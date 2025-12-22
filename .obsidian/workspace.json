@@ -11,14 +11,12 @@
             "id": "44f79378031c0192",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "image",
               "state": {
-                "file": "content/posts/Floor-Planner/floor-planner-04.md",
-                "mode": "source",
-                "source": false
+                "file": "static/imgs/fp-measure.png"
               },
-              "icon": "lucide-file",
-              "title": "floor-planner-04"
+              "icon": "lucide-image",
+              "title": "fp-measure"
             }
           }
         ]
@@ -187,10 +185,22 @@
   },
   "active": "44f79378031c0192",
   "lastOpenFiles": [
+    "static/imgs/fp-edit-form - 복사본.png",
+    "static/imgs/fp-door - 복사본.png",
+    "static/imgs/fp-main.png",
+    "static/imgs/fp-measure.png",
+    "static/imgs/fp-toolbar.png",
+    "static/imgs/fp-door.png",
+    "static/imgs/fp-empty.png",
+    "static/imgs/fp-image-upload.png",
+    "FloorPlanner-시리즈-기획.md",
+    "static/imgs/fp-selected.png",
+    "static/imgs/fp-furniture-panel.png",
+    "static/imgs/fp-edit-form.png",
+    "content/posts/Floor-Planner/floor-planner-04.md",
     "content/posts/Floor-Planner/floor-planner-03.md",
     "content/posts/Floor-Planner/floor-planner-02.md",
     "content/posts/Floor-Planner/floor-planner-01.md",
-    "FloorPlanner-시리즈-기획.md",
     "content/posts/Floor-Planner/floor-planner-20.md",
     "content/posts/Floor-Planner/floor-planner-19.md",
     "content/posts/Floor-Planner/floor-planner-18.md",
@@ -207,22 +217,10 @@
     "content/posts/Floor-Planner/floor-planner-07.md",
     "content/posts/Floor-Planner/floor-planner-06.md",
     "content/posts/Floor-Planner/floor-planner-05.md",
-    "content/posts/Floor-Planner/floor-planner-04.md",
-    "static/imgs/fp-toolbar.png",
-    "static/imgs/fp-image-upload.png",
-    "static/imgs/fp-measure.png",
-    "static/imgs/fp-door.png",
-    "static/imgs/fp-edit-form.png",
-    "static/imgs/fp-selected.png",
-    "static/imgs/fp-furniture-panel.png",
-    "static/imgs/fp-empty.png",
-    "static/imgs/fp-main.png",
-    "static/imgs/FloorPlanner-시리즈-기획-9.png",
     "SOMETHINGS/Floor Planner 작업 이력.md",
     "posts/ghidra/ghidra-stm32-re-29.md",
     "content/posts/Floor-Planner/floor-planner-progress.md",
     "content/posts/Ghidra/ghidra-stm32-re-b4.md",
-    "content/posts/Ghidra/ghidra-stm32-re-b3.md",
     "posts/ghidra",
     "posts",
     "static/math/index.html",
