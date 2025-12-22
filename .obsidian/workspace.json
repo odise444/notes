@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "FloorPlanner-시리즈-기획.md",
+                "file": "content/posts/Floor-Planner/floor-planner-04.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "FloorPlanner-시리즈-기획"
+              "title": "floor-planner-04"
             }
           }
         ]
@@ -185,8 +185,12 @@
       "github-sync:Sync with Remote": false
     }
   },
-  "active": "99a14ee916e721c5",
+  "active": "44f79378031c0192",
   "lastOpenFiles": [
+    "content/posts/Floor-Planner/floor-planner-03.md",
+    "content/posts/Floor-Planner/floor-planner-02.md",
+    "content/posts/Floor-Planner/floor-planner-01.md",
+    "FloorPlanner-시리즈-기획.md",
     "content/posts/Floor-Planner/floor-planner-20.md",
     "content/posts/Floor-Planner/floor-planner-19.md",
     "content/posts/Floor-Planner/floor-planner-18.md",
@@ -204,9 +208,6 @@
     "content/posts/Floor-Planner/floor-planner-06.md",
     "content/posts/Floor-Planner/floor-planner-05.md",
     "content/posts/Floor-Planner/floor-planner-04.md",
-    "content/posts/Floor-Planner/floor-planner-03.md",
-    "content/posts/Floor-Planner/floor-planner-02.md",
-    "content/posts/Floor-Planner/floor-planner-01.md",
     "static/imgs/fp-toolbar.png",
     "static/imgs/fp-image-upload.png",
     "static/imgs/fp-measure.png",
@@ -220,7 +221,6 @@
     "SOMETHINGS/Floor Planner 작업 이력.md",
     "posts/ghidra/ghidra-stm32-re-29.md",
     "content/posts/Floor-Planner/floor-planner-progress.md",
-    "FloorPlanner-시리즈-기획.md",
     "content/posts/Ghidra/ghidra-stm32-re-b4.md",
     "content/posts/Ghidra/ghidra-stm32-re-b3.md",
     "posts/ghidra",
