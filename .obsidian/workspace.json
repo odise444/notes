@@ -4,19 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "ffea126ecd691f8c",
+        "id": "682286e62ae70b86",
         "type": "tabs",
         "children": [
           {
-            "id": "44f79378031c0192",
+            "id": "ce177fbbb58ec841",
             "type": "leaf",
             "state": {
-              "type": "image",
+              "type": "markdown",
               "state": {
-                "file": "static/imgs/fp-measure.png"
+                "file": "content/posts/Floor-Planner/floor-planner-20.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-image",
-              "title": "fp-measure"
+              "icon": "lucide-file",
+              "title": "floor-planner-20"
             }
           }
         ]
@@ -183,24 +185,23 @@
       "github-sync:Sync with Remote": false
     }
   },
-  "active": "44f79378031c0192",
+  "active": "ce177fbbb58ec841",
   "lastOpenFiles": [
-    "static/imgs/fp-edit-form - 복사본.png",
-    "static/imgs/fp-door - 복사본.png",
-    "static/imgs/fp-main.png",
-    "static/imgs/fp-measure.png",
-    "static/imgs/fp-toolbar.png",
-    "static/imgs/fp-door.png",
-    "static/imgs/fp-empty.png",
-    "static/imgs/fp-image-upload.png",
-    "FloorPlanner-시리즈-기획.md",
-    "static/imgs/fp-selected.png",
-    "static/imgs/fp-furniture-panel.png",
-    "static/imgs/fp-edit-form.png",
-    "content/posts/Floor-Planner/floor-planner-04.md",
     "content/posts/Floor-Planner/floor-planner-03.md",
     "content/posts/Floor-Planner/floor-planner-02.md",
     "content/posts/Floor-Planner/floor-planner-01.md",
+    "static/imgs/fp-main.png",
+    "static/imgs/fp-door.png",
+    "static/imgs/fp-measure.png",
+    "static/imgs/fp-furniture-panel_.png",
+    "static/imgs/fp-edit-form_.png",
+    "static/imgs/fp-door_.png",
+    "static/imgs/fp-measure (2).png",
+    "static/imgs/fp-door (2).png",
+    "static/imgs/fp-furniture-panel (2).png",
+    "static/imgs/fp-selected - 복사본.png",
+    "FloorPlanner-시리즈-기획.md",
+    "content/posts/Floor-Planner/floor-planner-04.md",
     "content/posts/Floor-Planner/floor-planner-20.md",
     "content/posts/Floor-Planner/floor-planner-19.md",
     "content/posts/Floor-Planner/floor-planner-18.md",
