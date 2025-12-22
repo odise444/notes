@@ -18,15 +18,15 @@
 
 ### 필수 (9개)
 
-- [x] FloorPlanner-시리즈-기획-1.png - 메인 화면 전체 (방 + 가구 배치된 상태)
-- [x] FloorPlanner-시리즈-기획-2.png - 빈 캔버스 (그리드만)
-- [x] FloorPlanner-시리즈-기획-3.png - 좌측 가구 팔레트
-- [x] FloorPlanner-시리즈-기획-4.png - 가구 선택 상태 (Transformer 핸들)
-- [x] FloorPlanner-시리즈-기획-5.png - 더블클릭 편집 폼
-- [x] FloorPlanner-시리즈-기획-6.png - 문 추가된 상태 (호 표시)
-- [x] FloorPlanner-시리즈-기획-7.png - 측정 도구 사용 중
-- [x] FloorPlanner-시리즈-기획-8.png - 평면도 이미지 업로드
-- [x] FloorPlanner-시리즈-기획-9.png - 상단 툴바 / 내보내기
+- [x] fp-main.png - 메인 화면 전체 (방 + 가구 배치된 상태)
+- [x] fp-empty.png - 빈 캔버스 (그리드만)
+- [x] fp-furniture-panel.png - 좌측 가구 팔레트
+- [x] fp-selected.png - 가구 선택 상태 (Transformer 핸들)
+- [x] fp-edit-form.png - 더블클릭 편집 폼
+- [x] fp-door.png - 문 추가된 상태 (호 표시)
+- [x] fp-measure.png - 측정 도구 사용 중
+- [x] fp-image-upload.png - 평면도 이미지 업로드
+- [x] fp-toolbar.png - 상단 툴바 / 내보내기
 
 ### 추가 (필요시)
 
