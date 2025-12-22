@@ -187,6 +187,10 @@
   },
   "active": "44f79378031c0192",
   "lastOpenFiles": [
+    "static/imgs/Pasted image 20251222170615.png",
+    "static/imgs/FloorPlanner-시리즈-기획-8.png",
+    "static/imgs/FloorPlanner-시리즈-기획-7.png",
+    "static/imgs/FloorPlanner-시리즈-기획-6.png",
     "static/imgs/FloorPlanner-시리즈-기획-5.png",
     "static/imgs/FloorPlanner-시리즈-기획-4.png",
     "static/imgs/FloorPlanner-시리즈-기획-3.png",
@@ -220,7 +224,6 @@
     "static/math/index.html",
     "static/math",
     "static/imgs/ad7280a-bms-dev-b4-1.png",
-    "static/imgs/ad7280a-bms-dev-b4-1.jpg",
     "static/floor-planner/_nuxt/builds/meta/ae252c5a-e55b-4c09-868c-1f20f72d1e6d.json",
     "static/floor-planner/_nuxt/builds/meta",
     "static/floor-planner/_nuxt/builds/latest.json",
@@ -229,9 +232,6 @@
     "static/floor-planner/_nuxt/error-500.DLkAwcfL.css",
     "content/posts/Ghidra/ghidra-stm32-re-34.md",
     "content/posts/Ghidra/ghidra-stm32-re-33.md",
-    "content/posts/Ghidra/ghidra-stm32-re-32.md",
-    "static/imgs/ad7280a-bms-dev-18-4.png",
-    "static/imgs/ad7280a-bms-dev-18-3.png",
-    "static/imgs/ad7280a-bms-dev-18-2.png"
+    "content/posts/Ghidra/ghidra-stm32-re-32.md"
   ]
 }
