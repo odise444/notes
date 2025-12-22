@@ -18,10 +18,10 @@
 
 ### 필수 (10개)
 
-- [ ] fp-main.png - 메인 화면 전체 (방 + 가구 배치된 상태)
+- [x] fp-main.png - 메인 화면 전체 (방 + 가구 배치된 상태)![fp-main.png](FloorPlanner-시리즈-기획-3.png)
 - [x] fp-empty.png - 빈 캔버스 (그리드만)![fp-empty.png](FloorPlanner-시리즈-기획-1.png)
-- [ ] fp-furniture-panel.png - 좌측 가구 팔레트
-- [ ] fp-selected.png - 가구 선택 상태 (Transformer 핸들)
+- [x] fp-furniture-panel.png - 좌측 가구 팔레트![fp-furniture-panel.png](FloorPlanner-시리즈-기획-4.png)
+- [x] fp-selected.png - 가구 선택 상태 (Transformer 핸들)![fp-selected.png](FloorPlanner-시리즈-기획-5.png)
 - [ ] fp-edit-form.png - 더블클릭 편집 폼
 - [ ] fp-door.png - 문 추가된 상태 (호 표시)
 - [ ] fp-measure.png - 측정 도구 사용 중
