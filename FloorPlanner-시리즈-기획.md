@@ -28,63 +28,47 @@
 - [x] fp-image-upload.png - 평면도 이미지 업로드
 - [x] fp-toolbar.png - 상단 툴바 / 내보내기
 
-### 추가 (필요시)
-
-- [ ] fp-drag-drop.png - 가구 드래그 중
-- [ ] fp-shapes.png - 다양한 모양 (사각형, 원형, L자형)
-- [ ] fp-resize.png - 리사이즈 중
-- [ ] fp-rotate.png - 회전 중
-- [ ] fp-door-snap.png - 벽에 스냅된 문
-- [ ] fp-door-direction.png - 열림 방향 비교
-- [ ] fp-measure-multi.png - 여러 측정
-- [ ] fp-zoom-out.png - 줌 아웃
-- [ ] fp-zoom-in.png - 줌 인
-- [ ] fp-image-opacity.png - 투명도 조절
-- [ ] fp-image-locked.png - 이미지 잠금
-- [ ] fp-undo-redo.png - Undo/Redo 버튼
-- [ ] fp-shortcuts.png - 단축키 도움말
-
 ---
 
 ## 글 목록 (20개)
 
 ### Part 1: 시작
 
-- [ ] #1 왜 만들게 됐나
-- [ ] #2 캔버스 라이브러리 선택
+- [x] #1 왜 만들게 됐나
+- [x] #2 캔버스 라이브러리 선택
 
 ### Part 2: 캔버스 기초
 
-- [ ] #3 좌표계 삽질
-- [ ] #4 무한 그리드
-- [ ] #5 줌/팬
+- [x] #3 좌표계 삽질
+- [x] #4 무한 그리드
+- [x] #5 줌/팬
 
 ### Part 3: 가구 시스템
 
-- [ ] #6 가구 시스템
-- [ ] #7 다양한 모양
-- [ ] #8 Konva Transformer
-- [ ] #9 회전된 객체
+- [x] #6 가구 시스템
+- [x] #7 다양한 모양
+- [x] #8 Konva Transformer
+- [x] #9 회전된 객체
 
 ### Part 4: 문/도구
 
-- [ ] #10 문 시스템
-- [ ] #11 측정 도구
-- [ ] #12 키보드 단축키
-- [ ] #13 Undo/Redo
+- [x] #10 문 시스템
+- [x] #11 측정 도구
+- [x] #12 키보드 단축키
+- [x] #13 Undo/Redo
 
 ### Part 5: 이미지/저장
 
-- [ ] #14 이미지 업로드
-- [ ] #15 저장/불러오기
-- [ ] #16 PNG 내보내기
+- [x] #14 이미지 업로드
+- [x] #15 저장/불러오기
+- [x] #16 PNG 내보내기
 
 ### Part 6: 테스트/최적화
 
-- [ ] #17 Vitest로 Konva 테스트
-- [ ] #18 Playwright E2E
-- [ ] #19 성능 최적화
-- [ ] #20 Vue Reactivity + Konva 충돌
+- [x] #17 Vitest로 Konva 테스트
+- [x] #18 Playwright E2E
+- [x] #19 성능 최적화
+- [x] #20 Vue Reactivity + Konva 충돌
 
 ---
 
@@ -95,14 +79,15 @@
 배포             ✅
 테스트           ✅ (209개)
 
-스크린샷         9/9 (필수) ✅
-글 작성          0/20
+스크린샷         9/9 ✅
+글 작성          20/20 ✅
 ```
 
 ---
 
-## 메모
+## 완료!
 
-- BMS 36개, Ghidra 39개 완료
-- 프론트엔드 개발자 타겟
-- 캔버스 + Vue 조합 경험 공유
+- BMS 36개 ✅
+- Ghidra 39개 ✅
+- Floor Planner 20개 ✅
+- **총 95개**
