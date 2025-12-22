@@ -14,20 +14,19 @@
 
 ## 스크린샷 목록
 
-저장 위치: `content/posts/Floor-Planner/`
+저장 위치: `static/imgs/`
 
-### 필수 (10개)
+### 필수 (9개)
 
-- [x] fp-main.png - 메인 화면 전체 (방 + 가구 배치된 상태)![fp-main.png](FloorPlanner-시리즈-기획-3.png)
-- [x] fp-empty.png - 빈 캔버스 (그리드만)![fp-empty.png](FloorPlanner-시리즈-기획-1.png)
-- [x] fp-furniture-panel.png - 좌측 가구 팔레트![fp-furniture-panel.png](FloorPlanner-시리즈-기획-4.png)
-- [x] fp-selected.png - 가구 선택 상태 (Transformer 핸들)![fp-selected.png](FloorPlanner-시리즈-기획-5.png)
-- [x] fp-edit-form.png - 더블클릭 편집 폼![fp-edit-form.png](FloorPlanner-시리즈-기획-6.png)
-- [ ] fp-door.png - 문 추가된 상태 (호 표시)![fp-door.png](FloorPlanner-시리즈-기획-7.png)
-- [x] fp-measure.png - 측정 도구 사용 중![fp-measure.png](FloorPlanner-시리즈-기획-8.png)
-- [ ] fp-image-upload.png - 평면도 이미지 업로드
-- [x] fp-export.png - 내보내기 결과![fp-export.png](Pasted%20image%2020251222170615.png)
-- [ ] fp-toolbar.png - 상단 툴바
+- [x] FloorPlanner-시리즈-기획-1.png - 메인 화면 전체 (방 + 가구 배치된 상태)
+- [x] FloorPlanner-시리즈-기획-2.png - 빈 캔버스 (그리드만)
+- [x] FloorPlanner-시리즈-기획-3.png - 좌측 가구 팔레트
+- [x] FloorPlanner-시리즈-기획-4.png - 가구 선택 상태 (Transformer 핸들)
+- [x] FloorPlanner-시리즈-기획-5.png - 더블클릭 편집 폼
+- [x] FloorPlanner-시리즈-기획-6.png - 문 추가된 상태 (호 표시)
+- [x] FloorPlanner-시리즈-기획-7.png - 측정 도구 사용 중
+- [x] FloorPlanner-시리즈-기획-8.png - 평면도 이미지 업로드
+- [x] FloorPlanner-시리즈-기획-9.png - 상단 툴바 / 내보내기
 
 ### 추가 (필요시)
 
@@ -96,7 +95,7 @@
 배포             ✅
 테스트           ✅ (209개)
 
-스크린샷         0/10 (필수)
+스크린샷         9/9 (필수) ✅
 글 작성          0/20
 ```
 
