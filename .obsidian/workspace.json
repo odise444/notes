@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "SOMETHINGS/Floor Planner 작업 이력.md",
+                "file": "FloorPlanner-시리즈-기획.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Floor Planner 작업 이력"
+              "title": "FloorPlanner-시리즈-기획"
             }
           }
         ]
@@ -187,6 +187,7 @@
   },
   "active": "44f79378031c0192",
   "lastOpenFiles": [
+    "SOMETHINGS/Floor Planner 작업 이력.md",
     "posts/ghidra/ghidra-stm32-re-29.md",
     "content/posts/Floor-Planner/floor-planner-progress.md",
     "FloorPlanner-시리즈-기획.md",
@@ -225,7 +226,6 @@
     "content/posts/Ghidra/ghidra-stm32-re-33.md",
     "content/posts/Ghidra/ghidra-stm32-re-32.md",
     "content/posts/Ghidra/ghidra-stm32-re-31.md",
-    "content/posts/Ghidra/ghidra-stm32-re-30.md",
     "static/imgs/ad7280a-bms-dev-18-4.png",
     "static/imgs/ad7280a-bms-dev-18-3.png",
     "static/imgs/ad7280a-bms-dev-18-2.png",
