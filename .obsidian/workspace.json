@@ -4,21 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "0a7d50f6edc717ad",
+        "id": "84d474ef7bb0c9f8",
         "type": "tabs",
         "children": [
           {
-            "id": "e133346cf7cda417",
+            "id": "900f90c3a028afd7",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "content/posts/STM32-Bootloader/stm32-bootloader-01.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "stm32-bootloader-01"
+              "title": "New tab"
             }
           }
         ]
@@ -185,8 +181,16 @@
       "github-sync:Sync with Remote": false
     }
   },
-  "active": "99a14ee916e721c5",
+  "active": "900f90c3a028afd7",
   "lastOpenFiles": [
+    "content/posts/Math-Champion/math-champion-15.md",
+    "content/posts/Math-Champion/math-champion-14.md",
+    "content/posts/STM32-Bootloader/stm32-bootloader-01.md",
+    "content/posts/Math-Champion/math-champion-13.md",
+    "content/posts/Math-Champion/math-champion-12.md",
+    "content/posts/Math-Champion/math-champion-11.md",
+    "content/posts/Math-Champion/math-champion-10.md",
+    "content/posts/Math-Champion/math-champion-09.md",
     "content/posts/Math-Champion/math-champion-08.md",
     "content/posts/Math-Champion/math-champion-07.md",
     "content/posts/Math-Champion/math-champion-06.md",
@@ -203,7 +207,6 @@
     "content/posts/STM32-Bootloader/stm32-bootloader-03.md",
     "content/posts/STM32-Bootloader/stm32-bootloader-02.md",
     "posts/stm32-bootloader/stm32-bootloader-02.md",
-    "content/posts/STM32-Bootloader/stm32-bootloader-01.md",
     "posts/stm32-bootloader",
     "STM32-Bootloader-시리즈-기획.md",
     "static/imgs/bl-python-upload.png",
@@ -215,16 +218,9 @@
     "content/posts/STM32-Bootloader/stm32-bootloader-20.md",
     "static/imgs/bl-cubemx.png",
     "content/posts/STM32-Bootloader/stm32-bootloader-19.md",
-    "content/posts/STM32-Bootloader/stm32-bootloader-18.md",
     "static/imgs/bl-flash-layout.png",
-    "content/posts/STM32-Bootloader/stm32-bootloader-17.md",
     "static/imgs/STM32-Bootloader-시리즈-기획-2.png",
-    "content/posts/STM32-Bootloader/stm32-bootloader-15.md",
-    "content/posts/STM32-Bootloader/stm32-bootloader-14.md",
     "static/imgs/bl-memory-map.png",
-    "content/posts/STM32-Bootloader/stm32-bootloader-12.md",
-    "content/posts/STM32-Bootloader/stm32-bootloader-11.md",
-    "content/posts/STM32-Bootloader/stm32-bootloader-10.md",
     "content/posts/STM32-Bootloader",
     "layouts/partials/floor-planner-20-1.html",
     "posts/ghidra",
