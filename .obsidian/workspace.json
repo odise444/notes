@@ -185,8 +185,18 @@
       "github-sync:Sync with Remote": false
     }
   },
-  "active": "e133346cf7cda417",
+  "active": "99a14ee916e721c5",
   "lastOpenFiles": [
+    "content/posts/Math-Champion/math-champion-08.md",
+    "content/posts/Math-Champion/math-champion-07.md",
+    "content/posts/Math-Champion/math-champion-06.md",
+    "content/posts/Math-Champion/math-champion-05.md",
+    "content/posts/Math-Champion/math-champion-04.md",
+    "content/posts/Math-Champion/math-champion-03.md",
+    "content/posts/Math-Champion/math-champion-02.md",
+    "content/posts/Math-Champion/math-champion-01.md",
+    "content/posts/Math-Champion",
+    "수학챔피언-시리즈-기획.md",
     "content/posts/STM32-Bootloader/stm32-bootloader-16.md",
     "content/posts/STM32-Bootloader/stm32-bootloader-13.md",
     "content/posts/STM32-Bootloader/stm32-bootloader-05.md",
@@ -215,23 +225,13 @@
     "content/posts/STM32-Bootloader/stm32-bootloader-12.md",
     "content/posts/STM32-Bootloader/stm32-bootloader-11.md",
     "content/posts/STM32-Bootloader/stm32-bootloader-10.md",
-    "content/posts/STM32-Bootloader/stm32-bootloader-09.md",
-    "content/posts/STM32-Bootloader/stm32-bootloader-08.md",
-    "content/posts/STM32-Bootloader/stm32-bootloader-07.md",
-    "content/posts/STM32-Bootloader/stm32-bootloader-06.md",
-    "content/posts/STM32-Bootloader/stm32-bootloader-04.md",
     "content/posts/STM32-Bootloader",
-    "content/posts/Floor-Planner/floor-planner-20.md",
     "layouts/partials/floor-planner-20-1.html",
-    "content/posts/Floor-Planner/floor-planner-03.md",
-    "content/posts/Floor-Planner/floor-planner-02.md",
-    "content/posts/Floor-Planner/floor-planner-01.md",
     "posts/ghidra",
     "posts",
     "static/math/index.html",
     "static/math",
     "static/floor-planner/_nuxt/builds/meta/ae252c5a-e55b-4c09-868c-1f20f72d1e6d.json",
-    "static/floor-planner/_nuxt/builds/meta",
-    "static/floor-planner/_nuxt/builds/latest.json"
+    "static/floor-planner/_nuxt/builds/meta"
   ]
 }
