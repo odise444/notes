@@ -15,13 +15,14 @@ CAN/UART로 현장에서 펌웨어 업데이트하는 부트로더 직접 만들
 ## 스크린샷 목록
 
 저장 위치: `static/imgs/`
-
+![메모리 맵 그림](bl-memory-map.png)
 - [ ] bl-memory-map.png - 메모리 맵 그림
+![Flash 영역 분리](bl-flash-layout.png)
 - [ ] bl-flash-layout.png - Flash 영역 분리
-- [ ] bl-cubemx.png - CubeMX 설정
-- [ ] bl-linker.png - 링커 스크립트
-- [ ] bl-debug.png - 디버깅 화면
-- [ ] bl-python-upload.png - Python 업로더 실행
+- [ ] bl-cubemx.png - CubeMX 설정![CubeMX 설정](bl-cubemx.png)
+- [ ] bl-linker.png - 링커 스크립트![링커 스크립트](bl-linker.png)
+- [ ] bl-debug.png - 디버깅 화면![디버깅 화면](bl-debug.png)
+- [ ] bl-python-upload.png - Python 업로더 실행![](Pasted%20image%2020251230135506.png)
 
 ---
 
