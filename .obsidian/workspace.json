@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "84d474ef7bb0c9f8",
+        "id": "dde0c25eed1ff0e7",
         "type": "tabs",
         "children": [
           {
-            "id": "900f90c3a028afd7",
+            "id": "87cbbc0df8af2f75",
             "type": "leaf",
             "state": {
               "type": "empty",
@@ -181,16 +181,13 @@
       "github-sync:Sync with Remote": false
     }
   },
-  "active": "900f90c3a028afd7",
+  "active": "87cbbc0df8af2f75",
   "lastOpenFiles": [
+    "posts/math-champion/math-champion-01.md",
     "content/posts/Math-Champion/math-champion-15.md",
+    "posts/math-champion",
     "content/posts/Math-Champion/math-champion-14.md",
-    "content/posts/STM32-Bootloader/stm32-bootloader-01.md",
-    "content/posts/Math-Champion/math-champion-13.md",
-    "content/posts/Math-Champion/math-champion-12.md",
-    "content/posts/Math-Champion/math-champion-11.md",
     "content/posts/Math-Champion/math-champion-10.md",
-    "content/posts/Math-Champion/math-champion-09.md",
     "content/posts/Math-Champion/math-champion-08.md",
     "content/posts/Math-Champion/math-champion-07.md",
     "content/posts/Math-Champion/math-champion-06.md",
@@ -199,6 +196,11 @@
     "content/posts/Math-Champion/math-champion-03.md",
     "content/posts/Math-Champion/math-champion-02.md",
     "content/posts/Math-Champion/math-champion-01.md",
+    "content/posts/STM32-Bootloader/stm32-bootloader-01.md",
+    "content/posts/Math-Champion/math-champion-13.md",
+    "content/posts/Math-Champion/math-champion-12.md",
+    "content/posts/Math-Champion/math-champion-11.md",
+    "content/posts/Math-Champion/math-champion-09.md",
     "content/posts/Math-Champion",
     "수학챔피언-시리즈-기획.md",
     "content/posts/STM32-Bootloader/stm32-bootloader-16.md",
@@ -217,7 +219,6 @@
     "static/imgs/bl-linker.png",
     "content/posts/STM32-Bootloader/stm32-bootloader-20.md",
     "static/imgs/bl-cubemx.png",
-    "content/posts/STM32-Bootloader/stm32-bootloader-19.md",
     "static/imgs/bl-flash-layout.png",
     "static/imgs/STM32-Bootloader-시리즈-기획-2.png",
     "static/imgs/bl-memory-map.png",
@@ -227,7 +228,6 @@
     "posts",
     "static/math/index.html",
     "static/math",
-    "static/floor-planner/_nuxt/builds/meta/ae252c5a-e55b-4c09-868c-1f20f72d1e6d.json",
-    "static/floor-planner/_nuxt/builds/meta"
+    "static/floor-planner/_nuxt/builds/meta/ae252c5a-e55b-4c09-868c-1f20f72d1e6d.json"
   ]
 }
