@@ -4,37 +4,24 @@
     "type": "split",
     "children": [
       {
-        "id": "682286e62ae70b86",
+        "id": "0a7d50f6edc717ad",
         "type": "tabs",
         "children": [
           {
-            "id": "ce177fbbb58ec841",
-            "type": "leaf",
-            "state": {
-              "type": "image",
-              "state": {
-                "file": "static/imgs/bl-debug.png"
-              },
-              "icon": "lucide-image",
-              "title": "bl-debug"
-            }
-          },
-          {
-            "id": "e83afad703166fb8",
+            "id": "e133346cf7cda417",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "STM32-Bootloader-시리즈-기획.md",
+                "file": "content/posts/STM32-Bootloader/stm32-bootloader-01.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "STM32-Bootloader-시리즈-기획"
+              "title": "stm32-bootloader-01"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -198,23 +185,32 @@
       "github-sync:Sync with Remote": false
     }
   },
-  "active": "e83afad703166fb8",
+  "active": "e133346cf7cda417",
   "lastOpenFiles": [
-    "static/imgs/Pasted image 20251230135506.png",
+    "content/posts/STM32-Bootloader/stm32-bootloader-16.md",
+    "content/posts/STM32-Bootloader/stm32-bootloader-13.md",
+    "content/posts/STM32-Bootloader/stm32-bootloader-05.md",
+    "content/posts/STM32-Bootloader/stm32-bootloader-03.md",
+    "content/posts/STM32-Bootloader/stm32-bootloader-02.md",
+    "posts/stm32-bootloader/stm32-bootloader-02.md",
+    "content/posts/STM32-Bootloader/stm32-bootloader-01.md",
+    "posts/stm32-bootloader",
+    "STM32-Bootloader-시리즈-기획.md",
+    "static/imgs/bl-python-upload.png",
+    "static/imgs/Pasted image 20251222170615.png",
+    "static/imgs/Pasted image 20251209100328.png",
+    "static/imgs/KakaoTalk_20251216_145922389_05.jpg",
     "static/imgs/bl-debug.png",
     "static/imgs/bl-linker.png",
-    "STM32-Bootloader-시리즈-기획.md",
     "content/posts/STM32-Bootloader/stm32-bootloader-20.md",
     "static/imgs/bl-cubemx.png",
     "content/posts/STM32-Bootloader/stm32-bootloader-19.md",
     "content/posts/STM32-Bootloader/stm32-bootloader-18.md",
     "static/imgs/bl-flash-layout.png",
     "content/posts/STM32-Bootloader/stm32-bootloader-17.md",
-    "content/posts/STM32-Bootloader/stm32-bootloader-16.md",
     "static/imgs/STM32-Bootloader-시리즈-기획-2.png",
     "content/posts/STM32-Bootloader/stm32-bootloader-15.md",
     "content/posts/STM32-Bootloader/stm32-bootloader-14.md",
-    "content/posts/STM32-Bootloader/stm32-bootloader-13.md",
     "static/imgs/bl-memory-map.png",
     "content/posts/STM32-Bootloader/stm32-bootloader-12.md",
     "content/posts/STM32-Bootloader/stm32-bootloader-11.md",
@@ -223,28 +219,19 @@
     "content/posts/STM32-Bootloader/stm32-bootloader-08.md",
     "content/posts/STM32-Bootloader/stm32-bootloader-07.md",
     "content/posts/STM32-Bootloader/stm32-bootloader-06.md",
-    "content/posts/STM32-Bootloader/stm32-bootloader-05.md",
     "content/posts/STM32-Bootloader/stm32-bootloader-04.md",
-    "content/posts/STM32-Bootloader/stm32-bootloader-03.md",
-    "content/posts/STM32-Bootloader/stm32-bootloader-02.md",
-    "content/posts/STM32-Bootloader/stm32-bootloader-01.md",
     "content/posts/STM32-Bootloader",
     "content/posts/Floor-Planner/floor-planner-20.md",
     "layouts/partials/floor-planner-20-1.html",
     "content/posts/Floor-Planner/floor-planner-03.md",
     "content/posts/Floor-Planner/floor-planner-02.md",
     "content/posts/Floor-Planner/floor-planner-01.md",
-    "static/imgs/fp-main.png",
-    "static/imgs/fp-door.png",
-    "static/imgs/fp-measure.png",
-    "static/imgs/fp-furniture-panel_.png",
     "posts/ghidra",
     "posts",
     "static/math/index.html",
     "static/math",
     "static/floor-planner/_nuxt/builds/meta/ae252c5a-e55b-4c09-868c-1f20f72d1e6d.json",
     "static/floor-planner/_nuxt/builds/meta",
-    "static/floor-planner/_nuxt/builds/latest.json",
-    "static/floor-planner/_nuxt/w0dRcIqY.js"
+    "static/floor-planner/_nuxt/builds/latest.json"
   ]
 }

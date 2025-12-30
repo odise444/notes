@@ -15,14 +15,13 @@ CAN/UART로 현장에서 펌웨어 업데이트하는 부트로더 직접 만들
 ## 스크린샷 목록
 
 저장 위치: `static/imgs/`
-![메모리 맵 그림](bl-memory-map.png)
+
 - [ ] bl-memory-map.png - 메모리 맵 그림
-![Flash 영역 분리](bl-flash-layout.png)
 - [ ] bl-flash-layout.png - Flash 영역 분리
-- [ ] bl-cubemx.png - CubeMX 설정![CubeMX 설정](bl-cubemx.png)
-- [ ] bl-linker.png - 링커 스크립트![링커 스크립트](bl-linker.png)
-- [ ] bl-debug.png - 디버깅 화면![디버깅 화면](bl-debug.png)
-- [ ] bl-python-upload.png - Python 업로더 실행![](Pasted%20image%2020251230135506.png)
+- [ ] bl-cubemx.png - CubeMX 설정
+- [ ] bl-linker.png - 링커 스크립트
+- [ ] bl-debug.png - 디버깅 화면
+- [ ] bl-python-upload.png - Python 업로더 실행
 
 ---
 
@@ -30,38 +29,38 @@ CAN/UART로 현장에서 펌웨어 업데이트하는 부트로더 직접 만들
 
 ### Part 1: 기초 (4개)
 
-- [ ] #1 왜 커스텀 부트로더인가
-- [ ] #2 STM32 메모리 맵
-- [ ] #3 부트로더 vs 앱 영역 분리
-- [ ] #4 링커 스크립트 설정
+- [x] #1 왜 커스텀 부트로더인가
+- [x] #2 STM32 메모리 맵
+- [x] #3 부트로더 vs 앱 영역 분리
+- [x] #4 링커 스크립트 설정
 
 ### Part 2: 앱 점프 (4개)
 
-- [ ] #5 앱 유효성 검사
-- [ ] #6 Vector Table 재배치
-- [ ] #7 앱으로 점프하기
-- [ ] #8 부트 진입 조건
+- [x] #5 앱 유효성 검사
+- [x] #6 Vector Table 재배치
+- [x] #7 앱으로 점프하기
+- [x] #8 부트 진입 조건
 
 ### Part 3: Flash 프로그래밍 (4개)
 
-- [ ] #9 Flash Unlock/Lock
-- [ ] #10 Page Erase
-- [ ] #11 Half-Word Program
-- [ ] #12 에러 처리
+- [x] #9 Flash Unlock/Lock
+- [x] #10 Page Erase
+- [x] #11 Half-Word Program
+- [x] #12 에러 처리
 
 ### Part 4: CAN IAP (4개)
 
-- [ ] #13 프로토콜 설계
-- [ ] #14 상태 머신 구현
-- [ ] #15 데이터 수신 및 쓰기
-- [ ] #16 CRC 검증
+- [x] #13 프로토콜 설계
+- [x] #14 상태 머신 구현
+- [x] #15 데이터 수신 및 쓰기
+- [x] #16 CRC 검증
 
 ### Part 5: 업로더 & 마무리 (4개)
 
-- [ ] #17 Python 업로더
-- [ ] #18 테스트 및 검증
-- [ ] #19 보안 고려사항
-- [ ] #20 트러블슈팅 모음
+- [x] #17 Python 업로더
+- [x] #18 테스트 및 검증
+- [x] #19 보안 고려사항
+- [x] #20 트러블슈팅 모음
 
 ---
 
@@ -80,12 +79,15 @@ CAN/UART로 현장에서 펌웨어 업데이트하는 부트로더 직접 만들
 
 ```
 스크린샷         0/6
-글 작성          0/20
+글 작성          20/20 ✅
 ```
 
 ---
 
-## 메모
+## 완료!
 
-- BMS, Ghidra, FloorPlanner 완료 (95개)
-- 이 시리즈 끝나면 총 115개
+- BMS 36개 ✅
+- Ghidra 39개 ✅
+- Floor Planner 20개 ✅
+- Bootloader 20개 ✅
+- **총 115개**
