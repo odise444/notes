@@ -1,10 +1,15 @@
 ---
 title: "PlatformIO 입문 #6 - platformio.ini 해부"
-date: 2024-12-22
-tags: ["PlatformIO", "설정", "ini"]
-categories: ["가이드"]
-series: ["PlatformIO 입문"]
-summary: "이 파일 하나에 모든 설정이 들어있다."
+date: 2026-01-06
+tags:
+  - PlatformIO
+  - 설정
+  - ini
+categories:
+  - 가이드
+series:
+  - PlatformIO 입문
+summary: 이 파일 하나에 모든 설정이 들어있다.
 ---
 
 `platformio.ini`는 프로젝트의 **모든 설정**을 담고 있다.

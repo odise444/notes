@@ -1,10 +1,15 @@
 ---
 title: "PlatformIO 입문 #10 - 멀티 환경 설정"
-date: 2024-12-22
-tags: ["PlatformIO", "멀티환경", "크로스플랫폼"]
-categories: ["가이드"]
-series: ["PlatformIO 입문"]
-summary: "하나의 코드로 ESP32, Arduino, STM32 다 돌린다."
+date: 2026-01-10
+tags:
+  - PlatformIO
+  - 멀티환경
+  - 크로스플랫폼
+categories:
+  - 가이드
+series:
+  - PlatformIO 입문
+summary: 하나의 코드로 ESP32, Arduino, STM32 다 돌린다.
 ---
 
 같은 코드를 여러 보드에서 돌리고 싶을 때.

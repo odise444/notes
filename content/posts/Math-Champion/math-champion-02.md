@@ -1,6 +1,6 @@
 ---
 title: "수학 챔피언 개발기 #2 - 기술 스택 선택"
-date: 2024-12-20
+date: 2026-01-14
 tags: ["React", "CDN", "Hugo", "Tailwind"]
 categories: ["개발기"]
 series: ["수학 챔피언 개발기"]

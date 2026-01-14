@@ -1,10 +1,16 @@
 ---
 title: "PlatformIO 입문 #8 - 시리얼 모니터"
-date: 2024-12-22
-tags: ["PlatformIO", "시리얼", "디버깅", "UART"]
-categories: ["가이드"]
-series: ["PlatformIO 입문"]
-summary: "Serial.println()으로 디버깅하는 기본기."
+date: 2026-01-08
+tags:
+  - PlatformIO
+  - 시리얼
+  - 디버깅
+  - UART
+categories:
+  - 가이드
+series:
+  - PlatformIO 입문
+summary: Serial.println()으로 디버깅하는 기본기.
 ---
 
 LED 깜빡이기 됐으면 다음은 시리얼 통신.

@@ -1,10 +1,16 @@
 ---
 title: "PlatformIO 입문 #13 - 유닛 테스트"
-date: 2024-12-22
-tags: ["PlatformIO", "유닛테스트", "Unity", "TDD"]
-categories: ["가이드"]
-series: ["PlatformIO 입문"]
-summary: "임베디드에서도 테스트 코드 짤 수 있다."
+date: 2026-01-13
+tags:
+  - PlatformIO
+  - 유닛테스트
+  - Unity
+  - TDD
+categories:
+  - 가이드
+series:
+  - PlatformIO 입문
+summary: 임베디드에서도 테스트 코드 짤 수 있다.
 ---
 
 "임베디드는 테스트 못 해"

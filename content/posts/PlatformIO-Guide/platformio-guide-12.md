@@ -1,10 +1,16 @@
 ---
 title: "PlatformIO 입문 #12 - 디버깅"
-date: 2024-12-22
-tags: ["PlatformIO", "디버깅", "ST-Link", "J-Link"]
-categories: ["가이드"]
-series: ["PlatformIO 입문"]
-summary: "Serial.println() 졸업하고 진짜 디버깅하자."
+date: 2026-01-12
+tags:
+  - PlatformIO
+  - 디버깅
+  - ST-Link
+  - J-Link
+categories:
+  - 가이드
+series:
+  - PlatformIO 입문
+summary: Serial.println() 졸업하고 진짜 디버깅하자.
 ---
 
 `Serial.println("여기 옴")` 만으로 디버깅하던 시절.

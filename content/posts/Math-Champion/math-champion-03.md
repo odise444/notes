@@ -1,6 +1,6 @@
 ---
 title: "수학 챔피언 개발기 #3 - 기본 구조 잡기"
-date: 2024-12-20
+date: 2026-01-14
 tags: ["React", "상태관리", "useState"]
 categories: ["개발기"]
 series: ["수학 챔피언 개발기"]

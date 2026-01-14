@@ -1,10 +1,16 @@
 ---
 title: "PlatformIO 입문 #1 - PlatformIO란?"
-date: 2024-12-22
-tags: ["PlatformIO", "VSCode", "임베디드", "Arduino"]
-categories: ["가이드"]
-series: ["PlatformIO 입문"]
-summary: "Arduino IDE 쓰다가 답답해서 찾아보니 이런 게 있더라."
+date: 2026-01-01
+tags:
+  - PlatformIO
+  - VSCode
+  - 임베디드
+  - Arduino
+categories:
+  - 가이드
+series:
+  - PlatformIO 입문
+summary: Arduino IDE 쓰다가 답답해서 찾아보니 이런 게 있더라.
 ---
 
 Arduino IDE로 시작했다.

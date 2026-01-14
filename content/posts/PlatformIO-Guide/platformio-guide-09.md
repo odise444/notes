@@ -1,10 +1,15 @@
 ---
 title: "PlatformIO 입문 #9 - 라이브러리 관리"
-date: 2024-12-22
-tags: ["PlatformIO", "라이브러리", "lib_deps"]
-categories: ["가이드"]
-series: ["PlatformIO 입문"]
-summary: "라이브러리 설치가 Arduino IDE보다 훨씬 편하다."
+date: 2026-01-09
+tags:
+  - PlatformIO
+  - 라이브러리
+  - lib_deps
+categories:
+  - 가이드
+series:
+  - PlatformIO 입문
+summary: 라이브러리 설치가 Arduino IDE보다 훨씬 편하다.
 ---
 
 외부 라이브러리 써야 할 때.

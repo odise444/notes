@@ -1,10 +1,15 @@
 ---
 title: "PlatformIO 입문 #3 - PlatformIO 확장 설치"
-date: 2024-12-22
-tags: ["PlatformIO", "VSCode", "설치"]
-categories: ["가이드"]
-series: ["PlatformIO 입문"]
-summary: "확장 프로그램 하나 설치하면 알아서 다 깔린다."
+date: 2026-01-03
+tags:
+  - PlatformIO
+  - VSCode
+  - 설치
+categories:
+  - 가이드
+series:
+  - PlatformIO 입문
+summary: 확장 프로그램 하나 설치하면 알아서 다 깔린다.
 ---
 
 VSCode 준비됐으면 이제 PlatformIO.

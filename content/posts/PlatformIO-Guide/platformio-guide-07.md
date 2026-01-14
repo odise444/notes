@@ -1,10 +1,16 @@
 ---
 title: "PlatformIO 입문 #7 - 빌드와 업로드"
-date: 2024-12-22
-tags: ["PlatformIO", "빌드", "업로드", "LED"]
-categories: ["가이드"]
-series: ["PlatformIO 입문"]
-summary: "드디어 보드에 코드를 올려본다."
+date: 2026-01-07
+tags:
+  - PlatformIO
+  - 빌드
+  - 업로드
+  - LED
+categories:
+  - 가이드
+series:
+  - PlatformIO 입문
+summary: 드디어 보드에 코드를 올려본다.
 ---
 
 설정 끝났으면 이제 진짜 돌려보자.

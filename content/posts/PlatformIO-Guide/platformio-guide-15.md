@@ -1,6 +1,6 @@
 ---
 title: "PlatformIO 입문 #15 - 트러블슈팅"
-date: 2024-12-22
+date: 2026-01-14
 tags: ["PlatformIO", "트러블슈팅", "에러해결"]
 categories: ["가이드"]
 series: ["PlatformIO 입문"]

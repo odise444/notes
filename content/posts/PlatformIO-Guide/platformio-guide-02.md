@@ -1,10 +1,15 @@
 ---
 title: "PlatformIO 입문 #2 - VSCode 설치"
-date: 2024-12-22
-tags: ["PlatformIO", "VSCode", "설치"]
-categories: ["가이드"]
-series: ["PlatformIO 입문"]
-summary: "일단 VSCode부터 설치하자."
+date: 2026-01-02
+tags:
+  - PlatformIO
+  - VSCode
+  - 설치
+categories:
+  - 가이드
+series:
+  - PlatformIO 입문
+summary: 일단 VSCode부터 설치하자.
 ---
 
 PlatformIO는 VSCode 확장 프로그램이다.

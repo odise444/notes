@@ -1,10 +1,16 @@
 ---
 title: "PlatformIO 입문 #11 - 빌드 플래그"
-date: 2024-12-22
-tags: ["PlatformIO", "빌드플래그", "매크로", "컴파일"]
-categories: ["가이드"]
-series: ["PlatformIO 입문"]
-summary: "컴파일 옵션으로 코드 동작을 바꾼다."
+date: 2026-01-11
+tags:
+  - PlatformIO
+  - 빌드플래그
+  - 매크로
+  - 컴파일
+categories:
+  - 가이드
+series:
+  - PlatformIO 입문
+summary: 컴파일 옵션으로 코드 동작을 바꾼다.
 ---
 
 빌드 플래그는 **컴파일러에 전달하는 옵션**.

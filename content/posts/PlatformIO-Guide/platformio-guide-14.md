@@ -1,6 +1,6 @@
 ---
 title: "PlatformIO 입문 #14 - CI/CD"
-date: 2024-12-22
+date: 2026-01-14
 tags: ["PlatformIO", "CI", "GitHub Actions", "자동화"]
 categories: ["가이드"]
 series: ["PlatformIO 입문"]

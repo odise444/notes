@@ -1,10 +1,15 @@
 ---
 title: "PlatformIO 입문 #4 - 프로젝트 생성"
-date: 2024-12-22
-tags: ["PlatformIO", "프로젝트", "보드"]
-categories: ["가이드"]
-series: ["PlatformIO 입문"]
-summary: "드디어 첫 프로젝트. 보드 선택이 제일 중요하다."
+date: 2026-01-04
+tags:
+  - PlatformIO
+  - 프로젝트
+  - 보드
+categories:
+  - 가이드
+series:
+  - PlatformIO 입문
+summary: 드디어 첫 프로젝트. 보드 선택이 제일 중요하다.
 ---
 
 설치 끝났으면 첫 프로젝트 만들어보자.

@@ -1,10 +1,15 @@
 ---
 title: "PlatformIO 입문 #5 - 프로젝트 구조"
-date: 2024-12-22
-tags: ["PlatformIO", "프로젝트", "폴더구조"]
-categories: ["가이드"]
-series: ["PlatformIO 입문"]
-summary: "각 폴더가 무슨 역할인지 알아야 제대로 쓴다."
+date: 2026-01-05
+tags:
+  - PlatformIO
+  - 프로젝트
+  - 폴더구조
+categories:
+  - 가이드
+series:
+  - PlatformIO 입문
+summary: 각 폴더가 무슨 역할인지 알아야 제대로 쓴다.
 ---
 
 프로젝트 만들었더니 폴더가 여러 개다.
