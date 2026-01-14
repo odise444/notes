@@ -11,10 +11,14 @@
             "id": "87cbbc0df8af2f75",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "PlatformIO-가이드-기획.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "PlatformIO-가이드-기획"
             }
           }
         ]
@@ -181,8 +185,18 @@
       "github-sync:Sync with Remote": false
     }
   },
-  "active": "99a14ee916e721c5",
+  "active": "87cbbc0df8af2f75",
   "lastOpenFiles": [
+    "PlatformIO-시리즈-기획.md",
+    "content/posts/PlatformIO-Guide/platformio-guide-07.md",
+    "PlatformIO-가이드-기획.md",
+    "content/posts/PlatformIO-Guide/platformio-guide-06.md",
+    "content/posts/PlatformIO-Guide/platformio-guide-05.md",
+    "content/posts/PlatformIO-Guide/platformio-guide-04.md",
+    "content/posts/PlatformIO-Guide/platformio-guide-03.md",
+    "content/posts/PlatformIO-Guide/platformio-guide-02.md",
+    "content/posts/PlatformIO-Guide/platformio-guide-01.md",
+    "content/posts/PlatformIO-Guide",
     "content/posts/PlatformIO/platformio-20.md",
     "content/posts/PlatformIO/platformio-19.md",
     "content/posts/PlatformIO/platformio-18.md",
@@ -200,17 +214,8 @@
     "content/posts/PlatformIO/platformio-06.md",
     "content/posts/PlatformIO/platformio-05.md",
     "content/posts/PlatformIO/platformio-04.md",
-    "content/posts/PlatformIO/platformio-03.md",
-    "content/posts/PlatformIO/platformio-02.md",
-    "content/posts/PlatformIO/platformio-01.md",
     "content/posts/PlatformIO",
-    "PlatformIO-시리즈-기획.md",
-    "posts/math-champion/math-champion-01.md",
-    "content/posts/Math-Champion/math-champion-15.md",
     "posts/math-champion",
-    "content/posts/Math-Champion/math-champion-14.md",
-    "content/posts/Math-Champion/math-champion-10.md",
-    "content/posts/Math-Champion/math-champion-08.md",
     "content/posts/Math-Champion",
     "posts/stm32-bootloader",
     "static/imgs/bl-python-upload.png",
@@ -227,7 +232,6 @@
     "layouts/partials/floor-planner-20-1.html",
     "posts/ghidra",
     "posts",
-    "static/math/index.html",
-    "static/math"
+    "static/math/index.html"
   ]
 }
