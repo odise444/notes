@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "PlatformIO-가이드-기획.md",
+                "file": "content/posts/PlatformIO-Guide/platformio-guide-08.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "PlatformIO-가이드-기획"
+              "title": "platformio-guide-08"
             }
           }
         ]
@@ -187,33 +187,34 @@
   },
   "active": "87cbbc0df8af2f75",
   "lastOpenFiles": [
-    "PlatformIO-시리즈-기획.md",
     "content/posts/PlatformIO-Guide/platformio-guide-07.md",
-    "PlatformIO-가이드-기획.md",
     "content/posts/PlatformIO-Guide/platformio-guide-06.md",
     "content/posts/PlatformIO-Guide/platformio-guide-05.md",
+    "content/posts/PlatformIO-Guide/platformio-guide-15.md",
     "content/posts/PlatformIO-Guide/platformio-guide-04.md",
     "content/posts/PlatformIO-Guide/platformio-guide-03.md",
     "content/posts/PlatformIO-Guide/platformio-guide-02.md",
     "content/posts/PlatformIO-Guide/platformio-guide-01.md",
-    "content/posts/PlatformIO-Guide",
-    "content/posts/PlatformIO/platformio-20.md",
-    "content/posts/PlatformIO/platformio-19.md",
-    "content/posts/PlatformIO/platformio-18.md",
-    "content/posts/PlatformIO/platformio-17.md",
-    "content/posts/PlatformIO/platformio-16.md",
-    "content/posts/PlatformIO/platformio-15.md",
-    "content/posts/PlatformIO/platformio-14.md",
-    "content/posts/PlatformIO/platformio-13.md",
-    "content/posts/PlatformIO/platformio-12.md",
-    "content/posts/PlatformIO/platformio-11.md",
-    "content/posts/PlatformIO/platformio-10.md",
-    "content/posts/PlatformIO/platformio-09.md",
-    "content/posts/PlatformIO/platformio-08.md",
-    "content/posts/PlatformIO/platformio-07.md",
-    "content/posts/PlatformIO/platformio-06.md",
-    "content/posts/PlatformIO/platformio-05.md",
+    "content/posts/PlatformIO-Guide/platformio-guide-13.md",
+    "content/posts/PlatformIO-Guide/platformio-guide-14.md",
+    "posts/platformio/platformio-01.md",
+    "posts/platformio/platformio-02 1.md",
+    "posts/platformio/platformio-02.md",
+    "content/posts/PlatformIO/platformio-01.md",
+    "content/posts/PlatformIO/platformio-02.md",
+    "content/posts/PlatformIO/platformio-03.md",
     "content/posts/PlatformIO/platformio-04.md",
+    "content/posts/PlatformIO-Guide/platformio-guide-12.md",
+    "content/posts/PlatformIO-Guide/platformio-guide-11.md",
+    "content/posts/PlatformIO-Guide/platformio-guide-10.md",
+    "content/posts/PlatformIO/platformio-20.md",
+    "posts/platformio",
+    "content/posts/PlatformIO-Guide/platformio-guide-09.md",
+    "PlatformIO-시리즈-기획.md",
+    "content/posts/PlatformIO-Guide/platformio-guide-08.md",
+    "PlatformIO-가이드-기획.md",
+    "content/posts/PlatformIO-Guide",
+    "content/posts/PlatformIO/platformio-19.md",
     "content/posts/PlatformIO",
     "posts/math-champion",
     "content/posts/Math-Champion",
@@ -231,7 +232,6 @@
     "content/posts/STM32-Bootloader",
     "layouts/partials/floor-planner-20-1.html",
     "posts/ghidra",
-    "posts",
-    "static/math/index.html"
+    "posts"
   ]
 }
