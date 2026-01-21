@@ -177,8 +177,9 @@
       "github-sync:Sync with Remote": false
     }
   },
-  "active": "dbad9db7f6647abb",
+  "active": "2763e80c13c849a3",
   "lastOpenFiles": [
+    "static/pdf2md/assets/index-CD-bwh46.js",
     "content/search.md",
     "static/pdf2md/index.html",
     "static/pdf2md/assets/pdf.worker.min-yatZIOMy.mjs",
@@ -210,7 +211,6 @@
     "content/posts/Math-Champion/math-champion-10.md",
     "content/posts/Math-Champion/math-champion-09.md",
     "content/posts/Math-Champion/math-champion-08.md",
-    "content/posts/Math-Champion/math-champion-05.md",
-    "content/posts/Math-Champion/math-champion-04.md"
+    "content/posts/Math-Champion/math-champion-05.md"
   ]
 }
