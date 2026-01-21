@@ -11,10 +11,14 @@
             "id": "dbad9db7f6647abb",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "content/posts/PDF2MD/pdf2md-01.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "pdf2md-01"
             }
           }
         ]
@@ -177,7 +181,7 @@
       "github-sync:Sync with Remote": false
     }
   },
-  "active": "2763e80c13c849a3",
+  "active": "dbad9db7f6647abb",
   "lastOpenFiles": [
     "content/posts/PDF2MD/pdf2md-05.md",
     "content/posts/PDF2MD/pdf2md-04.md",
