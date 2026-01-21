@@ -4,19 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "cd4d7d2c6e18e097",
+        "id": "f2f177932b63ac2e",
         "type": "tabs",
         "children": [
           {
-            "id": "28069019d6a4750d",
+            "id": "dbad9db7f6647abb",
             "type": "leaf",
             "state": {
-              "type": "release-notes",
-              "state": {
-                "currentVersion": "1.11.5"
-              },
-              "icon": "lucide-book-up",
-              "title": "Release Notes 1.11.5"
+              "type": "empty",
+              "state": {},
+              "icon": "lucide-file",
+              "title": "New tab"
             }
           }
         ]
@@ -179,8 +177,15 @@
       "github-sync:Sync with Remote": false
     }
   },
-  "active": "28069019d6a4750d",
+  "active": "dbad9db7f6647abb",
   "lastOpenFiles": [
+    "content/search.md",
+    "static/pdf2md/index.html",
+    "static/pdf2md/assets/pdf.worker.min-yatZIOMy.mjs",
+    "static/pdf2md/assets/index-D5IGPGnu.js",
+    "static/pdf2md/assets/index-BePsKUdY.css",
+    "static/pdf2md/assets",
+    "static/pdf2md",
     "수학챔피언-시리즈-기획.md",
     "content/posts/Math-Champion/math-champion-03.md",
     "static/imgs/math-champion-03-1.png",
