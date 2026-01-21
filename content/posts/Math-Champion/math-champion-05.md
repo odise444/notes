@@ -1,10 +1,16 @@
 ---
 title: "수학 챔피언 개발기 #5 - 숫자 키패드 UI"
-date: 2026-01-14
-tags: ["React", "UI", "터치", "키패드"]
-categories: ["개발기"]
-series: ["수학 챔피언 개발기"]
-summary: "폰 키보드 대신 직접 만든 키패드."
+date: 2025-12-14
+tags:
+  - React
+  - UI
+  - 터치
+  - 키패드
+categories:
+  - 개발기
+series:
+  - 수학 챔피언 개발기
+summary: 폰 키보드 대신 직접 만든 키패드.
 ---
 
 폰 기본 키보드는 아이한테 불편하다.

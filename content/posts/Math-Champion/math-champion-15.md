@@ -1,10 +1,15 @@
 ---
 title: "수학 챔피언 개발기 #15 - 아들 반응 & 개선점"
-date: 2024-12-20
-tags: ["React", "회고", "피드백"]
-categories: ["개발기"]
-series: ["수학 챔피언 개발기"]
-summary: "만들어줬더니 좋아한다."
+date: 2025-12-20
+tags:
+  - React
+  - 회고
+  - 피드백
+categories:
+  - 개발기
+series:
+  - 수학 챔피언 개발기
+summary: 만들어줬더니 좋아한다.
 ---
 
 만들어서 아들한테 줬다.

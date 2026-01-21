@@ -1,10 +1,16 @@
 ---
 title: "수학 챔피언 개발기 #6 - 타이머 구현"
-date: 2026-01-14
-tags: ["React", "타이머", "useEffect", "useRef"]
-categories: ["개발기"]
-series: ["수학 챔피언 개발기"]
-summary: "시간 압박으로 긴장감 주기."
+date: 2025-12-14
+tags:
+  - React
+  - 타이머
+  - useEffect
+  - useRef
+categories:
+  - 개발기
+series:
+  - 수학 챔피언 개발기
+summary: 시간 압박으로 긴장감 주기.
 ---
 
 타이머 있으면 긴장감 생긴다.

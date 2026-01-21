@@ -1,12 +1,17 @@
 ---
 title: "수학 챔피언 개발기 #3 - 기본 구조 잡기"
-date: 2026-01-14
-tags: ["React", "상태관리", "useState"]
-categories: ["개발기"]
-series: ["수학 챔피언 개발기"]
-summary: "화면 전환과 상태 관리."
+date: 2025-12-14
+tags:
+  - React
+  - 상태관리
+  - useState
+categories:
+  - 개발기
+series:
+  - 수학 챔피언 개발기
+summary: 화면 전환과 상태 관리.
 ---
-
+![](math-champion-03-1.png)
 화면이 여러 개 필요하다.
 
 - 홈

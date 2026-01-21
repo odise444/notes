@@ -1,10 +1,15 @@
 ---
 title: "수학 챔피언 개발기 #9 - 오답 노트"
-date: 2024-12-20
-tags: ["React", "오답노트", "학습"]
-categories: ["개발기"]
-series: ["수학 챔피언 개발기"]
-summary: "틀린 문제를 모아서 복습."
+date: 2025-12-14
+tags:
+  - React
+  - 오답노트
+  - 학습
+categories:
+  - 개발기
+series:
+  - 수학 챔피언 개발기
+summary: 틀린 문제를 모아서 복습.
 ---
 
 틀린 문제를 그냥 넘기면 안 된다.

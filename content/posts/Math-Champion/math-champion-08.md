@@ -1,10 +1,15 @@
 ---
 title: "수학 챔피언 개발기 #8 - LocalStorage 저장"
-date: 2024-12-20
-tags: ["React", "LocalStorage", "데이터"]
-categories: ["개발기"]
-series: ["수학 챔피언 개발기"]
-summary: "서버 없이 브라우저에 데이터 저장."
+date: 2025-12-14
+tags:
+  - React
+  - LocalStorage
+  - 데이터
+categories:
+  - 개발기
+series:
+  - 수학 챔피언 개발기
+summary: 서버 없이 브라우저에 데이터 저장.
 ---
 
 서버 만들기 귀찮다.

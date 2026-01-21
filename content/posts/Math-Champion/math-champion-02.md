@@ -1,10 +1,16 @@
 ---
 title: "수학 챔피언 개발기 #2 - 기술 스택 선택"
-date: 2026-01-14
-tags: ["React", "CDN", "Hugo", "Tailwind"]
-categories: ["개발기"]
-series: ["수학 챔피언 개발기"]
-summary: "빌드 없이 React 쓰는 법."
+date: 2025-12-14
+tags:
+  - React
+  - CDN
+  - Hugo
+  - Tailwind
+categories:
+  - 개발기
+series:
+  - 수학 챔피언 개발기
+summary: 빌드 없이 React 쓰는 법.
 ---
 
 아이용 앱이라 빠르게 만들고 싶다.

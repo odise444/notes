@@ -1,10 +1,16 @@
 ---
 title: "수학 챔피언 개발기 #13 - 모바일 최적화"
-date: 2024-12-20
-tags: ["React", "PWA", "모바일", "반응형"]
-categories: ["개발기"]
-series: ["수학 챔피언 개발기"]
-summary: "폰에서 앱처럼 쓸 수 있게."
+date: 2025-12-20
+tags:
+  - React
+  - PWA
+  - 모바일
+  - 반응형
+categories:
+  - 개발기
+series:
+  - 수학 챔피언 개발기
+summary: 폰에서 앱처럼 쓸 수 있게.
 ---
 
 아이들은 폰으로 한다.

@@ -1,10 +1,15 @@
 ---
 title: "수학 챔피언 개발기 #12 - 애니메이션"
-date: 2024-12-20
-tags: ["React", "CSS", "애니메이션"]
-categories: ["개발기"]
-series: ["수학 챔피언 개발기"]
-summary: "정답이면 빵빠레, 오답이면 흔들흔들."
+date: 2025-12-20
+tags:
+  - React
+  - CSS
+  - 애니메이션
+categories:
+  - 개발기
+series:
+  - 수학 챔피언 개발기
+summary: 정답이면 빵빠레, 오답이면 흔들흔들.
 ---
 
 애니메이션이 재미를 더한다.

@@ -1,10 +1,15 @@
 ---
 title: "수학 챔피언 개발기 #7 - 점수 시스템"
-date: 2026-01-14
-tags: ["React", "게임화", "점수"]
-categories: ["개발기"]
-series: ["수학 챔피언 개발기"]
-summary: "연속 정답 보너스로 동기 부여."
+date: 2025-12-14
+tags:
+  - React
+  - 게임화
+  - 점수
+categories:
+  - 개발기
+series:
+  - 수학 챔피언 개발기
+summary: 연속 정답 보너스로 동기 부여.
 ---
 
 점수 없으면 재미없다.
