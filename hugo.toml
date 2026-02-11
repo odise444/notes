@@ -12,6 +12,19 @@ copyright = "© 2025 mcu2cloud.kr"
   ShowPostNavLinks = true
   ShowBreadCrumbs = true
   ShowCodeCopyButtons = true
+  comments = true
+
+[params.giscus]
+  repo = "OWNER/REPO"
+  repoID = "YOUR_REPO_ID"
+  category = "Announcements"
+  categoryID = "YOUR_CATEGORY_ID"
+  mapping = "pathname"
+  reactionsEnabled = "1"
+  emitMetadata = "0"
+  inputPosition = "bottom"
+  theme = "preferred_color_scheme"
+  lang = "ko"
 
 [params.footer]
   text = "[About](/about/) · [개인정보처리방침](/privacy/)"
