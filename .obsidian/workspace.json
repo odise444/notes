@@ -183,6 +183,14 @@
   },
   "active": "f3331d0cc8a61571",
   "lastOpenFiles": [
+    "static/imgs/a2c-01-6.png",
+    "static/imgs/a2c-01-5.png",
+    "static/imgs/a2c-01-4.png",
+    "static/imgs/a2c-01-3.png",
+    "static/imgs/a2c-01-2.png",
+    "content/posts/ASCII2Card/a2c-02.md",
+    "static/imgs/a2c-01-1.png",
+    "static/imgs/Pasted image 20260211100403.png",
     "PROJECT-GUIDE.md",
     "content/posts/ASCII2Card/a2c-01.md",
     "content/posts/ASCII2Card",
@@ -196,9 +204,7 @@
     "static/imgs/pdf2md-04-1.png",
     "static/imgs/pdf2md-03-1.png",
     "content/posts/PDF2MD/pdf2md-02.md",
-    "static/imgs/pdf2md-02-1.png",
     "content/posts/PDF2MD/pdf2md-01.md",
-    "static/imgs/Pasted image 20260121172014.png",
     "PDF2MD-시리즈-기획.md",
     "content/posts/PDF2MD",
     "static/pdf2md/assets/index-CD-bwh46.js",
@@ -211,7 +217,6 @@
     "static/pdf2md",
     "수학챔피언-시리즈-기획.md",
     "content/posts/Math-Champion/math-champion-03.md",
-    "static/imgs/math-champion-03-1.png",
     "content/posts/Math-Champion/math-champion-02.md",
     "content/posts/Math-Champion/math-champion-01.md",
     "STM32-Bootloader-시리즈-기획.md",
@@ -222,8 +227,6 @@
     "AD7280A-시리즈-기획.md",
     "content/posts/Math-Champion/math-champion-11.md",
     "content/posts/Math-Champion/math-champion-06.md",
-    "content/posts/Math-Champion/math-champion-15.md",
-    "content/posts/Math-Champion/math-champion-07.md",
-    "content/posts/PlatformIO-Guide/platformio-guide-03.md"
+    "content/posts/Math-Champion/math-champion-15.md"
   ]
 }
