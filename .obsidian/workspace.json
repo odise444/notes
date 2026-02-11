@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "f2f177932b63ac2e",
+        "id": "7af20741656b56fe",
         "type": "tabs",
         "children": [
           {
-            "id": "dbad9db7f6647abb",
+            "id": "f3331d0cc8a61571",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "content/posts/PDF2MD/pdf2md-01.md",
+                "file": "PROJECT-GUIDE.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "pdf2md-01"
+              "title": "PROJECT-GUIDE"
             }
           }
         ]
@@ -181,13 +181,22 @@
       "github-sync:Sync with Remote": false
     }
   },
-  "active": "dbad9db7f6647abb",
+  "active": "f3331d0cc8a61571",
   "lastOpenFiles": [
+    "content/about.md",
+    "PROJECT-GUIDE.md",
+    "README.md",
     "content/posts/PDF2MD/pdf2md-05.md",
+    "static/imgs/pdf2md-05-1.png",
     "content/posts/PDF2MD/pdf2md-04.md",
     "content/posts/PDF2MD/pdf2md-03.md",
+    "static/imgs/pdf2md-03-2.png",
+    "static/imgs/pdf2md-04-1.png",
+    "static/imgs/pdf2md-03-1.png",
     "content/posts/PDF2MD/pdf2md-02.md",
+    "static/imgs/pdf2md-02-1.png",
     "content/posts/PDF2MD/pdf2md-01.md",
+    "static/imgs/Pasted image 20260121172014.png",
     "PDF2MD-시리즈-기획.md",
     "content/posts/PDF2MD",
     "static/pdf2md/assets/index-CD-bwh46.js",
@@ -204,7 +213,6 @@
     "content/posts/Math-Champion/math-champion-02.md",
     "content/posts/Math-Champion/math-champion-01.md",
     "STM32-Bootloader-시리즈-기획.md",
-    "README.md",
     "PlatformIO-가이드-기획.md",
     "PlatformIO-시리즈-기획.md",
     "Ghidra-역분석-시리즈-기획.md",
@@ -215,8 +223,6 @@
     "content/posts/Math-Champion/math-champion-15.md",
     "content/posts/Math-Champion/math-champion-07.md",
     "content/posts/PlatformIO-Guide/platformio-guide-03.md",
-    "content/posts/PlatformIO-Guide/platformio-guide-01.md",
-    "content/posts/Math-Champion/math-champion-14.md",
-    "content/posts/Math-Champion/math-champion-13.md"
+    "content/posts/PlatformIO-Guide/platformio-guide-01.md"
   ]
 }

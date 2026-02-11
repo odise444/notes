@@ -278,6 +278,7 @@ const worker = await createWorker('eng+kor')
 
 다만 언어 데이터가 추가로 필요하고, 인식 속도가 느려진다.
 
+![](pdf2md-04-1.png)
 ## 다음 글에서
 
 분석한 영역들을 IndexedDB에 저장하고, 최종적으로 Markdown + 이미지를 ZIP으로 내보내는 기능을 구현한다.

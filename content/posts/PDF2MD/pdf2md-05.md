@@ -328,6 +328,7 @@ async function handleExport() {
 
 서버 없이 브라우저만으로 데이터시트 문서화 작업이 가능해졌다.
 
+![](pdf2md-05-1.png)
 ## 개선할 점
 
 - PDF 텍스트 레이어 활용 (선택 가능한 PDF면 OCR 없이도 텍스트 추출 가능)
