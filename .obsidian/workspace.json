@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "PROJECT-GUIDE.md",
+                "file": "content/posts/ASCII2Card/a2c-01.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "PROJECT-GUIDE"
+              "title": "a2c-01"
             }
           }
         ]
@@ -183,8 +183,10 @@
   },
   "active": "f3331d0cc8a61571",
   "lastOpenFiles": [
-    "content/about.md",
     "PROJECT-GUIDE.md",
+    "content/posts/ASCII2Card/a2c-01.md",
+    "content/posts/ASCII2Card",
+    "content/about.md",
     "README.md",
     "content/posts/PDF2MD/pdf2md-05.md",
     "static/imgs/pdf2md-05-1.png",
@@ -222,7 +224,6 @@
     "content/posts/Math-Champion/math-champion-06.md",
     "content/posts/Math-Champion/math-champion-15.md",
     "content/posts/Math-Champion/math-champion-07.md",
-    "content/posts/PlatformIO-Guide/platformio-guide-03.md",
-    "content/posts/PlatformIO-Guide/platformio-guide-01.md"
+    "content/posts/PlatformIO-Guide/platformio-guide-03.md"
   ]
 }
