@@ -39,10 +39,14 @@
             "id": "eeb9cf63ab53f0da",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "content/posts/홈서버/homeserver-03.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "새 탭"
+              "title": "homeserver-03"
             }
           }
         ],
@@ -212,6 +216,11 @@
   },
   "active": "eeb9cf63ab53f0da",
   "lastOpenFiles": [
+    "content/posts/홈서버/homeserver-02.md",
+    "content/posts/홈서버/homeserver-01.md",
+    "content/posts/홈서버/homeserver-06.md",
+    "content/posts/홈서버/homeserver-07.md",
+    "content/posts/홈서버/homeserver-08.md",
     "content/posts/STM32-Bootloader/stm32-bootloader-20.md",
     "content/posts/STM32-Bootloader/stm32-bootloader-19.md",
     "content/posts/STM32-Bootloader/stm32-bootloader-18.md",
@@ -251,12 +260,7 @@
     "static/imgs/fp-selected.png",
     "static/imgs/fp-measure.png",
     "static/imgs/fp-main.png",
-    "content/search.md",
     "static/ascii2card/assets/index-CXE6saC9.js",
-    "static/ascii2card/assets/index-5oK_LhGV.js",
-    "content/posts/PlatformIO-Guide/platformio-guide-15.md",
-    "content/posts/PlatformIO-Guide/platformio-guide-14.md",
-    "content/posts/PlatformIO-Guide/platformio-guide-13.md",
-    "content/posts/PlatformIO-Guide/platformio-guide-12.md"
+    "static/ascii2card/assets/index-5oK_LhGV.js"
   ]
 }
