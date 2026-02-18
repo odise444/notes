@@ -1,0 +1,7 @@
+{{ if and (.IsPage) (ne .Layout "search") (ne .Layout "archives") }}
+  {{ if .Site.Params.comments }}
+    <div class="comments" style="margin-top: 2rem;">
+      {{ partial "comments.html" . }}
+    </div>
+  {{ end }}
+{{ end }}

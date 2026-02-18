@@ -15,11 +15,20 @@ copyright = "© 2025 mcu2cloud.kr"
   comments = true
 
 [params.giscus]
+<<<<<<< HEAD
   repo = "OWNER/REPO"
   repoID = "YOUR_REPO_ID"
   category = "Announcements"
   categoryID = "YOUR_CATEGORY_ID"
   mapping = "pathname"
+=======
+  repo = "odise444/notes"
+  repoID = "R_kgDOQjrvfg"
+  category = "Announcements"
+  categoryID = "DIC_kwDOQjrvfs4C0YRo"
+  mapping = "pathname"
+  strict = "0"
+>>>>>>> 5bd6e6278202049a782b604e0b75126c2e95816a
   reactionsEnabled = "1"
   emitMetadata = "0"
   inputPosition = "bottom"
