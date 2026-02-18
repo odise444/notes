@@ -41,12 +41,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "content/posts/홈서버/homeserver-03.md",
+                "file": "content/posts/홈서버/homeserver-05.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "homeserver-03"
+              "title": "homeserver-05"
             }
           }
         ],
@@ -216,6 +216,8 @@
   },
   "active": "eeb9cf63ab53f0da",
   "lastOpenFiles": [
+    "content/posts/홈서버/homeserver-04.md",
+    "content/posts/홈서버/homeserver-03.md",
     "content/posts/홈서버/homeserver-02.md",
     "content/posts/홈서버/homeserver-01.md",
     "content/posts/홈서버/homeserver-06.md",
@@ -240,9 +242,7 @@
     "content/posts/STM32-Bootloader/stm32-bootloader-04.md",
     "content/posts/STM32-Bootloader/stm32-bootloader-03.md",
     "content/posts/STM32-Bootloader/stm32-bootloader-02.md",
-    "content/posts/STM32-Bootloader/stm32-bootloader-01.md",
     "content/posts/STM32-Bootloader",
-    "수학챔피언-시리즈-기획.md",
     "static/pdf2md/assets/pdf.worker.min-yatZIOMy.mjs",
     "static/pdf2md/assets/index-BePsKUdY.css",
     "static/pdf2md/assets/index-D5IGPGnu.js",
