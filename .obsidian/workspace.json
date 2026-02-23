@@ -11,10 +11,14 @@
             "id": "4f91bddd4463bf75",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "content/posts/HomeServer/homeserver-09.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "homeserver-09"
             }
           }
         ]
@@ -177,8 +181,17 @@
       "github-sync:Sync with Remote": false
     }
   },
-  "active": "4f91bddd4463bf75",
+  "active": "2763e80c13c849a3",
   "lastOpenFiles": [
+    "홈서버-시리즈-기획.md",
+    "content/posts/HomeServer/homeserver-08.md",
+    "content/posts/HomeServer/homeserver-07.md",
+    "content/posts/HomeServer/homeserver-06.md",
+    "content/posts/HomeServer/homeserver-05.md",
+    "content/posts/HomeServer/homeserver-04.md",
+    "content/posts/HomeServer/homeserver-03.md",
+    "content/posts/HomeServer/homeserver-02.md",
+    "content/posts/HomeServer/homeserver-01.md",
     "content/search.md",
     "content/posts/ASCII2Card/a2c-01.md",
     "static/ascii2card/index.html",
@@ -215,14 +228,6 @@
     "수학챔피언-시리즈-기획.md",
     "content/posts/Math-Champion/math-champion-03.md",
     "content/posts/Math-Champion/math-champion-02.md",
-    "content/posts/Math-Champion/math-champion-01.md",
-    "STM32-Bootloader-시리즈-기획.md",
-    "PlatformIO-가이드-기획.md",
-    "PlatformIO-시리즈-기획.md",
-    "Ghidra-역분석-시리즈-기획.md",
-    "FloorPlanner-시리즈-기획.md",
-    "AD7280A-시리즈-기획.md",
-    "content/posts/Math-Champion/math-champion-11.md",
-    "content/posts/Math-Champion/math-champion-06.md"
+    "content/posts/Math-Champion/math-champion-01.md"
   ]
 }
