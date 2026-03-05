@@ -11,14 +11,10 @@
             "id": "deec55a0f29648c8",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "content/posts/Stock-Reports/stock-report-2026-03-05.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "stock-report-2026-03-05"
+              "title": "새 탭"
             }
           }
         ]
@@ -183,8 +179,14 @@
   },
   "active": "deec55a0f29648c8",
   "lastOpenFiles": [
-    "content/posts/Stock-Reports/stock-report-2026-02-26.md",
+    "content/posts/stock-reports/stock-report-2026-03-05.md",
+    "content/posts/stock-reports/stock-report-2026-02-26.md",
+    "content/posts/stock-reports",
     "content/posts/Stock-Reports/stock-report-2026-03-05.md",
+    "content/posts/stock-reports-temp/stock-report-2026-03-05.md",
+    "content/posts/stock-reports-temp/stock-report-2026-02-26.md",
+    "content/posts/stock-reports-temp",
+    "content/posts/Stock-Reports/stock-report-2026-02-26.md",
     "content/posts/Stock-Reports/2026년 3월 5일 미국 증시 전망.md",
     "content/posts/STM32-Bootloader/stm32-bootloader-01.md",
     "content/posts/Stock-Reports/2026년 2월 26일 미국 증시.md",
@@ -220,14 +222,8 @@
     "content/posts/ASCII2Card",
     "content/about.md",
     "README.md",
-    "content/posts/PDF2MD/pdf2md-05.md",
     "static/imgs/pdf2md-05-1.png",
-    "content/posts/PDF2MD/pdf2md-04.md",
-    "content/posts/PDF2MD/pdf2md-03.md",
-    "content/posts/PDF2MD/pdf2md-02.md",
     "content/posts/PDF2MD",
-    "static/pdf2md/assets/index-CD-bwh46.js",
-    "static/pdf2md/index.html",
-    "static/pdf2md/assets/pdf.worker.min-yatZIOMy.mjs"
+    "static/pdf2md/assets/index-CD-bwh46.js"
   ]
 }
