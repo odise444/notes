@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "88ded3b6d36423a2",
+        "id": "9d146c0dc3cc503e",
         "type": "tabs",
         "children": [
           {
-            "id": "c2a0180039f065cd",
+            "id": "16ec6c4a6892afb9",
             "type": "leaf",
             "state": {
               "type": "empty",
@@ -177,7 +177,7 @@
       "github-sync:Sync with Remote": false
     }
   },
-  "active": "c2a0180039f065cd",
+  "active": "16ec6c4a6892afb9",
   "lastOpenFiles": [
     "content/posts/stock-reports/stock-report-2026-03-05.md",
     "content/posts/stock-reports/2026-03-05-us-market-outlook.md",
