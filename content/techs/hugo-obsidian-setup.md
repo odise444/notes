@@ -41,14 +41,14 @@ git config --global user.email "이메일"
 ### 2. 저장소 클론
 
 ```powershell
-cd D:\WorkSpace
+cd C:\WorkSpaces
 git clone --recursive https://github.com/odise444/notes.git
 ```
 
 ### 3. Obsidian 설정
 
 1. Obsidian 다운로드/설치: https://obsidian.md
-2. 실행 → **보관함 폴더 열기** → `D:\WorkSpace\notes` 선택
+2. 실행 → **보관함 폴더 열기** → `C:\WorkSpaces\notes` 선택
 3. 설정 → 커뮤니티 플러그인 → **GitHub Sync** 설치
 4. GitHub Sync 설정:
    - Remote URL: `https://github.com/odise444/notes.git`
@@ -122,7 +122,7 @@ theme = 'PaperMod'
 ## 로컬 테스트
 
 ```powershell
-cd D:\WorkSpace\notes
+cd C:\WorkSpaces\notes
 hugo server -D
 # http://localhost:1313/notes/ 에서 확인
 ```

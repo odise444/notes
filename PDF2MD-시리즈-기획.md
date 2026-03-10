@@ -51,7 +51,7 @@
 - 다운로드 구현
 
 ## 글 저장 위치
-D:\WorkSpace\notes\content\posts\PDF2MD\
+C:\WorkSpaces\notes\content\posts\PDF2MD\
 
 ## 날짜
 2026-01-21
