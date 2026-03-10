@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "content/posts/stock-reports/stock-report-2026-03-09.md",
+                "file": "content/posts/stock-reports/stock-report-2026-03-10.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "stock-report-2026-03-09"
+              "title": "stock-report-2026-03-10"
             }
           }
         ]
@@ -183,6 +183,7 @@
   },
   "active": "16ec6c4a6892afb9",
   "lastOpenFiles": [
+    "content/posts/stock-reports/stock-report-2026-03-09.md",
     "static/imgs/stock-report-2026-03-09-1.jpg",
     "content/posts/stock-reports/stock-report-2026-03-10.md",
     "content/posts/stock-reports/stock-report-2026-03-05.md",
@@ -225,7 +226,6 @@
     "static/imgs/a2c-01-3.png",
     "static/imgs/a2c-01-2.png",
     "static/imgs/a2c-01-1.png",
-    "static/imgs/Pasted image 20260211100403.png",
     "content/posts/ASCII2Card",
     "content/posts/PDF2MD",
     "static/pdf2md/assets/index-CD-bwh46.js"
