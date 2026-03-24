@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "content/posts/stock-reports/stock-report-2026-03-23.md",
+                "file": "content/posts/stock-reports/stock-report-2026-03-24.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "stock-report-2026-03-23"
+              "title": "stock-report-2026-03-24"
             }
           }
         ]
@@ -183,6 +183,7 @@
   },
   "active": "c84df7b1154d58e7",
   "lastOpenFiles": [
+    "content/posts/stock-reports/stock-report-2026-03-23.md",
     "static/imgs/2026-03-24-sector-rotation-finance.jpg",
     "static/imgs/stock-report-2026-03-23-5.jpg",
     "static/imgs/2026-03-24-stock-market-rally.jpg",
@@ -194,9 +195,7 @@
     "static/imgs/2026-03-24-iran-ceasefire-diplomacy.jpg",
     "static/imgs/stock-report-2026-03-23-1.jpg",
     "content/posts/ASCII2Card/_index.md",
-    "content/posts/stock-reports/stock-report-2026-03-23.md",
     "static/imgs/2026-03-23-geopolitics-war.jpg",
-    "static/imgs/2026-03-23-stock-market-trading.jpg",
     "content/posts/Articles/_index.md",
     "content/posts/_index.md",
     "content/posts/Articles/hugo-obsidian-setup.md",
