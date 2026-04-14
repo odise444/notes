@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "content/posts/stock-reports/stock-report-2026-04-13.md",
+                "file": "content/posts/stock-reports/stock-report-2026-04-14.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "stock-report-2026-04-13"
+              "title": "stock-report-2026-04-14"
             }
           }
         ]
@@ -183,6 +183,8 @@
   },
   "active": "b590c888e0cac6d4",
   "lastOpenFiles": [
+    "content/posts/stock-reports/stock-report-2026-04-13.md",
+    "content/posts/stock-reports/stock-report-2026-04-14.md",
     "static/imgs/2026-04-14-hormuz-naval.jpg",
     "static/imgs/2026-04-14-sector-rotation.jpg",
     "static/imgs/2026-04-14-oil-gold-commodities.jpg",
@@ -202,7 +204,6 @@
     "static/imgs/2026-03-24-stock-market-rally.jpg",
     "static/imgs/stock-report-2026-03-23-4.jpg",
     "static/imgs/stock-report-2026-03-23-3.jpg",
-    "static/imgs/stock-report-2026-03-23-2.jpg",
     "content/posts/ASCII2Card/_index.md",
     "content/posts/Articles/_index.md",
     "content/posts/_index.md",
@@ -220,7 +221,6 @@
     "content/posts/PDF2MD/pdf2md-01.md",
     "content/posts/stock-reports/stock-report-2026-02-26.md",
     "content/posts/stock-reports",
-    "content/posts/Stock-Reports/stock-report-2026-03-05.md",
     "content/posts/stock-reports-temp",
     "static/ascii2card/index.html",
     "static/ascii2card/assets/index-CXE6saC9.js",
