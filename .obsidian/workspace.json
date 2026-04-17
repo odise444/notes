@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "content/posts/stock-reports/stock-report-2026-04-15.md",
+                "file": "content/posts/stock-reports/stock-report-2026-04-17.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "stock-report-2026-04-15"
+              "title": "stock-report-2026-04-17"
             }
           }
         ]
@@ -183,6 +183,7 @@
   },
   "active": "b590c888e0cac6d4",
   "lastOpenFiles": [
+    "content/posts/stock-reports/stock-report-2026-04-15.md",
     "content/posts/stock-reports/stock-report-2026-04-14.md",
     "content/posts/stock-reports/stock-report-2026-04-13.md",
     "static/imgs/2026-04-14-hormuz-naval.jpg",
@@ -219,7 +220,6 @@
     "content/posts/stock-reports/stock-report-2026-03-05.md",
     "content/posts/stock-reports/2026-03-05-us-market-outlook.md",
     "content/posts/PDF2MD/pdf2md-01.md",
-    "content/posts/stock-reports/stock-report-2026-02-26.md",
     "content/posts/stock-reports",
     "content/posts/stock-reports-temp",
     "static/ascii2card/index.html",
