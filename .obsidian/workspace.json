@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "content/posts/stock-reports/stock-report-2026-04-22.md",
+                "file": "content/posts/stock-reports/stock-report-2026-04-23.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "stock-report-2026-04-22"
+              "title": "stock-report-2026-04-23"
             }
           }
         ]
@@ -183,6 +183,7 @@
   },
   "active": "b590c888e0cac6d4",
   "lastOpenFiles": [
+    "content/posts/stock-reports/stock-report-2026-04-22.md",
     "content/posts/stock-reports/stock-report-2026-04-21.md",
     "content/posts/stock-reports/stock-report-2026-04-20.md",
     "static/imgs/2026-04-21-oil-gold.jpg",
@@ -219,7 +220,6 @@
     "content/posts/stock-reports/stock-report-2026-03-17.md",
     "content/posts/stock-reports/stock-report-2026-03-13.md",
     "content/posts/stock-reports/stock-report-2026-03-10.md",
-    "content/posts/stock-reports/stock-report-2026-03-09.md",
     "content/posts/stock-reports",
     "content/posts/stock-reports-temp",
     "static/ascii2card/index.html",
