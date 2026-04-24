@@ -2,10 +2,15 @@
 {{- $alt := .Text -}}
 {{- $title := .Title -}}
 
-{{- /* 상대경로를 /imgs/로 변환 */ -}}
-{{- if not (hasPrefix $src "/") -}}
+{{- /* 절대경로/외부 URL은 손대지 않음 */ -}}
+{{- if not (or (hasPrefix $src "/") (hasPrefix $src "http")) -}}
   {{- if (findRE `\.(png|jpg|jpeg|gif|webp|svg)$` $src) -}}
-    {{- $src = printf "imgs/%s" (path.Base $src) -}}
+    {{- /* 이미 imgs/로 시작하면 그대로, 아니면 imgs/ 앞에 붙임 */ -}}
+    {{- /* 파일명만 있는 경우(기존 관행): imgs/파일명 */ -}}
+    {{- /* 서브폴더 경로: imgs/서브폴더/파일명 */ -}}
+    {{- if not (hasPrefix $src "imgs/") -}}
+      {{- $src = printf "imgs/%s" $src -}}
+    {{- end -}}
   {{- end -}}
 {{- end -}}
 

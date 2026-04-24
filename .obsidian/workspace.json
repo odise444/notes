@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "content/posts/Motor-Control/maxon-escon-bldc-korean-motor-setup/index.md",
+                "file": "content/posts/Motor-Control/motor-control-01.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "index"
+              "title": "motor-control-01"
             }
           }
         ]
@@ -181,23 +181,24 @@
       "github-sync:Sync with Remote": false
     }
   },
-  "active": "2763e80c13c849a3",
+  "active": "b590c888e0cac6d4",
   "lastOpenFiles": [
-    "content/posts/Motor-Control/motor-control-01.md",
-    "static/imgs/motor-control-01-28.png",
-    "static/imgs/motor-control-01-27.png",
-    "static/imgs/motor-control-01-26.png",
-    "static/imgs/motor-control-01-25.png",
-    "static/imgs/motor-control-01-24.png",
-    "static/imgs/motor-control-01-23.png",
-    "static/imgs/motor-control-01-22.png",
-    "static/imgs/motor-control-01-21.png",
-    "static/imgs/motor-control-01-20.png",
-    "static/imgs/motor-control-01-19.png",
     "BLOG-GUIDE.md",
+    "content/posts/Motor-Control/maxon-escon-bldc-korean-motor-setup/index.md",
+    "static/imgs/motor-control-01/28.png",
+    "static/imgs/motor-control-01/27.png",
+    "static/imgs/motor-control-01/26.png",
+    "static/imgs/motor-control-01/25.png",
+    "static/imgs/motor-control-01/24.png",
+    "static/imgs/motor-control-01/23.png",
+    "static/imgs/motor-control-01/22.png",
+    "static/imgs/motor-control-01/21.png",
+    "static/imgs/motor-control-01/20.png",
+    "static/imgs/motor-control-01/19.png",
+    "static/imgs/motor-control-01",
+    "content/posts/Motor-Control/motor-control-01.md",
     "content/posts/stock-reports/stock-report-2026-04-24.md",
     "content/posts/stock-reports/stock-report-2026-04-23.md",
-    "content/posts/Motor-Control/maxon-escon-bldc-korean-motor-setup/index.md",
     "content/posts/Motor-Control/maxon-escon-bldc-korean-motor-setup/images",
     "content/posts/Motor-Control/maxon-escon-bldc-korean-motor-setup",
     "content/posts/Motor-Control",
@@ -222,12 +223,10 @@
     "content/posts/_index.md",
     "content/posts/Articles/hugo-obsidian-setup.md",
     "content/posts/Articles",
-    "content/posts/stock-reports/stock-report-2026-03-20.md",
     "content/posts/stock-reports",
     "content/posts/stock-reports-temp",
     "static/ascii2card/index.html",
     "static/ascii2card/assets/index-CXE6saC9.js",
-    "static/ascii2card/assets",
-    "static/ascii2card"
+    "static/ascii2card/assets"
   ]
 }
