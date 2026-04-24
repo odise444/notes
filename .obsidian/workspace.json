@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "BLOG-GUIDE.md",
+                "file": "content/posts/Motor-Control/maxon-escon-bldc-korean-motor-setup/index.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "BLOG-GUIDE"
+              "title": "index"
             }
           }
         ]
@@ -183,6 +183,7 @@
   },
   "active": "b590c888e0cac6d4",
   "lastOpenFiles": [
+    "BLOG-GUIDE.md",
     "content/posts/Motor-Control/maxon-escon-bldc-korean-motor-setup/images/BLOG-GUIDE-1.png",
     "content/posts/stock-reports/stock-report-2026-04-24.md",
     "static/imgs/2026-04-24-oil-surge.jpg",
@@ -190,13 +191,11 @@
     "static/imgs/2026-04-24-hormuz-strait.jpg",
     "static/imgs/2026-04-24-market-pullback.jpg",
     "content/posts/stock-reports/stock-report-2026-04-23.md",
-    "BLOG-GUIDE.md",
     "content/posts/Motor-Control/maxon-escon-bldc-korean-motor-setup/images/28_auto_tuning_motor2.png",
     "content/posts/Motor-Control/maxon-escon-bldc-korean-motor-setup/images/27_auto_tuning_good.png",
     "content/posts/Motor-Control/maxon-escon-bldc-korean-motor-setup/images/26_all_tests_passed.png",
     "content/posts/Motor-Control/maxon-escon-bldc-korean-motor-setup/images/25_encoder_resolution_failed.png",
     "content/posts/Motor-Control/maxon-escon-bldc-korean-motor-setup/images/24_encoder_direction_failed.png",
-    "content/posts/Motor-Control/maxon-escon-bldc-korean-motor-setup/images/23_pole_pairs_failed.png",
     "content/posts/Motor-Control/maxon-escon-bldc-korean-motor-setup/index.md",
     "content/posts/Motor-Control/maxon-escon-bldc-korean-motor-setup/images",
     "content/posts/Motor-Control/maxon-escon-bldc-korean-motor-setup",
