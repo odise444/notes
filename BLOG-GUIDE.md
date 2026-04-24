@@ -37,8 +37,12 @@ C:\WorkSpaces\notes\
 │   ├── math/
 │   ├── pdf2md/
 │   ├── ads.txt
-│   └── imgs/
+│   └── imgs/            # 포스트 이미지 (전부 여기)
+│       ├── {슬러그}/    # 서브폴더 구조 (권장)
+│       └── ...          # 레거시 flat 파일들
 ├── layouts/             # 커스텀 레이아웃
+│   └── _default/_markup/
+│       └── render-image.html   # 이미지 경로 자동 처리
 ├── hugo.toml            # Hugo 설정
 └── .github/workflows/   # GitHub Actions
 ```
@@ -62,13 +66,15 @@ summary: "한 줄 요약"
 
 ### 파일명 규칙
 
+모든 포스트는 **flat 구조** (단일 `.md` 파일). Hugo Page Bundle은 쓰지 않음 — 이유는 아래 "이미지 처리" 참고.
+
 | 시리즈 | 파일명 패턴 | 예시 |
 |--------|-------------|------|
 | BMS 개발기 | `ad7280a-bms-dev-{번호}.md` | ad7280a-bms-dev-01.md |
 | Ghidra | `ghidra-{번호}.md` | ghidra-01.md |
 | 홈서버 | `homeserver-{번호}.md` | homeserver-01.md |
 | Stock-Reports | `stock-report-YYYY-MM-DD.md` | stock-report-2026-03-05.md |
-| Motor-Control | `{slug}/index.md` (Page Bundle) | maxon-escon-.../index.md |
+| Motor-Control | `motor-control-{번호}.md` | motor-control-01.md |
 
 ### 작성 톤
 
@@ -77,19 +83,51 @@ summary: "한 줄 요약"
 - 코드는 실제 동작하는 예제 위주
 - 이모지 최소화
 
-### 이미지 처리
+---
 
-**일반 포스트**: `![설명](images/파일명.png)` 형식으로 참조
+## 이미지 처리
 
-**Page Bundle 구조** (이미지 많은 글):
+### 핵심 동작
+
+`layouts/_default/_markup/render-image.html`이 마크다운의 모든 이미지 참조를 자동으로 `static/imgs/` 아래로 리라우팅한다.
+
+```go
+{{- if not (hasPrefix $src "imgs/") -}}
+  {{- $src = printf "imgs/%s" $src -}}
+{{- end -}}
 ```
-content/posts/시리즈명/글제목/
-├── index.md
-└── images/
-    ├── 01_xxx.png
-    ├── 02_xxx.png
-    └── ...
+
+즉, 마크다운에서 `![](xxx.png)`만 쓰면 Hugo가 알아서 `static/imgs/xxx.png`를 찾아 준다.
+
+### 권장 방식: 슬러그별 서브폴더
+
+이미지가 여러 장이면 포스트 슬러그 이름의 서브폴더에 모은다.
+
 ```
+static/imgs/motor-control-01/
+├── 01.png
+├── 02.png
+└── 27.png
+```
+
+포스트 내부 참조:
+
+```markdown
+![모터 사양서](motor-control-01/01.png)
+![Motor Data 설정](motor-control-01/03.png)
+```
+
+### 레거시 방식: flat 파일명
+
+이미 있는 대부분의 포스트는 `static/imgs/` 루트에 `{슬러그}-{번호}.{확장자}` 로 flat하게 둔다. 이 방식도 계속 유효하므로 기존 포스트는 건드리지 않는다.
+
+```markdown
+![사상 최고치 경신](2026-04-23-market-record-high.jpg)
+```
+
+### Page Bundle은 쓰지 않음
+
+`content/posts/시리즈/글제목/index.md + images/` 형태의 Hugo Page Bundle은 **작동하지 않는다**. 렌더 훅이 모든 이미지 경로를 `imgs/` 아래로 강제하기 때문에 Page Bundle 내부 리소스를 못 찾는다. 반드시 flat 포스트 + `static/imgs/` 조합을 쓴다.
 
 ---
 
@@ -106,9 +144,7 @@ content/posts/시리즈명/글제목/
 | PDF2MD | 5 | PDF2MD/ | 완료 |
 | 홈서버 구축기 | 9 | HomeServer/ | 진행중 |
 | Motor-Control | 1 | Motor-Control/ | 진행중 |
-| Stock-Reports | 2 | stock-reports/ | 진행중 |
-
-**총 글 수**: 약 162개
+| Stock-Reports | 26 | stock-reports/ | 진행중 |
 
 ---
 
@@ -116,7 +152,8 @@ content/posts/시리즈명/글제목/
 
 1. 기획 문서 먼저 작성: `{시리즈명}-시리즈-기획.md`
 2. 폴더 생성: `content/posts/{시리즈폴더}/`
-3. 첫 글 작성 후 frontmatter에 series 필드 추가
+3. 이미지 서브폴더 생성: `static/imgs/{첫-포스트-슬러그}/`
+4. 첫 글 작성 후 frontmatter에 series 필드 추가
 
 ---
 
@@ -159,6 +196,12 @@ GitHub Actions가 자동으로 Hugo 빌드 → GitHub Pages 배포
 - `"<" in attribute name` → 머지 충돌 마커 남아있음
 - `layouts/partials/` 파일들 확인
 
+### 이미지가 안 나옴
+- `static/imgs/` 아래에 실제 파일이 있는지 확인 (경로/파일명 오타)
+- 마크다운에서 `images/`, `./`, `../` 같은 접두사를 썼으면 제거. `static/imgs/`를 기준 루트로 생각하고 쓴다
+- Page Bundle 구조(`content/posts/.../글제목/images/`)는 작동 안 함. flat 구조로 옮길 것
+- Hugo 로컬 서버 실행 중에 대량 파일 추가하면 감지 놓치는 경우 있음 → `Ctrl+C` 후 `hugo server` 재실행
+
 ### 대소문자 폴더명 변경 (Windows)
 Windows는 대소문자만 다른 폴더명 직접 변경 불가. 2단계로:
 ```powershell
@@ -185,6 +228,9 @@ theme = 'PaperMod'
   repo = "odise444/notes"
   # ...
 ```
+
+### layouts/_default/_markup/render-image.html
+마크다운 이미지 참조를 `static/imgs/` 아래로 자동 리라우팅. 새 포스트는 이 규칙에 맞춰서 참조 경로를 쓰면 됨.
 
 ### static/ads.txt
 ```
