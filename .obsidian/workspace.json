@@ -181,8 +181,9 @@
       "github-sync:Sync with Remote": false
     }
   },
-  "active": "2763e80c13c849a3",
+  "active": "b590c888e0cac6d4",
   "lastOpenFiles": [
+    "content/posts/Motor-Control/maxon-escon-bldc-korean-motor-setup/images/BLOG-GUIDE-1.png",
     "content/posts/stock-reports/stock-report-2026-04-24.md",
     "static/imgs/2026-04-24-oil-surge.jpg",
     "static/imgs/2026-04-24-fed-rotation.jpg",
@@ -222,7 +223,6 @@
     "content/posts/Articles/hugo-obsidian-setup.md",
     "content/posts/Articles",
     "content/posts/stock-reports/stock-report-2026-03-20.md",
-    "content/posts/stock-reports/stock-report-2026-03-19.md",
     "content/posts/stock-reports",
     "content/posts/stock-reports-temp",
     "static/ascii2card/index.html",
