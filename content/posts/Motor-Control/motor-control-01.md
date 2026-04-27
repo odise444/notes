@@ -1,4 +1,4 @@
-﻿---
+---
 title: "Motor Control #1 - maxon ESCON 50/5로 국산 BLDC 돌리기"
 date: 2026-04-24
 lastmod: 2026-04-24
