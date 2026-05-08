@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "content/posts/stock-reports/stock-report-2026-05-07.md",
+                "file": "content/posts/stock-reports/stock-report-2026-05-08.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "stock-report-2026-05-07"
+              "title": "stock-report-2026-05-08"
             }
           }
         ]
@@ -183,10 +183,12 @@
   },
   "active": "b590c888e0cac6d4",
   "lastOpenFiles": [
-    "content/posts/stock-reports/stock-report-2026-05-06.md",
-    "content/posts/stock-reports/stock-report-2026-04-30.md",
-    "content/posts/stock-reports/stock-report-2026-04-29.md",
+    "content/posts/stock-reports/stock-report-2026-05-07.md",
+    "content/posts/stock-reports/stock-report-2026-04-23.md",
     "content/posts/stock-reports/stock-report-2026-04-28.md",
+    "content/posts/stock-reports/stock-report-2026-04-30.md",
+    "content/posts/stock-reports/stock-report-2026-05-06.md",
+    "content/posts/stock-reports/stock-report-2026-04-29.md",
     "content/posts/stock-reports/stock-report-2026-04-02.md",
     "content/posts/stock-reports/_index.md",
     "content/posts/stock-reports/stock-report-2026-04-27.md",
@@ -205,7 +207,6 @@
     "static/imgs/motor-control-01/20.png",
     "static/imgs/motor-control-01/19.png",
     "static/imgs/motor-control-01",
-    "content/posts/stock-reports/stock-report-2026-04-23.md",
     "content/posts/Motor-Control/maxon-escon-bldc-korean-motor-setup/images",
     "content/posts/Motor-Control/maxon-escon-bldc-korean-motor-setup",
     "content/posts/Motor-Control",
@@ -222,7 +223,6 @@
     "content/posts/stock-reports/stock-report-2026-04-01.md",
     "content/posts/stock-reports/stock-report-2026-03-27.md",
     "content/posts/stock-reports/stock-report-2026-03-25.md",
-    "content/posts/stock-reports/stock-report-2026-03-24.md",
     "content/posts/Articles",
     "content/posts/stock-reports",
     "content/posts/stock-reports-temp",
