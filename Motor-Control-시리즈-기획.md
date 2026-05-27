@@ -15,7 +15,9 @@
 |---|------|--------|------|------|
 | 1 | maxon ESCON 50/5로 국산 BLDC 모터 제어하기 | motor-control-01.md | 2026-04-24 | ✅ 완료 |
 | 2 | STM32 PWM 속도 제어 펌웨어 | motor-control-02.md | 2026-05-27 | ✅ 완료 |
-| 3 | ESCON Data Recorder 활용 | (예정) | - | 📝 예정 |
+| 3 | ESCON Data Recorder로 응답 측정하고 튜닝하기 | motor-control-03.md | 2026-05-28 | ✅ 완료 |
+
+**시리즈 1차 마무리.** 후속 주제는 실제 모터 제어 건이 들어오는 시점에 결정.
 
 ## #1 글 상세
 
@@ -64,17 +66,43 @@
 
 **파일**: `content/posts/Motor-Control/motor-control-02.md`
 
-## 향후 계획
+## #3 글 상세
 
-### #3 - ESCON Data Recorder 활용
-- 실시간 데이터 로깅
-- 부하 조건별 응답 측정
-- 명령 vs 실측 시간 영역 분석
-- Expert Tuning 미세 조정
+### ESCON Data Recorder로 응답 측정하고 튜닝하기
+
+**도구**:
+- ESCON Studio → Tuning → Data Recording
+- 4채널, 0.1~100 ms 가변 샘플 주기, 최대 30초 캡처
+- CSV/PNG/BMP export
+
+**핵심 내용**:
+1. 채널 4개 선택 전략 (속도 루프 / 전류 루프 / PWM 검증 세 가지 조합)
+2. 트리거 모드 4종 + Pre-trigger 활용
+3. 무부하 스텝 응답 측정 + 응답 지표 4종 정의
+   - Rise time (10~90%)
+   - Overshoot
+   - Settling time (±2% 밴드)
+   - Steady-state current
+4. 부하 변동 응답 측정 + Speed dip + Voltage saturation 해석
+5. CSV export + Python 분석 자동화 (rise/overshoot/settling 계산)
+6. Expert Tuning 파라미터 4종 (Current/Speed × P/I gain)과 응답 지표 매핑
+7. STM32 측 시험 시퀀스 자동화 (state machine)
+8. 함정 5가지 (USB 끊김, Pre-trigger, 샘플 주기, Speed Ramp, AO Averaged)
+
+**파일**: `content/posts/Motor-Control/motor-control-03.md`
+
+## 향후 후속 주제 (정해진 일정 없음)
+
+- UART/CAN으로 속도·전류 로깅 외부 노트북 송출 (STM32 쪽)
+- ADC 노이즈 감소: RC 필터, 차폐, GND 토폴로지
+- E-stop 시퀀스 구현 (DI/O4 Ready + 외부 인터럽트)
+- Position Controller 모드 + 엔코더 위치 제어
+- maxon EPOS 시리즈 비교 (CANopen, EtherCAT)
+- 국산 BLDC + 국산 드라이버 조합 케이스 스터디
 
 ## 태그
 
-`모터제어`, `BLDC`, `maxon`, `ESCON`, `임베디드`, `STM32`, `PWM`, `HAL`, `ADC`, `DMA`
+`모터제어`, `BLDC`, `maxon`, `ESCON`, `임베디드`, `STM32`, `PWM`, `HAL`, `ADC`, `DMA`, `Data Recorder`, `튜닝`
 
 ## 참고 자료
 
