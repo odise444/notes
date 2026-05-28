@@ -4,21 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "54080419fe3d25d1",
+        "id": "f1bc792f228e21fe",
         "type": "tabs",
         "children": [
           {
-            "id": "b590c888e0cac6d4",
+            "id": "78fd5fb68f7689b7",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "content/posts/stock-reports/stock-report-2026-05-26.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "stock-report-2026-05-26"
+              "title": "새 탭"
             }
           }
         ]
@@ -181,8 +177,15 @@
       "github-sync:Sync with Remote": false
     }
   },
-  "active": "b590c888e0cac6d4",
+  "active": "78fd5fb68f7689b7",
   "lastOpenFiles": [
+    "content/posts/Motor-Control/motor-control-02.md",
+    "Motor-Control-시리즈-기획.md",
+    "content/posts/Motor-Control/motor-control-01.md",
+    "stock-report-2026-03-18.md",
+    "content/posts/_index.md",
+    "content/posts/stock-reports/stock-report-2026-05-27.md",
+    "content/posts/stock-reports/stock-report-2026-05-26.md",
     "content/posts/stock-reports/stock-report-2026-05-25.md",
     "content/posts/stock-reports/stock-report-2026-05-21.md",
     "static/imgs/2026-05-25-oil-tanker.jpg",
@@ -212,16 +215,10 @@
     "content/posts/stock-reports/stock-report-2026-04-29.md",
     "content/posts/stock-reports/stock-report-2026-04-02.md",
     "content/posts/stock-reports/_index.md",
-    "content/posts/stock-reports/stock-report-2026-04-27.md",
-    "content/posts/stock-reports/stock-report-2026-04-24.md",
-    "content/posts/Motor-Control/motor-control-01.md",
-    "BLOG-GUIDE.md",
-    "content/posts/Motor-Control/maxon-escon-bldc-korean-motor-setup/index.md",
     "static/imgs/motor-control-01",
     "content/posts/Motor-Control/maxon-escon-bldc-korean-motor-setup/images",
     "content/posts/Motor-Control/maxon-escon-bldc-korean-motor-setup",
     "content/posts/Motor-Control",
-    "content/posts/stock-reports/stock-report-2026-04-22.md",
     "content/posts/Articles",
     "content/posts/stock-reports",
     "content/posts/stock-reports-temp",
