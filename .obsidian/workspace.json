@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "content/posts/stock-reports/stock-report-2026-06-10.md",
+                "file": "content/posts/stock-reports/stock-report-2026-06-11.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "stock-report-2026-06-10"
+              "title": "stock-report-2026-06-11"
             }
           }
         ]
@@ -183,6 +183,7 @@
   },
   "active": "78fd5fb68f7689b7",
   "lastOpenFiles": [
+    "content/posts/stock-reports/stock-report-2026-06-10.md",
     "content/posts/stock-reports/stock-report-2026-06-09.md",
     "content/posts/stock-reports/stock-report-2026-06-08.md",
     "content/posts/stock-reports/stock-report-2026-06-05.md",
@@ -218,7 +219,6 @@
     "content/posts/stock-reports/stock-report-2026-05-11.md",
     "content/posts/stock-reports/stock-report-2026-05-08.md",
     "content/posts/stock-reports/stock-report-2026-05-07.md",
-    "content/posts/stock-reports/stock-report-2026-04-23.md",
     "static/imgs/motor-control-01",
     "content/posts/Motor-Control/maxon-escon-bldc-korean-motor-setup/images",
     "content/posts/Motor-Control/maxon-escon-bldc-korean-motor-setup",
