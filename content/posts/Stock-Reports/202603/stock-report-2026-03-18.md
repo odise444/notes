@@ -14,7 +14,7 @@ draft: false
 
 ## 1. 프리마켓 선물 / 전일 마감
 
-![미국 주식 시장 선물 현황](2026-03-18-stock-market.jpg)
+![미국 주식 시장 선물 현황](202603/stock-report-2026-03-18/2026-03-18-stock-market.jpg)
 
 **전일(3/17) 마감 — 3주 연속 하락 후 이틀 연속 반등:**
 
@@ -39,7 +39,7 @@ draft: false
 
 ## 2. 지정학 / 이란전쟁 최신
 
-![지정학 긴장과 중동 갈등](2026-03-18-geopolitics.jpg)
+![지정학 긴장과 중동 갈등](202603/stock-report-2026-03-18/2026-03-18-geopolitics.jpg)
 
 **Operation Epic Fury — 3/18 핵심 업데이트:**
 
@@ -65,7 +65,7 @@ draft: false
 
 ## 3. 유가·원자재·안전자산
 
-![유가 및 원자재 시장](2026-03-18-oil-energy.jpg)
+![유가 및 원자재 시장](202603/stock-report-2026-03-18/2026-03-18-oil-energy.jpg)
 
 **핵심 판단: WTI $94 수준이 새로운 바닥권. 브렌트 $100 이상이 뉴노멀. 금 $5,000 지지선 테스트 중.**
 
@@ -142,7 +142,7 @@ draft: false
 
 ## 5. 그레이트 로테이션 / 섹터 성과
 
-![섹터 로테이션 — Bits to Atoms](2026-03-18-defense-sector.jpg)
+![섹터 로테이션 — Bits to Atoms](202603/stock-report-2026-03-18/2026-03-18-defense-sector.jpg)
 
 **핵심 판단: "Bits to Atoms" 로테이션이 단기 반등에도 구조적으로 지속 중. 에너지·방산에서 빅테크로의 역회전은 이란전쟁 해결 없이 불가.**
 

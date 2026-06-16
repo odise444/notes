@@ -1,4 +1,4 @@
----
+﻿---
 title: "2026년 3월 25일 미국 증시 전망: WTI 급락·이란 협상 기대 속 프리마켓 반등"
 date: 2026-03-25
 tags: ["미국주식", "프리마켓", "이란전쟁", "원유", "그레이트로테이션", "연준", "방산", "에너지"]
@@ -14,7 +14,7 @@ draft: false
 
 ## 1. 프리마켓 선물 / 전일 마감
 
-![주식 시장 트레이딩 화면](2026-03-25-stock-market.jpg)
+![주식 시장 트레이딩 화면](202603/stock-report-2026-03-25/2026-03-25-stock-market.jpg)
 
 ### 전일 마감 (3/24, 화요일)
 
@@ -38,7 +38,7 @@ draft: false
 
 ## 2. 지정학 / 이란전쟁 최신
 
-![중동 지정학 긴장 상황](2026-03-25-middle-east-geopolitics.jpg)
+![중동 지정학 긴장 상황](202603/stock-report-2026-03-25/2026-03-25-middle-east-geopolitics.jpg)
 
 ### Operation Epic Fury 현황 (3/25 기준)
 
@@ -56,7 +56,7 @@ draft: false
 
 ## 3. 유가·원자재·안전자산
 
-![원유 에너지 인프라](2026-03-25-crude-oil-energy.jpg)
+![원유 에너지 인프라](202603/stock-report-2026-03-25/2026-03-25-crude-oil-energy.jpg)
 
 ### 원자재 가격 현황
 
@@ -114,7 +114,7 @@ draft: false
 
 ## 5. 그레이트 로테이션 / 섹터 성과
 
-![방산 에너지 섹터 로테이션](2026-03-25-defense-rotation.jpg)
+![방산 에너지 섹터 로테이션](202603/stock-report-2026-03-25/2026-03-25-defense-rotation.jpg)
 
 ### 섹터별 YTD 성과 (2026년 기준)
 
