@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "content/posts/stock-reports/202606/stock-report-2026-06-23.md",
+                "file": "content/posts/stock-reports/202606/stock-report-2026-06-24.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "stock-report-2026-06-23"
+              "title": "stock-report-2026-06-24"
             }
           }
         ]
@@ -183,6 +183,7 @@
   },
   "active": "78fd5fb68f7689b7",
   "lastOpenFiles": [
+    "content/posts/stock-reports/202606/stock-report-2026-06-23.md",
     "content/posts/stock-reports/202606/stock-report-2026-06-19.md",
     "content/posts/stock-reports/202606/stock-report-2026-06-18.md",
     "content/posts/stock-reports/202606/stock-report-2026-06-17.md",
@@ -227,7 +228,6 @@
     "content/posts/Motor-Control/motor-control-01.md",
     "stock-report-2026-03-18.md",
     "content/posts/_index.md",
-    "content/posts/stock-reports/stock-report-2026-05-27.md",
-    "content/posts/stock-reports/stock-report-2026-05-26.md"
+    "content/posts/stock-reports/stock-report-2026-05-27.md"
   ]
 }
