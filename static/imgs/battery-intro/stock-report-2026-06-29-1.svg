@@ -1,0 +1,53 @@
+<svg viewBox="0 0 720 440" xmlns="http://www.w3.org/2000/svg" font-family="'Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif">
+  <style>
+    .title{font-size:20px;font-weight:700;fill:#222}
+    .ax{font-size:13px;fill:#444}
+    .sub{font-size:13px;fill:#555}
+  </style>
+  <rect width="720" height="440" fill="#ffffff"/>
+  <text x="360" y="34" text-anchor="middle" class="title">충방전 곡선 — LFP는 왜 SOC 추정이 어려운가</text>
+
+  <!-- axes -->
+  <line x1="90" y1="60" x2="90" y2="360" stroke="#333" stroke-width="2"/>
+  <line x1="90" y1="360" x2="660" y2="360" stroke="#333" stroke-width="2"/>
+
+  <!-- y grid + labels (voltage) -->
+  <g class="ax" text-anchor="end">
+    <line x1="90" y1="277" x2="660" y2="277" stroke="#eee" stroke-width="1"/>
+    <line x1="90" y1="193" x2="660" y2="193" stroke="#eee" stroke-width="1"/>
+    <line x1="90" y1="110" x2="660" y2="110" stroke="#eee" stroke-width="1"/>
+    <text x="82" y="365">2.5V</text>
+    <text x="82" y="282">3.0V</text>
+    <text x="82" y="198">3.5V</text>
+    <text x="82" y="115">4.0V</text>
+  </g>
+  <text x="34" y="210" text-anchor="middle" class="ax" font-weight="700" transform="rotate(-90 34 210)">전압 (Cell V)</text>
+
+  <!-- x labels (SOC) -->
+  <g class="ax" text-anchor="middle">
+    <text x="90" y="382">0%</text>
+    <text x="261" y="382">30%</text>
+    <text x="432" y="382">70%</text>
+    <text x="660" y="382">100%</text>
+  </g>
+  <text x="375" y="408" text-anchor="middle" class="ax" font-weight="700">SOC (충전 상태)</text>
+
+  <!-- NMC curve (sloped) -->
+  <path d="M 90 277 C 160 220, 260 200, 375 168 S 560 110, 660 77"
+        fill="none" stroke="#E8645A" stroke-width="3.5"/>
+  <!-- LFP curve (flat plateau) -->
+  <path d="M 90 310 C 120 250, 140 236, 175 232 L 590 220 C 620 216, 645 195, 660 168"
+        fill="none" stroke="#4A7BC8" stroke-width="3.5"/>
+
+  <!-- plateau highlight -->
+  <rect x="180" y="210" width="400" height="36" fill="#4A7BC8" opacity="0.08"/>
+  <text x="380" y="200" text-anchor="middle" class="sub" fill="#3b5a82" font-weight="700">← LFP 평탄 구간: 전압이 거의 안 변함 →</text>
+
+  <!-- legend -->
+  <g>
+    <line x1="430" y1="300" x2="465" y2="300" stroke="#E8645A" stroke-width="3.5"/>
+    <text x="472" y="305" class="sub">NMC — 경사형, 전압으로 SOC 추정 ○</text>
+    <line x1="430" y1="328" x2="465" y2="328" stroke="#4A7BC8" stroke-width="3.5"/>
+    <text x="472" y="333" class="sub">LFP — 평탄형, 전류 적산 등 보조 필요</text>
+  </g>
+</svg>

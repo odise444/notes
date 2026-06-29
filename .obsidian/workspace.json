@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "content/posts/stock-reports/202606/stock-report-2026-06-29.md",
+                "file": "content/posts/Articles/battery-intro.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "stock-report-2026-06-29"
+              "title": "battery-intro"
             }
           }
         ]
@@ -183,6 +183,8 @@
   },
   "active": "78fd5fb68f7689b7",
   "lastOpenFiles": [
+    "content/posts/stock-reports/202606/stock-report-2026-06-29.md",
+    "static/imgs/battery-intro/stock-report-2026-06-29-1.svg",
     "content/posts/stock-reports/202606/stock-report-2026-06-26.md",
     "content/posts/stock-reports/202606/stock-report-2026-06-25.md",
     "content/posts/stock-reports/202606/stock-report-2026-06-24.md",
@@ -199,7 +201,6 @@
     "static/imgs/202604/stock-report-2026-04-08/2026-04-08-oil-gold.jpg",
     "static/imgs/202604/stock-report-2026-04-01/2026-04-01-oil-commodity.jpg",
     "static/imgs/202603/stock-report-2026-03-10/2026-03-10-oil-whipsaw.jpg",
-    "static/imgs/202605/stock-report-2026-05-18/2026-05-18-oil-tankers-hormuz.jpg",
     "static/imgs/202603/stock-report-2026-03-24",
     "static/imgs/202606/stock-report-2026-06-15",
     "static/imgs/202605/stock-report-2026-05-21",
@@ -227,7 +228,6 @@
     "content/posts/stock-reports/stock-report-2026-05-29.md",
     "content/posts/stock-reports/stock-report-2026-05-28.md",
     "content/posts/Motor-Control/motor-control-02.md",
-    "Motor-Control-시리즈-기획.md",
-    "content/posts/Motor-Control/motor-control-01.md"
+    "Motor-Control-시리즈-기획.md"
   ]
 }

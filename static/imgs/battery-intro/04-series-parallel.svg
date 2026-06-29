@@ -1,0 +1,49 @@
+<svg viewBox="0 0 720 360" xmlns="http://www.w3.org/2000/svg" font-family="'Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif">
+  <style>
+    .title{font-size:20px;font-weight:700;fill:#222}
+    .h{font-size:16px;font-weight:700;fill:#222}
+    .sub{font-size:13px;fill:#555}
+    .cv{font-size:12px;fill:#fff;font-weight:700}
+  </style>
+  <rect width="720" height="360" fill="#ffffff"/>
+  <text x="360" y="34" text-anchor="middle" class="title">직렬(S)과 병렬(P)</text>
+
+  <!-- SERIES -->
+  <text x="185" y="70" text-anchor="middle" class="h">직렬 — 전압을 더한다</text>
+  <g>
+    <rect x="70" y="90" width="60" height="40" rx="5" fill="#4A7BC8"/><text x="100" y="115" text-anchor="middle" class="cv">3.2V</text>
+    <rect x="160" y="90" width="60" height="40" rx="5" fill="#4A7BC8"/><text x="190" y="115" text-anchor="middle" class="cv">3.2V</text>
+    <rect x="250" y="90" width="60" height="40" rx="5" fill="#4A7BC8"/><text x="280" y="115" text-anchor="middle" class="cv">3.2V</text>
+    <!-- series wires -->
+    <line x1="130" y1="110" x2="160" y2="110" stroke="#333" stroke-width="3"/>
+    <line x1="220" y1="110" x2="250" y2="110" stroke="#333" stroke-width="3"/>
+    <text x="55" y="115" text-anchor="end" class="sub" font-size="20">+</text>
+    <text x="325" y="115" text-anchor="start" class="sub" font-size="20">−</text>
+  </g>
+  <text x="190" y="160" text-anchor="middle" class="sub">3.2V × 3 = 9.6V (용량은 그대로)</text>
+  <text x="190" y="182" text-anchor="middle" class="sub" font-weight="700">예: 20S = 약 64V</text>
+
+  <!-- divider -->
+  <line x1="390" y1="80" x2="390" y2="320" stroke="#ddd" stroke-width="2"/>
+
+  <!-- PARALLEL -->
+  <text x="555" y="70" text-anchor="middle" class="h">병렬 — 용량을 더한다</text>
+  <g>
+    <rect x="500" y="90" width="110" height="32" rx="5" fill="#7FB069"/><text x="555" y="111" text-anchor="middle" class="cv">100Ah</text>
+    <rect x="500" y="135" width="110" height="32" rx="5" fill="#7FB069"/><text x="555" y="156" text-anchor="middle" class="cv">100Ah</text>
+    <!-- parallel rails -->
+    <line x1="470" y1="106" x2="500" y2="106" stroke="#333" stroke-width="3"/>
+    <line x1="470" y1="151" x2="500" y2="151" stroke="#333" stroke-width="3"/>
+    <line x1="470" y1="106" x2="470" y2="151" stroke="#333" stroke-width="3"/>
+    <line x1="610" y1="106" x2="640" y2="106" stroke="#333" stroke-width="3"/>
+    <line x1="610" y1="151" x2="640" y2="151" stroke="#333" stroke-width="3"/>
+    <line x1="640" y1="106" x2="640" y2="151" stroke="#333" stroke-width="3"/>
+  </g>
+  <text x="555" y="200" text-anchor="middle" class="sub">100Ah × 2 = 200Ah (전압은 그대로)</text>
+  <text x="555" y="222" text-anchor="middle" class="sub" font-weight="700">예: 2P</text>
+
+  <!-- combined note -->
+  <rect x="120" y="255" width="480" height="70" rx="10" fill="#F4F7FB" stroke="#9bb3cc" stroke-width="1.5"/>
+  <text x="360" y="285" text-anchor="middle" class="h" font-size="15">"16S 2P"</text>
+  <text x="360" y="310" text-anchor="middle" class="sub">= 셀 16개 직렬 묶음을 2병렬 (전압 ↑ × 용량 ↑)</text>
+</svg>
