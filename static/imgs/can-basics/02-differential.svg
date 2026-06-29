@@ -1,0 +1,37 @@
+<svg viewBox="0 0 760 400" xmlns="http://www.w3.org/2000/svg" font-family="'Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif">
+  <style>
+    .title{font-size:20px;font-weight:700;fill:#222}
+    .ax{font-size:12px;fill:#444}
+    .sub{font-size:13px;fill:#555}
+  </style>
+  <rect width="760" height="400" fill="#ffffff"/>
+  <text x="380" y="32" text-anchor="middle" class="title">차동 신호 — 두 선의 전압 차로 0과 1을 만든다</text>
+  <line x1="90" y1="100" x2="690" y2="100" stroke="#eee"/>
+  <line x1="90" y1="267" x2="690" y2="267" stroke="#eee"/>
+  <text x="84" y="137" text-anchor="end" class="ax">3.5V</text>
+  <text x="84" y="204" text-anchor="end" class="ax">2.5V</text>
+  <text x="84" y="271" text-anchor="end" class="ax">1.5V</text>
+  <line x1="90" y1="200" x2="690" y2="200" stroke="#bbb" stroke-width="1" stroke-dasharray="5 4"/>
+  <g stroke="#eee" stroke-width="1">
+    <line x1="185" y1="90" x2="185" y2="290"/>
+    <line x1="280" y1="90" x2="280" y2="290"/>
+    <line x1="375" y1="90" x2="375" y2="290"/>
+    <line x1="470" y1="90" x2="470" y2="290"/>
+    <line x1="565" y1="90" x2="565" y2="290"/>
+  </g>
+  <path d="M 90 200 H 185 V 133 H 375 V 200 H 470 V 133 H 565 V 200 H 660" fill="none" stroke="#4A7BC8" stroke-width="3"/>
+  <text x="700" y="138" class="sub" fill="#4A7BC8" font-weight="700" font-size="12">CAN_H</text>
+  <path d="M 90 200 H 185 V 267 H 375 V 200 H 470 V 267 H 565 V 200 H 660" fill="none" stroke="#E8645A" stroke-width="3"/>
+  <text x="700" y="272" class="sub" fill="#b5593f" font-weight="700" font-size="12">CAN_L</text>
+  <g class="sub" text-anchor="middle" font-weight="700">
+    <text x="137" y="328">1</text>
+    <text x="232" y="328" fill="#3b5a82">0</text>
+    <text x="327" y="328" fill="#3b5a82">0</text>
+    <text x="422" y="328">1</text>
+    <text x="517" y="328" fill="#3b5a82">0</text>
+    <text x="612" y="328">1</text>
+  </g>
+  <text x="44" y="328" class="ax" font-weight="700">비트</text>
+  <text x="380" y="357" text-anchor="middle" class="sub" font-size="12"><tspan fill="#3b5a82" font-weight="700">dominant = 0</tspan><tspan> 두 선이 벌어짐</tspan><tspan dx="22">·</tspan><tspan dx="22" font-weight="700">recessive = 1</tspan><tspan> 두 선이 붙음</tspan></text>
+  <text x="380" y="384" text-anchor="middle" class="sub" font-size="12">노이즈가 두 선에 똑같이 실리면 차이는 그대로 → 차동 방식이 잡음에 강한 이유</text>
+</svg>

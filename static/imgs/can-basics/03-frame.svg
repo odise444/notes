@@ -1,0 +1,43 @@
+<svg viewBox="0 0 760 340" xmlns="http://www.w3.org/2000/svg" font-family="'Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif">
+  <style>
+    .title{font-size:20px;font-weight:700;fill:#222}
+    .fl{font-size:12px;font-weight:700;fill:#fff;text-anchor:middle}
+    .bits{font-size:11px;fill:#666;text-anchor:middle}
+    .br{font-size:12px;fill:#333;text-anchor:middle;font-weight:700}
+    .sub{font-size:12px;fill:#555}
+  </style>
+  <rect width="760" height="340" fill="#ffffff"/>
+  <text x="380" y="34" text-anchor="middle" class="title">CAN 표준 데이터 프레임 구조</text>
+  <g>
+    <rect x="60" y="140" width="35" height="60" fill="#9AA0A6"/><text x="77" y="174" class="fl" font-size="10">SOF</text>
+    <rect x="95" y="140" width="165" height="60" fill="#4A7BC8"/><text x="177" y="174" class="fl">ID (식별자)</text>
+    <rect x="260" y="140" width="30" height="60" fill="#5a7fad"/><text x="275" y="174" class="fl" font-size="10">RTR</text>
+    <rect x="290" y="140" width="95" height="60" fill="#9AA0A6"/><text x="337" y="174" class="fl">제어</text>
+    <rect x="385" y="140" width="145" height="60" fill="#7FB069"/><text x="457" y="174" class="fl">데이터</text>
+    <rect x="530" y="140" width="80" height="60" fill="#9AA0A6"/><text x="570" y="174" class="fl">CRC</text>
+    <rect x="610" y="140" width="35" height="60" fill="#9AA0A6"/><text x="627" y="174" class="fl" font-size="10">ACK</text>
+    <rect x="645" y="140" width="55" height="60" fill="#9AA0A6"/><text x="672" y="174" class="fl">EOF</text>
+  </g>
+  <g class="bits">
+    <text x="77" y="218">1</text>
+    <text x="177" y="218">11 bit</text>
+    <text x="275" y="218">1</text>
+    <text x="337" y="218">6 bit</text>
+    <text x="457" y="218">0~64 bit (0~8 byte)</text>
+    <text x="570" y="218">16</text>
+    <text x="627" y="218">2</text>
+    <text x="672" y="218">7</text>
+  </g>
+  <line x1="95" y1="120" x2="290" y2="120" stroke="#3b5a82" stroke-width="1.5"/>
+  <line x1="95" y1="120" x2="95" y2="130" stroke="#3b5a82" stroke-width="1.5"/>
+  <line x1="290" y1="120" x2="290" y2="130" stroke="#3b5a82" stroke-width="1.5"/>
+  <text x="192" y="110" class="br" fill="#3b5a82">아비트레이션 필드 (우선순위 결정)</text>
+  <line x1="385" y1="120" x2="530" y2="120" stroke="#3b6a28" stroke-width="1.5"/>
+  <line x1="385" y1="120" x2="385" y2="130" stroke="#3b6a28" stroke-width="1.5"/>
+  <line x1="530" y1="120" x2="530" y2="130" stroke="#3b6a28" stroke-width="1.5"/>
+  <text x="457" y="110" class="br" fill="#3b6a28">실제 데이터</text>
+  <text x="60" y="262" class="sub" font-weight="700">읽는 법</text>
+  <text x="60" y="286" class="sub">· ID로 "이 메시지가 무엇인가"를 구분한다. 슬레이브 주소가 아니라 메시지 종류를 가리킨다.</text>
+  <text x="60" y="308" class="sub">· 한 프레임에 데이터는 최대 8바이트. 셀 전압 몇 개, 온도, 상태 비트 등을 여기에 담는다.</text>
+  <text x="60" y="330" class="sub">· 확장 프레임은 ID가 29비트로 늘어난다 (J1939·CANopen 등에서 사용).</text>
+</svg>

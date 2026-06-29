@@ -1,0 +1,38 @@
+<svg viewBox="0 0 760 400" xmlns="http://www.w3.org/2000/svg" font-family="'Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif">
+  <style>
+    .title{font-size:20px;font-weight:700;fill:#222}
+    .rl{font-size:13px;font-weight:700;text-anchor:end}
+    .bit{font-size:15px;font-weight:700;text-anchor:middle}
+    .sub{font-size:12px;fill:#555}
+    .idx{font-size:10px;fill:#999;text-anchor:middle}
+  </style>
+  <rect width="760" height="400" fill="#ffffff"/>
+  <text x="380" y="32" text-anchor="middle" class="title">아비트레이션 — 낮은 ID가 버스를 차지한다</text>
+  <rect x="370" y="78" width="50" height="170" fill="#fff7d6"/>
+  <g class="idx">
+    <text x="145" y="92">b10</text><text x="195" y="92">b9</text><text x="245" y="92">b8</text><text x="295" y="92">b7</text><text x="345" y="92">b6</text><text x="395" y="92">b5</text><text x="445" y="92">b4</text><text x="495" y="92">b3</text><text x="545" y="92">b2</text><text x="595" y="92">b1</text><text x="645" y="92">b0</text>
+  </g>
+  <text x="115" y="125" class="rl" fill="#3b5a82">A: ID 0x100</text>
+  <g class="bit" fill="#3b5a82">
+    <text x="145" y="128">0</text><text x="195" y="128">0</text><text x="245" y="128">1</text><text x="295" y="128">0</text><text x="345" y="128">0</text><text x="395" y="128">0</text><text x="445" y="128">0</text><text x="495" y="128">0</text><text x="545" y="128">0</text><text x="595" y="128">0</text><text x="645" y="128">0</text>
+  </g>
+  <text x="115" y="170" class="rl" fill="#b5593f">B: ID 0x123</text>
+  <g class="bit" fill="#b5593f">
+    <text x="145" y="173">0</text><text x="195" y="173">0</text><text x="245" y="173">1</text><text x="295" y="173">0</text><text x="345" y="173">0</text><text x="395" y="173">1</text>
+  </g>
+  <g class="bit" fill="#ccc">
+    <text x="445" y="173">×</text><text x="495" y="173">×</text><text x="545" y="173">×</text><text x="595" y="173">×</text><text x="645" y="173">×</text>
+  </g>
+  <line x1="120" y1="190" x2="670" y2="190" stroke="#ddd" stroke-width="1.5"/>
+  <text x="115" y="222" class="rl" fill="#222">버스 결과</text>
+  <g class="bit" fill="#222">
+    <text x="145" y="225">0</text><text x="195" y="225">0</text><text x="245" y="225">1</text><text x="295" y="225">0</text><text x="345" y="225">0</text><text x="395" y="225">0</text><text x="445" y="225">0</text><text x="495" y="225">0</text><text x="545" y="225">0</text><text x="595" y="225">0</text><text x="645" y="225">0</text>
+  </g>
+  <text x="395" y="268" text-anchor="middle" class="sub" font-weight="700" fill="#a8870a">여기서 결판</text>
+  <line x1="395" y1="272" x2="395" y2="248" stroke="#a8870a" stroke-width="1.5"/>
+  <rect x="120" y="290" width="520" height="96" rx="8" fill="#f4f7fb" stroke="#9bb3cc" stroke-width="1.5"/>
+  <text x="138" y="316" class="sub" font-weight="700" fill="#3b5a82">동작 원리</text>
+  <text x="138" y="338" class="sub">· 둘이 동시에 송신하다 b5에서 갈린다. A는 0(dominant), B는 1(recessive).</text>
+  <text x="138" y="358" class="sub">· dominant(0)가 recessive(1)를 이긴다 → 버스는 0. B는 자기 1이 0으로 바뀐 걸 보고 물러난다.</text>
+  <text x="138" y="378" class="sub" font-weight="700" fill="#3b5a82">· 낮은 ID(0x100)가 우선순위가 높다. 충돌해도 데이터가 깨지지 않는다.</text>
+</svg>
