@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "content/posts/Articles/battery-intro.md",
+                "file": "content/posts/Articles/can-basics.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "battery-intro"
+              "title": "can-basics"
             }
           }
         ]
@@ -183,6 +183,7 @@
   },
   "active": "78fd5fb68f7689b7",
   "lastOpenFiles": [
+    "content/posts/Articles/battery-intro.md",
     "content/posts/Articles/can-basics.md",
     "static/imgs/can-basics/03-frame.svg",
     "static/imgs/can-basics/01-topology.svg",
@@ -198,7 +199,6 @@
     "static/imgs/cell-balancing/02-passive.svg",
     "static/imgs/cell-balancing/01-imbalance.svg",
     "static/imgs/cell-balancing",
-    "content/posts/Articles/battery-intro.md",
     "static/imgs/cell-datasheet",
     "content/posts/stock-reports/202606/stock-report-2026-06-29.md",
     "content/posts/stock-reports/202606/stock-report-2026-06-26.md",
