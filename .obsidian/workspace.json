@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "content/posts/Articles/battery-intro.md",
+                "file": "content/posts/Articles/cell-datasheet.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "battery-intro"
+              "title": "cell-datasheet"
             }
           }
         ]
@@ -183,6 +183,8 @@
   },
   "active": "78fd5fb68f7689b7",
   "lastOpenFiles": [
+    "content/posts/Articles/battery-intro.md",
+    "content/posts/Articles/cell-datasheet.md",
     "static/imgs/cell-datasheet/04-cycle-life.svg",
     "static/imgs/cell-datasheet/03-discharge-crate.svg",
     "static/imgs/cell-datasheet/02-cccv.svg",
@@ -192,7 +194,6 @@
     "static/imgs/cell-datasheet/battery-intro-2.svg",
     "static/imgs/cell-datasheet/battery-intro-1.svg",
     "static/imgs/cell-datasheet",
-    "content/posts/Articles/cell-datasheet.md",
     "static/imgs/battery-intro/06-voltage-curve.svg",
     "content/posts/stock-reports/202606/stock-report-2026-06-29.md",
     "static/imgs/battery-intro/stock-report-2026-06-29-1.svg",
@@ -203,7 +204,6 @@
     "content/posts/stock-reports/202606/stock-report-2026-06-19.md",
     "content/posts/stock-reports/202606/stock-report-2026-06-18.md",
     "content/posts/stock-reports/202606/stock-report-2026-06-17.md",
-    "static/imgs/202606/stock-report-2026-06-01/2026-06-01-record-rally.jpg",
     "static/imgs/202603/stock-report-2026-03-24",
     "static/imgs/202606/stock-report-2026-06-15",
     "static/imgs/202605/stock-report-2026-05-21",
