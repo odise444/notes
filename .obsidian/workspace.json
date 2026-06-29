@@ -183,6 +183,7 @@
   },
   "active": "78fd5fb68f7689b7",
   "lastOpenFiles": [
+    "static/imgs/battery-intro/06-voltage-curve.svg",
     "content/posts/stock-reports/202606/stock-report-2026-06-29.md",
     "static/imgs/battery-intro/stock-report-2026-06-29-1.svg",
     "content/posts/stock-reports/202606/stock-report-2026-06-26.md",
@@ -227,7 +228,6 @@
     "content/posts/stock-reports/stock-report-2026-06-01.md",
     "content/posts/stock-reports/stock-report-2026-05-29.md",
     "content/posts/stock-reports/stock-report-2026-05-28.md",
-    "content/posts/Motor-Control/motor-control-02.md",
-    "Motor-Control-시리즈-기획.md"
+    "content/posts/Motor-Control/motor-control-02.md"
   ]
 }
