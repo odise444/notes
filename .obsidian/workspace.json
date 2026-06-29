@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "content/posts/Articles/cell-balancing.md",
+                "file": "content/posts/Articles/battery-intro.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "cell-balancing"
+              "title": "battery-intro"
             }
           }
         ]
@@ -183,6 +183,7 @@
   },
   "active": "78fd5fb68f7689b7",
   "lastOpenFiles": [
+    "content/posts/Articles/cell-balancing.md",
     "content/posts/Articles/cell-datasheet.md",
     "static/imgs/cell-balancing/04-before-after.svg",
     "static/imgs/cell-balancing/03-active.svg",
@@ -193,7 +194,6 @@
     "static/imgs/cell-balancing/cell-datasheet-2.svg",
     "static/imgs/cell-balancing/cell-datasheet-1.svg",
     "static/imgs/cell-balancing",
-    "content/posts/Articles/cell-balancing.md",
     "content/posts/Articles/battery-intro.md",
     "static/imgs/cell-datasheet/04-cycle-life.svg",
     "static/imgs/cell-datasheet/03-discharge-crate.svg",
