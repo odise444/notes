@@ -1,0 +1,58 @@
+<svg viewBox="0 0 760 430" xmlns="http://www.w3.org/2000/svg" font-family="'Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif">
+  <style>
+    .title{font-size:20px;font-weight:700;fill:#222}
+    .lbl{font-size:13px;fill:#333}
+    .sub{font-size:13px;fill:#555}
+    .v{font-size:13px;font-weight:700;fill:#fff}
+  </style>
+  <rect width="760" height="430" fill="#ffffff"/>
+  <text x="380" y="32" text-anchor="middle" class="title">수동 밸런싱 — 높은 셀을 저항으로 흘려보낸다</text>
+  <defs>
+    <marker id="cur" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#E8645A"/></marker>
+  </defs>
+  <line x1="120" y1="70" x2="120" y2="360" stroke="#333" stroke-width="2.5"/>
+  <rect x="120" y="80" width="110" height="60" rx="4" fill="#E8645A"/>
+  <text x="175" y="108" text-anchor="middle" class="v">셀1</text>
+  <text x="175" y="126" text-anchor="middle" class="v" font-size="12">4.10V (높음)</text>
+  <line x1="230" y1="90" x2="330" y2="90" stroke="#E8645A" stroke-width="2.5" marker-end="url(#cur)"/>
+  <rect x="330" y="84" width="46" height="14" fill="#fff" stroke="#333" stroke-width="1.5"/>
+  <text x="353" y="78" text-anchor="middle" class="sub" font-size="11">저항 R</text>
+  <line x1="376" y1="91" x2="410" y2="91" stroke="#E8645A" stroke-width="2.5"/>
+  <line x1="410" y1="91" x2="440" y2="91" stroke="#7FB069" stroke-width="3"/>
+  <circle cx="410" cy="91" r="3" fill="#333"/><circle cx="440" cy="91" r="3" fill="#333"/>
+  <text x="425" y="78" text-anchor="middle" class="sub" font-size="11" fill="#5a8a3c">ON</text>
+  <line x1="440" y1="91" x2="470" y2="91" stroke="#E8645A" stroke-width="2.5"/>
+  <line x1="470" y1="91" x2="470" y2="130" stroke="#E8645A" stroke-width="2.5"/>
+  <line x1="470" y1="130" x2="230" y2="130" stroke="#E8645A" stroke-width="2.5" marker-end="url(#cur)"/>
+  <text x="353" y="116" text-anchor="middle" class="sub" font-size="11" fill="#b5593f">열로 소모</text>
+  <rect x="120" y="170" width="110" height="60" rx="4" fill="#4A7BC8"/>
+  <text x="175" y="198" text-anchor="middle" class="v">셀2</text>
+  <text x="175" y="216" text-anchor="middle" class="v" font-size="12">3.95V</text>
+  <line x1="230" y1="180" x2="410" y2="180" stroke="#bbb" stroke-width="2"/>
+  <rect x="330" y="173" width="46" height="14" fill="#fff" stroke="#aaa" stroke-width="1.5"/>
+  <line x1="410" y1="180" x2="424" y2="170" stroke="#999" stroke-width="3"/>
+  <circle cx="410" cy="180" r="3" fill="#999"/><circle cx="440" cy="180" r="3" fill="#999"/>
+  <text x="425" y="166" text-anchor="middle" class="sub" font-size="11" fill="#999">OFF</text>
+  <line x1="440" y1="180" x2="470" y2="180" stroke="#bbb" stroke-width="2"/>
+  <line x1="470" y1="180" x2="470" y2="220" stroke="#bbb" stroke-width="2"/>
+  <line x1="470" y1="220" x2="230" y2="220" stroke="#bbb" stroke-width="2"/>
+  <rect x="120" y="260" width="110" height="60" rx="4" fill="#4A7BC8"/>
+  <text x="175" y="288" text-anchor="middle" class="v">셀3</text>
+  <text x="175" y="306" text-anchor="middle" class="v" font-size="12">3.92V</text>
+  <line x1="230" y1="270" x2="410" y2="270" stroke="#bbb" stroke-width="2"/>
+  <rect x="330" y="263" width="46" height="14" fill="#fff" stroke="#aaa" stroke-width="1.5"/>
+  <line x1="410" y1="270" x2="424" y2="260" stroke="#999" stroke-width="3"/>
+  <circle cx="410" cy="270" r="3" fill="#999"/><circle cx="440" cy="270" r="3" fill="#999"/>
+  <text x="425" y="256" text-anchor="middle" class="sub" font-size="11" fill="#999">OFF</text>
+  <line x1="440" y1="270" x2="470" y2="270" stroke="#bbb" stroke-width="2"/>
+  <line x1="470" y1="270" x2="470" y2="310" stroke="#bbb" stroke-width="2"/>
+  <line x1="470" y1="310" x2="230" y2="310" stroke="#bbb" stroke-width="2"/>
+  <rect x="520" y="150" width="225" height="160" rx="8" fill="#f4f7fb" stroke="#9bb3cc" stroke-width="1.5"/>
+  <text x="535" y="178" class="lbl" font-weight="700">동작 원리</text>
+  <text x="535" y="202" class="sub" font-size="12">높은 셀의 스위치만 켠다</text>
+  <text x="535" y="224" class="sub" font-size="12">→ 그 셀 에너지를 저항으로</text>
+  <text x="535" y="242" class="sub" font-size="12">   흘려 열로 버린다</text>
+  <text x="535" y="266" class="sub" font-size="12">→ 낮은 셀에 맞춰질 때까지</text>
+  <text x="535" y="288" class="sub" font-size="12" font-weight="700" fill="#3b5a82">싸고 단순 / 느리고 비효율</text>
+  <text x="380" y="400" text-anchor="middle" class="sub">"위로 깎아 맞추는" 방식 — 에너지를 보태지 못하고 버리기만 한다</text>
+</svg>

@@ -183,6 +183,12 @@
   },
   "active": "78fd5fb68f7689b7",
   "lastOpenFiles": [
+    "static/imgs/cell-balancing/cell-datasheet-4.svg",
+    "static/imgs/cell-balancing/cell-datasheet-3.svg",
+    "static/imgs/cell-balancing/cell-datasheet-2.svg",
+    "static/imgs/cell-balancing/cell-datasheet-1.svg",
+    "static/imgs/cell-balancing",
+    "content/posts/Articles/cell-balancing.md",
     "content/posts/Articles/battery-intro.md",
     "content/posts/Articles/cell-datasheet.md",
     "static/imgs/cell-datasheet/04-cycle-life.svg",
@@ -192,11 +198,8 @@
     "static/imgs/cell-datasheet/battery-intro-4.svg",
     "static/imgs/cell-datasheet/battery-intro-3.svg",
     "static/imgs/cell-datasheet/battery-intro-2.svg",
-    "static/imgs/cell-datasheet/battery-intro-1.svg",
     "static/imgs/cell-datasheet",
-    "static/imgs/battery-intro/06-voltage-curve.svg",
     "content/posts/stock-reports/202606/stock-report-2026-06-29.md",
-    "static/imgs/battery-intro/stock-report-2026-06-29-1.svg",
     "content/posts/stock-reports/202606/stock-report-2026-06-26.md",
     "content/posts/stock-reports/202606/stock-report-2026-06-25.md",
     "content/posts/stock-reports/202606/stock-report-2026-06-24.md",
@@ -212,7 +215,6 @@
     "static/imgs/202606/stock-report-2026-06-12",
     "static/imgs/202605/stock-report-2026-05-11",
     "static/imgs/202605/stock-report-2026-05-28",
-    "static/imgs/202605/stock-report-2026-05-19",
     "content/posts/stock-reports/stock-report-2026-06-15.md",
     "content/posts/stock-reports/stock-report-2026-06-16.md",
     "content/posts/stock-reports/stock-report-2026-02-26.md",
@@ -226,8 +228,6 @@
     "content/posts/stock-reports/stock-report-2026-06-09.md",
     "content/posts/stock-reports/stock-report-2026-06-08.md",
     "content/posts/stock-reports/stock-report-2026-06-05.md",
-    "content/posts/stock-reports/stock-report-2026-06-01.md",
-    "content/posts/stock-reports/stock-report-2026-05-29.md",
-    "content/posts/stock-reports/stock-report-2026-05-28.md"
+    "content/posts/stock-reports/stock-report-2026-06-01.md"
   ]
 }

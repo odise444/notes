@@ -1,0 +1,41 @@
+<svg viewBox="0 0 760 400" xmlns="http://www.w3.org/2000/svg" font-family="'Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif">
+  <style>
+    .title{font-size:20px;font-weight:700;fill:#222}
+    .h{font-size:15px;font-weight:700;fill:#3b5a82;text-anchor:middle}
+    .sub{font-size:12px;fill:#666;text-anchor:middle}
+  </style>
+  <rect width="760" height="400" fill="#ffffff"/>
+  <text x="380" y="32" text-anchor="middle" class="title">밸런싱 전 vs 후 — 셀 전압을 고르게 맞춘다</text>
+  <text x="195" y="66" class="h">밸런싱 전 (불균형)</text>
+  <line x1="80" y1="320" x2="320" y2="320" stroke="#333" stroke-width="2"/>
+  <rect x="95" y="185" width="34" height="135" fill="#4A7BC8"/>
+  <rect x="140" y="266" width="34" height="54" fill="#9AA0A6"/>
+  <rect x="185" y="170" width="34" height="150" fill="#E8645A"/>
+  <rect x="230" y="245" width="34" height="75" fill="#4A7BC8"/>
+  <rect x="275" y="215" width="34" height="105" fill="#4A7BC8"/>
+  <text x="112" y="338" class="sub">셀1</text>
+  <text x="157" y="338" class="sub">셀2</text>
+  <text x="202" y="338" class="sub">셀3</text>
+  <text x="247" y="338" class="sub">셀4</text>
+  <text x="292" y="338" class="sub">셀5</text>
+  <text x="200" y="362" class="sub" font-size="13">편차 큼 → 팩 성능을 약한 셀이 제한</text>
+  <defs>
+    <marker id="ar" markerWidth="12" markerHeight="12" refX="8" refY="4" orient="auto"><path d="M0,0 L9,4 L0,8 Z" fill="#5a8a3c"/></marker>
+  </defs>
+  <line x1="345" y1="240" x2="415" y2="240" stroke="#7FB069" stroke-width="4" marker-end="url(#ar)"/>
+  <text x="380" y="228" text-anchor="middle" class="sub" fill="#5a8a3c" font-size="12">밸런싱</text>
+  <text x="565" y="66" class="h" fill="#3b6a28">밸런싱 후 (균형)</text>
+  <line x1="440" y1="320" x2="690" y2="320" stroke="#333" stroke-width="2"/>
+  <line x1="440" y1="230" x2="690" y2="230" stroke="#7FB069" stroke-width="1" stroke-dasharray="4 4" opacity="0.7"/>
+  <rect x="455" y="230" width="34" height="90" fill="#7FB069"/>
+  <rect x="500" y="230" width="34" height="90" fill="#7FB069"/>
+  <rect x="545" y="230" width="34" height="90" fill="#7FB069"/>
+  <rect x="590" y="230" width="34" height="90" fill="#7FB069"/>
+  <rect x="635" y="230" width="34" height="90" fill="#7FB069"/>
+  <text x="472" y="338" class="sub">셀1</text>
+  <text x="517" y="338" class="sub">셀2</text>
+  <text x="562" y="338" class="sub">셀3</text>
+  <text x="607" y="338" class="sub">셀4</text>
+  <text x="652" y="338" class="sub">셀5</text>
+  <text x="565" y="362" class="sub" font-size="13">고르게 정렬 → 용량·수명을 온전히 사용</text>
+</svg>

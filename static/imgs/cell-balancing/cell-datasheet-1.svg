@@ -1,0 +1,31 @@
+<svg viewBox="0 0 760 430" xmlns="http://www.w3.org/2000/svg" font-family="'Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif">
+  <style>
+    .title{font-size:20px;font-weight:700;fill:#222}
+    .ax{font-size:13px;fill:#444}
+    .cl{font-size:12px;fill:#333;text-anchor:middle}
+    .sub{font-size:13px;fill:#555}
+  </style>
+  <rect width="760" height="430" fill="#ffffff"/>
+  <text x="380" y="32" text-anchor="middle" class="title">직렬 팩의 약점 — 한 셀이 전체를 멈춘다</text>
+  <line x1="80" y1="60" x2="80" y2="340" stroke="#333" stroke-width="2"/>
+  <line x1="80" y1="340" x2="560" y2="340" stroke="#333" stroke-width="2"/>
+  <text x="40" y="200" text-anchor="middle" class="ax" font-weight="700" transform="rotate(-90 40 200)">셀 전압</text>
+  <line x1="80" y1="128" x2="560" y2="128" stroke="#E8645A" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="556" y="122" text-anchor="end" class="sub" fill="#b5593f" font-size="12">충전 상한 (OVP) 4.2V</text>
+  <rect x="100" y="163" width="50" height="177" fill="#4A7BC8"/><text x="125" y="358" class="cl">셀1</text><text x="125" y="155" class="cl" font-size="11">4.00</text>
+  <rect x="170" y="172" width="50" height="168" fill="#4A7BC8"/><text x="195" y="358" class="cl">셀2</text><text x="195" y="164" class="cl" font-size="11">3.95</text>
+  <rect x="240" y="128" width="50" height="212" fill="#E8645A"/><text x="265" y="358" class="cl">셀3</text><text x="265" y="120" class="cl" font-size="11" fill="#b5593f" font-weight="700">4.20</text>
+  <rect x="310" y="181" width="50" height="159" fill="#4A7BC8"/><text x="335" y="358" class="cl">셀4</text><text x="335" y="173" class="cl" font-size="11">3.90</text>
+  <rect x="380" y="216" width="50" height="124" fill="#9AA0A6"/><text x="405" y="358" class="cl">셀5</text><text x="405" y="208" class="cl" font-size="11" fill="#555" font-weight="700">3.70</text>
+  <rect x="450" y="172" width="50" height="168" fill="#4A7BC8"/><text x="475" y="358" class="cl">셀6</text><text x="475" y="164" class="cl" font-size="11">3.95</text>
+  <rect x="585" y="120" width="160" height="200" rx="8" fill="#fff5f2" stroke="#e0a99a" stroke-width="1.5"/>
+  <text x="600" y="148" font-size="14" font-weight="700" fill="#b5593f">무슨 일이 벌어지나</text>
+  <text x="600" y="176" class="sub" font-size="12">· 셀3이 먼저 4.2V 도달</text>
+  <text x="600" y="198" class="sub" font-size="12">· → 팩 충전이 중단됨</text>
+  <text x="600" y="226" class="sub" font-size="12">· 셀5는 아직 3.7V로</text>
+  <text x="600" y="248" class="sub" font-size="12">  덜 찼는데 못 채운다</text>
+  <text x="600" y="276" class="sub" font-size="12" font-weight="700" fill="#b5593f">결과: 팩 용량 손해</text>
+  <text x="600" y="298" class="sub" font-size="12">가장 약한 셀이</text>
+  <text x="600" y="316" class="sub" font-size="12">전체를 제한한다</text>
+  <text x="380" y="400" text-anchor="middle" class="sub">방전도 마찬가지 — 가장 낮은 셀이 먼저 하한(UVP)에 닿아 방전을 멈추게 한다</text>
+</svg>
