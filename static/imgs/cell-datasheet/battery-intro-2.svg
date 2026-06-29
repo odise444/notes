@@ -1,0 +1,48 @@
+<svg viewBox="0 0 760 420" xmlns="http://www.w3.org/2000/svg" font-family="'Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif">
+  <style>
+    .title{font-size:20px;font-weight:700;fill:#222}
+    .ax{font-size:13px;fill:#444}
+    .sub{font-size:13px;fill:#555}
+    .ph{font-size:14px;font-weight:700;fill:#3b5a82}
+  </style>
+  <rect width="760" height="420" fill="#ffffff"/>
+  <text x="380" y="34" text-anchor="middle" class="title">표준 충전 — CC-CV 2단계</text>
+
+  <!-- axes -->
+  <line x1="90" y1="60" x2="90" y2="340" stroke="#333" stroke-width="2"/>
+  <line x1="90" y1="340" x2="690" y2="340" stroke="#333" stroke-width="2"/>
+  <text x="380" y="378" text-anchor="middle" class="ax" font-weight="700">시간 →</text>
+  <text x="40" y="200" text-anchor="middle" class="ax" font-weight="700" transform="rotate(-90 40 200)">전압 / 전류</text>
+
+  <!-- phase divider -->
+  <line x1="385" y1="60" x2="385" y2="340" stroke="#bbb" stroke-width="1.5" stroke-dasharray="6 5"/>
+  <rect x="90" y="60" width="295" height="22" fill="#eaf0f7"/>
+  <text x="237" y="76" text-anchor="middle" class="ph">① 정전류 (CC)</text>
+  <rect x="385" y="60" width="305" height="22" fill="#f7efea"/>
+  <text x="537" y="76" text-anchor="middle" class="ph" fill="#b5593f">② 정전압 (CV)</text>
+
+  <!-- 4.2V target line -->
+  <line x1="90" y1="100" x2="690" y2="100" stroke="#4A7BC8" stroke-width="1" stroke-dasharray="4 4" opacity="0.6"/>
+  <text x="96" y="96" class="sub" fill="#4A7BC8" font-size="12">4.2V 도달</text>
+
+  <!-- voltage curve (blue) -->
+  <path d="M 90 250 C 200 235, 320 150, 385 100 L 690 100"
+        fill="none" stroke="#4A7BC8" stroke-width="3.5"/>
+  <!-- current curve (orange) -->
+  <path d="M 90 130 L 385 130 C 470 130, 520 250, 690 300"
+        fill="none" stroke="#E8645A" stroke-width="3.5"/>
+
+  <!-- cutoff current marker -->
+  <circle cx="690" cy="300" r="5" fill="#E8645A"/>
+  <text x="684" y="320" text-anchor="end" class="sub" fill="#b5593f" font-size="12">컷오프 전류(약 0.02C)에서 종료</text>
+
+  <!-- legend -->
+  <g>
+    <line x1="430" y1="160" x2="465" y2="160" stroke="#4A7BC8" stroke-width="3.5"/>
+    <text x="472" y="165" class="sub">전압 — CC에서 오르고, CV에서 4.2V 고정</text>
+    <line x1="430" y1="186" x2="465" y2="186" stroke="#E8645A" stroke-width="3.5"/>
+    <text x="472" y="191" class="sub">전류 — CC에서 일정, CV에서 점점 감소</text>
+  </g>
+
+  <text x="380" y="406" text-anchor="middle" class="sub" font-size="12">CC로 빠르게 채우고, 4.2V에 닿으면 CV로 전환해 전류를 줄이며 안전하게 만충한다</text>
+</svg>

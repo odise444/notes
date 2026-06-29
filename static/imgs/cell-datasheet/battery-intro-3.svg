@@ -1,0 +1,59 @@
+<svg viewBox="0 0 760 420" xmlns="http://www.w3.org/2000/svg" font-family="'Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif">
+  <style>
+    .title{font-size:20px;font-weight:700;fill:#222}
+    .ax{font-size:13px;fill:#444}
+    .sub{font-size:13px;fill:#555}
+  </style>
+  <rect width="760" height="420" fill="#ffffff"/>
+  <text x="380" y="34" text-anchor="middle" class="title">방전 곡선 — C-rate가 높으면 용량이 깎인다</text>
+
+  <!-- axes -->
+  <line x1="90" y1="60" x2="90" y2="340" stroke="#333" stroke-width="2"/>
+  <line x1="90" y1="340" x2="690" y2="340" stroke="#333" stroke-width="2"/>
+
+  <!-- y labels -->
+  <g class="ax" text-anchor="end">
+    <line x1="90" y1="80" x2="690" y2="80" stroke="#eee"/>
+    <line x1="90" y1="179" x2="690" y2="179" stroke="#eee"/>
+    <text x="82" y="85">4.2V</text>
+    <text x="82" y="184">3.5V</text>
+    <text x="82" y="325">2.5V</text>
+  </g>
+  <text x="40" y="200" text-anchor="middle" class="ax" font-weight="700" transform="rotate(-90 40 200)">전압 (V)</text>
+
+  <!-- x labels -->
+  <g class="ax" text-anchor="middle">
+    <text x="90" y="362">0%</text>
+    <text x="240" y="362">25%</text>
+    <text x="390" y="362">50%</text>
+    <text x="540" y="362">75%</text>
+    <text x="690" y="362">100%</text>
+  </g>
+  <text x="390" y="388" text-anchor="middle" class="ax" font-weight="700">방전된 용량</text>
+
+  <!-- cutoff line -->
+  <line x1="90" y1="320" x2="690" y2="320" stroke="#E8645A" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <text x="685" y="314" text-anchor="end" class="sub" fill="#b5593f" font-size="12">방전 종지 2.5V</text>
+
+  <!-- 0.2C (blue) -->
+  <path d="M 90 95 C 250 150, 480 165, 600 178 C 650 210, 678 320, 685 320"
+        fill="none" stroke="#4A7BC8" stroke-width="3.5"/>
+  <!-- 1C (green) -->
+  <path d="M 90 108 C 240 165, 460 190, 560 205 C 610 235, 645 320, 655 320"
+        fill="none" stroke="#7FB069" stroke-width="3.5"/>
+  <!-- 3C (red) -->
+  <path d="M 90 130 C 230 195, 420 230, 500 250 C 560 275, 600 320, 610 320"
+        fill="none" stroke="#E8645A" stroke-width="3.5"/>
+
+  <!-- legend -->
+  <g>
+    <line x1="430" y1="100" x2="465" y2="100" stroke="#4A7BC8" stroke-width="3.5"/>
+    <text x="472" y="105" class="sub">0.2C (저속) — 용량 거의 다 쓴다</text>
+    <line x1="430" y1="124" x2="465" y2="124" stroke="#7FB069" stroke-width="3.5"/>
+    <text x="472" y="129" class="sub">1C (표준)</text>
+    <line x1="430" y1="148" x2="465" y2="148" stroke="#E8645A" stroke-width="3.5"/>
+    <text x="472" y="153" class="sub">3C (고속) — 일찍 컷오프, 용량 손해</text>
+  </g>
+
+  <text x="380" y="408" text-anchor="middle" class="sub" font-size="12">같은 셀이라도 빠르게 빼 쓰면 전압이 더 처지고, 종지 전압에 더 일찍 닿는다</text>
+</svg>

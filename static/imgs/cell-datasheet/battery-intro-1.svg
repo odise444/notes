@@ -1,0 +1,75 @@
+<svg viewBox="0 0 760 460" xmlns="http://www.w3.org/2000/svg" font-family="'Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif">
+  <style>
+    .title{font-size:20px;font-weight:700;fill:#222}
+    .th{font-size:13px;font-weight:700;fill:#fff}
+    .td{font-size:13px;fill:#222}
+    .unit{font-size:12px;fill:#666}
+    .cap{font-size:12px;fill:#b5593f;font-weight:700}
+    .capbox{fill:#fff5f2;stroke:#e0a99a;stroke-width:1.5}
+  </style>
+  <rect width="760" height="460" fill="#ffffff"/>
+  <text x="20" y="32" class="title">일반 사양 — 숫자보다 "조건"을 먼저 본다</text>
+
+  <!-- table -->
+  <g>
+    <!-- header -->
+    <rect x="20" y="50" width="300" height="30" fill="#3b5a82"/>
+    <rect x="320" y="50" width="120" height="30" fill="#3b5a82"/>
+    <text x="30" y="70" class="th">항목</text>
+    <text x="330" y="70" class="th">값 (예시 셀)</text>
+
+    <!-- rows -->
+    <g class="td">
+      <rect x="20" y="80" width="420" height="28" fill="#f4f7fb" stroke="#d8e0ea"/>
+      <text x="30" y="99">공칭 용량 (Typ. / Min.)</text>
+      <text x="330" y="99">3500 / 3400 mAh</text>
+
+      <rect x="20" y="108" width="420" height="28" fill="#ffffff" stroke="#d8e0ea"/>
+      <text x="30" y="127">공칭 전압</text>
+      <text x="330" y="127">3.6 V</text>
+
+      <rect x="20" y="136" width="420" height="28" fill="#f4f7fb" stroke="#d8e0ea"/>
+      <text x="30" y="155">충전 전압 (max)</text>
+      <text x="330" y="155">4.2 V</text>
+
+      <rect x="20" y="164" width="420" height="28" fill="#ffffff" stroke="#d8e0ea"/>
+      <text x="30" y="183">방전 종지 전압</text>
+      <text x="330" y="183">2.5 V</text>
+
+      <rect x="20" y="192" width="420" height="28" fill="#f4f7fb" stroke="#d8e0ea"/>
+      <text x="30" y="211">내부 저항 (AC 1kHz)</text>
+      <text x="330" y="211">≤ 30 mΩ</text>
+
+      <rect x="20" y="220" width="420" height="28" fill="#ffffff" stroke="#d8e0ea"/>
+      <text x="30" y="239">최대 연속 방전</text>
+      <text x="330" y="239">10 A (약 3C)</text>
+
+      <rect x="20" y="248" width="420" height="28" fill="#f4f7fb" stroke="#d8e0ea"/>
+      <text x="30" y="267">사이클 수명</text>
+      <text x="330" y="267">500회 → 80%</text>
+    </g>
+  </g>
+
+  <!-- callouts -->
+  <rect class="capbox" x="470" y="80" width="270" height="46" rx="6"/>
+  <text x="480" y="99" class="cap">Typ.은 평균값, Min.이 보증값</text>
+  <text x="480" y="117" class="cap" font-weight="400" fill="#7a4a3a">설계는 Min. 기준으로 잡아라</text>
+  <line x1="440" y1="94" x2="470" y2="100" stroke="#b5593f" stroke-width="1.5"/>
+
+  <rect class="capbox" x="470" y="160" width="270" height="46" rx="6"/>
+  <text x="480" y="179" class="cap">이 전압이 BMS 컷오프 기준</text>
+  <text x="480" y="197" class="cap" font-weight="400" fill="#7a4a3a">4.2V 과충전 / 2.5V 과방전 차단</text>
+  <line x1="440" y1="178" x2="470" y2="178" stroke="#b5593f" stroke-width="1.5"/>
+
+  <rect class="capbox" x="470" y="252" width="270" height="46" rx="6"/>
+  <text x="480" y="271" class="cap">"500회"엔 숨은 조건이 있다</text>
+  <text x="480" y="289" class="cap" font-weight="400" fill="#7a4a3a">1C · 100% DOD · 25°C 기준</text>
+  <line x1="440" y1="262" x2="470" y2="270" stroke="#b5593f" stroke-width="1.5"/>
+
+  <!-- bottom warning bar -->
+  <rect x="20" y="320" width="720" height="120" rx="8" fill="#fffbe6" stroke="#e6d27a" stroke-width="1.5"/>
+  <text x="36" y="348" font-size="15" font-weight="700" fill="#7a6a1a">측정 조건을 빼고 숫자만 외우면 틀린다</text>
+  <text x="36" y="376" class="td" font-size="13">· 용량 3500mAh는 보통 0.2C, 25°C에서 측정한 값이다. 실제로 2C·0°C로 쓰면 이만큼 안 나온다.</text>
+  <text x="36" y="400" class="td" font-size="13">· 내부저항은 측정 방식(AC 1kHz vs DC)에 따라 값이 다르다. 어떤 방식인지 반드시 확인한다.</text>
+  <text x="36" y="424" class="td" font-size="13">· 데이터시트의 모든 수치는 "어떤 조건에서 잰 값인가"를 같이 읽어야 의미가 있다.</text>
+</svg>

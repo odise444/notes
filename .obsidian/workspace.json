@@ -183,6 +183,11 @@
   },
   "active": "78fd5fb68f7689b7",
   "lastOpenFiles": [
+    "static/imgs/cell-datasheet/battery-intro-3.svg",
+    "static/imgs/cell-datasheet/battery-intro-2.svg",
+    "static/imgs/cell-datasheet/battery-intro-1.svg",
+    "static/imgs/cell-datasheet",
+    "content/posts/Articles/cell-datasheet.md",
     "static/imgs/battery-intro/06-voltage-curve.svg",
     "content/posts/stock-reports/202606/stock-report-2026-06-29.md",
     "static/imgs/battery-intro/stock-report-2026-06-29-1.svg",
@@ -199,9 +204,6 @@
     "static/imgs/202604/stock-report-2026-04-27/2026-04-27-oil-commodities.jpg",
     "static/imgs/202604/stock-report-2026-04-14/2026-04-14-oil-gold-commodities.jpg",
     "static/imgs/202604/stock-report-2026-04-13/stock-report-2026-04-13-1.jpg",
-    "static/imgs/202604/stock-report-2026-04-08/2026-04-08-oil-gold.jpg",
-    "static/imgs/202604/stock-report-2026-04-01/2026-04-01-oil-commodity.jpg",
-    "static/imgs/202603/stock-report-2026-03-10/2026-03-10-oil-whipsaw.jpg",
     "static/imgs/202603/stock-report-2026-03-24",
     "static/imgs/202606/stock-report-2026-06-15",
     "static/imgs/202605/stock-report-2026-05-21",
@@ -211,7 +213,6 @@
     "static/imgs/202605/stock-report-2026-05-11",
     "static/imgs/202605/stock-report-2026-05-28",
     "static/imgs/202605/stock-report-2026-05-19",
-    "static/imgs/202605/stock-report-2026-05-06",
     "content/posts/stock-reports/stock-report-2026-06-15.md",
     "content/posts/stock-reports/stock-report-2026-06-16.md",
     "content/posts/stock-reports/stock-report-2026-02-26.md",
@@ -227,7 +228,6 @@
     "content/posts/stock-reports/stock-report-2026-06-05.md",
     "content/posts/stock-reports/stock-report-2026-06-01.md",
     "content/posts/stock-reports/stock-report-2026-05-29.md",
-    "content/posts/stock-reports/stock-report-2026-05-28.md",
-    "content/posts/Motor-Control/motor-control-02.md"
+    "content/posts/stock-reports/stock-report-2026-05-28.md"
   ]
 }
