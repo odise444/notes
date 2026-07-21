@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "content/posts/stock-reports/202607/stock-report-2026-07-20.md",
+                "file": "content/posts/stock-reports/202607/stock-report-2026-07-21.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "stock-report-2026-07-20"
+              "title": "stock-report-2026-07-21"
             }
           }
         ]
@@ -183,6 +183,7 @@
   },
   "active": "78fd5fb68f7689b7",
   "lastOpenFiles": [
+    "content/posts/stock-reports/202607/stock-report-2026-07-20.md",
     "content/posts/stock-reports/202607/stock-report-2026-07-16.md",
     "content/posts/stock-reports/202607/stock-report-2026-07-07.md",
     "content/posts/stock-reports/202607/stock-report-2026-07-06.md",
@@ -227,7 +228,6 @@
     "content/posts/loadcell/loadcell-04.md",
     "content/posts/loadcell/loadcell-03.md",
     "content/posts/loadcell/loadcell-02.md",
-    "content/posts/loadcell/loadcell-01.md",
-    "content/posts/stock-reports/stock-report-2026-06-12.md"
+    "content/posts/loadcell/loadcell-01.md"
   ]
 }
