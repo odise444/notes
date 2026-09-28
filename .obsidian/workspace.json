@@ -4,21 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "e5333bd5916453a9",
+        "id": "e39e2bde02e02152",
         "type": "tabs",
         "children": [
           {
-            "id": "18ac934ff539ced6",
+            "id": "9f4757bee84797bb",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "content/posts/stock-reports/202609/stock-report-2026-09-28.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "stock-report-2026-09-28"
+              "title": "새 탭"
             }
           }
         ]
@@ -183,8 +179,9 @@
       "github-sync:Sync with Remote": false
     }
   },
-  "active": "18ac934ff539ced6",
+  "active": "9f4757bee84797bb",
   "lastOpenFiles": [
+    "content/posts/stock-reports/202609/stock-report-2026-09-28.md",
     "content/posts/stock-reports/202608/stock-report-2026-08-06.md",
     "content/posts/stock-reports/202608/stock-report-2026-08-05.md",
     "content/posts/stock-reports/202607/stock-report-2026-07-22.md",
@@ -229,7 +226,6 @@
     "static/imgs/202606/stock-report-2026-06-12",
     "static/imgs/202605/stock-report-2026-05-11",
     "content/posts/stock-reports/stock-report-2026-06-15.md",
-    "content/posts/stock-reports/stock-report-2026-06-16.md",
-    "content/posts/stock-reports/stock-report-2026-02-26.md"
+    "content/posts/stock-reports/stock-report-2026-06-16.md"
   ]
 }
