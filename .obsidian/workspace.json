@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "f1bc792f228e21fe",
+        "id": "e5333bd5916453a9",
         "type": "tabs",
         "children": [
           {
-            "id": "78fd5fb68f7689b7",
+            "id": "18ac934ff539ced6",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "content/posts/stock-reports/202607/stock-report-2026-07-22.md",
+                "file": "content/posts/stock-reports/202609/stock-report-2026-09-28.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "stock-report-2026-07-22"
+              "title": "stock-report-2026-09-28"
             }
           }
         ]
@@ -41,7 +41,9 @@
               "type": "file-explorer",
               "state": {
                 "sortOrder": "alphabetical",
-                "autoReveal": false
+                "autoReveal": false,
+                "showSearch": false,
+                "searchQuery": ""
               },
               "icon": "lucide-folder-closed",
               "title": "파일 탐색기"
@@ -181,8 +183,11 @@
       "github-sync:Sync with Remote": false
     }
   },
-  "active": "78fd5fb68f7689b7",
+  "active": "18ac934ff539ced6",
   "lastOpenFiles": [
+    "content/posts/stock-reports/202608/stock-report-2026-08-06.md",
+    "content/posts/stock-reports/202608/stock-report-2026-08-05.md",
+    "content/posts/stock-reports/202607/stock-report-2026-07-22.md",
     "content/posts/stock-reports/202607/stock-report-2026-07-21.md",
     "content/posts/stock-reports/202607/stock-report-2026-07-20.md",
     "content/posts/stock-reports/202607/stock-report-2026-07-16.md",
@@ -225,9 +230,6 @@
     "static/imgs/202605/stock-report-2026-05-11",
     "content/posts/stock-reports/stock-report-2026-06-15.md",
     "content/posts/stock-reports/stock-report-2026-06-16.md",
-    "content/posts/stock-reports/stock-report-2026-02-26.md",
-    "content/posts/loadcell/loadcell-04.md",
-    "content/posts/loadcell/loadcell-03.md",
-    "content/posts/loadcell/loadcell-02.md"
+    "content/posts/stock-reports/stock-report-2026-02-26.md"
   ]
 }
