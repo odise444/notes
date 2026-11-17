@@ -59,3 +59,11 @@ copyright = "© 2025 mcu2cloud.kr"
   name = "소개"
   url = "/about/"
   weight = 5
+
+# 숫자 범위 표기(예: 5,000~5,100)가 취소선으로 바뀌지 않게 물결표 한 개짜리 취소선을 끈다.
+# 취소선이 필요하면 ~~텍스트~~ 를 쓴다.
+[markup.goldmark.extensions]
+  strikethrough = false
+
+[markup.goldmark.extensions.extras.delete]
+  enable = true
